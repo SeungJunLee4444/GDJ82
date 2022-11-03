@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+    <book>
+        <title>어린왕자</title>
+        <author>생텍쥐베리</author>
+        <price>10,000</price>
+    </book>
+    <book>
+        <title>소나기</title>
+        <author>황순원</author>
+        <price>20,000</price>
+    </book>
+    <book>
+        <title>홍길동전</title>
+        <author>허균</author>
+        <price>30,000</price>
+    </book>
+</books>

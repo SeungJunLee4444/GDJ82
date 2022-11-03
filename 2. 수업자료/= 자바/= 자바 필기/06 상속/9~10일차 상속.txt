@@ -1,0 +1,230 @@
+10일차
+
+& 상속
+
+1. 상속개념(ex01~4)
+1) 자식 클래스는 부모클래스를 상속하며, 부모클래스의 메서드를 . 바로 사용가능하다
+
+2) 클래스 관계 *
+(1) is a 관계 : a는 b이다, 말 그대로 상속개념
+ex) student extends person : 학생은 사람이다
+=> 부모 클래스의 메서드와 필드 상속
+(2) has a 관계 : 소유의 개념, 해당 클래스 내에 참조하려는 클래스를 객체선언
+ex) police 클래스 내에 gun 클래스 객체선언
+=> 한 클래스가 다른 특정 클래스를 소유한다는 개념, 객체의 기능을 사용하는 것이 목적
+
+3) final
+=> 필드값에 final을 선언하면, 값이 고정되며 set,get 메서드로도 값이 수정불가능하게 된다
+ex) private final int MAX_BULLET = 15;
+=> int MAX+BULLET의 값을 15로 고정시키며, 확인할수없게 한다(private)
+
+4) 생성자 메서드를 만드는 이유
+=> 필드에 초기값을 작성하기 위함
+=> 디폴트 생성자는 선언하면, 자바에서 자동으로 메서드를 형성해주며,
+     개발자 생성자는 직접 작성해줘야 한다(매개변수 있는 상태로 선언)
+
+ex)
+(1) Soldier soldier = new Soldier();
+(2) Soldier soldier = new Soldier("K2", 8);
+
+& 기타
+(1) 메서드 내 값에 조건연산자를 활용한 경우
+public void reload(int bullet) {
+this.bullet = (this.bullet > MAX_BULLET) ? MAX_BULLET : this.bullet;
+=> 최대 장전수인 15 이상 넘어가면 최대 장전수만큼 표시하고, 아니면 현재 총알수 표시
+
+
+2. 생성자에 따른 상속(ex05, 06)
+// # person(부모) - student(자식) 
+// if) 부모가 디폴트 생성자고 자식클래스에 생성자가 없으면
+// => jvm이 자동으로 자식클래스에 생성자를 인식하고 부모클래스의 생성자를 호출
+		
+// if) 부모의 생성자가 개발자 생성자면
+// => 부모의 매개변수와 필드값도 같이 작성해줘야 한다 
+// ex) super(부모의 매개변수)(); , 자식생성자의 매개변수에 부모 매개변수 우선작성
+// & 디폴트 생성자는 super 생략가능, 개발자 생성자는 불가능
+
+3. 메서드 오버라이징(ex07, 08)
+* 상속된 경우에만 해당
+// => 부모 클래스에서 만든 메서드를 재작성해야 하는 경우
+// ex) 모양(부모) - 삼각형(자식) / 사각형(자식)
+// if) 모양 클래스에 넓이를 구하는 메서드가 반환값이 0인 상태
+// => 삼각형과 사각형은 각자의 넓이를 구하기 위해, 
+// getArea 넓이 메서드를 오버라이징 해야 한다
+		
+// # 과정
+// 1) 상속 선언 후, 생성자 만들기(source로 자동생성)
+// 2) 다시 작성해야할 메서드를 호출
+// (source / ctrl + 스페이스바)
+// => 이후 상황에 맞게 작성
+		
+// * 필드값이 없는 경우(예시참고)
+// ex) 직사각형 클래스를 부모로 상속하는 정사각형 클래스
+// 1) source 두번째 생성자 사용
+// 2) 필요한 너비값만 매개변수로 받고,
+// super 부모() 괄호의 높이란에 너비변수를 넣기
+		
+// + 예시: 직사각형 클래스를 상속하는 정사각형 클래스
+ex)
+public Square(String type, double width) {
+		super(type, width, width);
+=> height 세로값을 담을 매개변수를 없애고, 부모 매개변수의 높이 자리에 width를 넣었다
+* 부모 매개변수는 이미 3개로 생성, 새로만든 정사각형 매개변수는 2개로 조절가능
+
+	
+// & 추가
+// 1) 	math.pi : 파이값
+// 		math.pow(숫자,제곱지수) : 제곱구하기
+		
+// 2) 같은 클래스 내에서 메서드의 호출 가능 
+ex)
+public double getArea() {
+	return width * height;
+}
+
+public void info() {
+	super.info();
+	System.out.println("가로:" + width );
+	System.out.println("세로:" + height);
+	System.out.println("넓이:" + getArea());
+}
+=> 넓이를 구하는 메서드 호출
+
+
+4. 상속없이 다른 클래스의 메서드와 필드를 참조하고싶을 때(quiz02)
+=> 참조하려는 클래스를 해당 클래스 필드에 선언한다
+ex) 에스프레소 클래스를 참조하려는 아메리카노 클래스
+public class Americano {
+	private Espresso espresso;
+
+public Americano(Espresso espresso, int shot, String type) {
+=> 아메리카노 클래스 생성자에 에스프레소 생성자값 불러오기
+
+에스프레소의 생성자값 : String coffee, int water
+아메리카노의 생성자값 : Espresso espresso, int shot, String type(에스프레소참조)
+
+아메리카노 클래스 호출 : Americano americano = new Americano(espresso, 2, "아이스");
+	  	       americano.info(출력메서드);
+}
+=> coffee, water, shot, type 전부 출력
+* 호출시 매개변수 espresso는 클래스명으로 고유명사 취급?
+
+======================================================
+
+5. 업캐스팅(ex09
+=> 서브클래스의 객체를 슈퍼클래스로 선언하는것
+ex) Car car = new bus();
+=> Car은 부모 클래스, 버스는 자식클래스
+=> 자식클래스의 메서드나, 값을 제외한 상속하는 부모의 공통의 메서드와 필드값
+만을 가져온다
+
+1) 문제점
+car 클래스의 메서드는 호출되는데, bus 클래스의 메서드는 호출할 수 없음
+
+2) 해결책
+(1) 오버라이딩
+=> 자식클래스의 메서드가 부모 클래스에서 오버라이딩 되도록
+부모 클래스에 자식 메서드를 생성(호출용으로 선언만 하기, 내용 없음)
+
+(2) 다운캐스팅
+?
+
+ex)
+Person alba = new Alba();
+=> Person(부모클래스) 와 Alba 하위클래스를 선언
+
+#1 자식 메서드를 부모 클래스에도 만들기
+public void study() {
+		
+}
+=> 호출용이니 내용은 비어도됨
+
+#2 
+@Override
+public void study() {
+	System.out.println("공부합니다");
+}
+=> 자식클래스 메서드를 오버라이딩
+
+
+(3) 참조변수 배열을 이용해 부모클래스 배열에 자식클래스 저장하기
+=> 자식클래스는 부모클래스에 상속된 상태기 때문에,
+자식클래스를 부모클래스의 객체 취급할 수 있다
+* 상향형변환
+
+ex) shape 부모 클래스에 circle, rectangle.. 등 10개의 도형을 저장
+shape[] s = new shape[10]
+s[0] = new circle
+s[1] = new rectangle...
+
+ex2) 교실에 사람 10명, 일부는 알바, 일부는 학생이다
+Person[] people = new Person[10];
+		
+	people[0] = new Alba();
+	people[1] = new Alba();
+	people[2] = new Student();
+	
+* for문	
+for(int i = 0; i < people.length; i++) {
+	if(people[i] != null) {
+	people[i].eat();
+	people[i].study();
+	people[i].work();
+}
+=> 0번째 사람 : 메서드값 출력
+=> 1번째 사람 메서드값 출력
+=> ~~~
+
+* for 향상문
+for(Person person : people) {
+	if(person != null) {
+		person.eat();
+		person.study();
+		person.work();
+	}
+}
+
+6. 상속 + 객체 지향(quiz, 3 4)
+=> 이거 풀줄알면 전부 할줄 아는것과 마찬가지
+
+
+exam 8번 다시풀기
+블로그 업로드
+quiz 3,4 다시풀기
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

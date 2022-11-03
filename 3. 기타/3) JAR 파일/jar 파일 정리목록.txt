@@ -1,0 +1,34 @@
+
+ojdbc6
+이클립스에서 db 쿼리문(테이블생성 및 실행) 작성 및 연동(JDBC)
+
+tomcat-dbcp
+db 커넥션 풀을 가능하게 만듬,dbcp
+- 획득경로 : 톰캣폴더의 라이브러리내
+
+mybatis-3.5.11
+이클립스에서 DML(SELECT, INSERT, UPDATE, DELETE)를 태그로 구현할 수 있다
+- 다운경로 : https://blog.mybatis.org/p/products.html
+
+롬복
+lombok-1.18.18
+
+제이슨
+json-20220320
+- 다운경로 : https://github.com/stleary/JSON-java
+
+cos.jar
+요청시 파일첨부 jar
+
+taglibs-standard-impl-1.2.5.
+코어 라이브러리(jstl)
+
+quartz 폴더 내 jar파일
+스케줄러
+
+JUNIT4
+- 용도 : 서비스 자바파일 검사하는 라이브러리.jar
+- 경로 : 별도의 외부라이브러리가 아닌 이클립스 내부에 있음
+- 방법 
+(1) buildpath추가
+(2) test 패키지에 JUNIT case text 파일 생성

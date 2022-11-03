@@ -1,0 +1,428 @@
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 ~
+$ pwd
+/c/Users/GDJ54
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 ~
+$ ls
+'3D Objects'/
+ AppData/
+'Application Data'@
+ Contacts/
+ Cookies@
+ Desktop/
+ Documents/
+ Downloads/
+ Favorites/
+ IntelGraphicsProfiles/
+ Links/
+'Local Settings'@
+ Music/
+'My Documents'@
+ NTUSER.DAT
+ NTUSER.DAT{993bf92c-024b-11ed-886e-9883897b46a8}.TM.blf
+ NTUSER.DAT{993bf92c-024b-11ed-886e-9883897b46a8}.TMContainer00000000000000000001.regtrans-ms
+ NTUSER.DAT{993bf92c-024b-11ed-886e-9883897b46a8}.TMContainer00000000000000000002.regtrans-ms
+ NetHood@
+ OneDrive/
+ Pictures/
+ PrintHood@
+ Recent@
+'Saved Games'/
+ Searches/
+ SendTo@
+ Templates@
+ Videos/
+ mintty.exe.stackdump
+ ntuser.dat.LOG1
+ ntuser.dat.LOG2
+ ntuser.ini
+'시작 메뉴'@
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 ~
+$ cd c:
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ mkdir testdir
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ cd testdir
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ touch test.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ ls
+test.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ touch .hidden
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ eco
+bash: eco: command not found
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ echo 'hello'
+hello
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ echo 'hello' >> test.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ cat test.txt
+hello
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ rm test.txt && .hidden
+bash: .hidden: command not found
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ rm .hidden
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ rm -r testdir
+rm: cannot remove 'testdir': No such file or directory
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ cd :c
+bash: cd: :c: No such file or directory
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ cd ..:c
+bash: cd: ..:c: No such file or directory
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/testdir
+$ cd ..
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm -r testdir
+rm: cannot remove 'testdir': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm dir testdir
+rm: cannot remove 'dir': No such file or directory
+rm: cannot remove 'testdir': Is a directory
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm -r testdir
+rm: cannot remove 'testdir': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm -r testdir/
+rm: cannot remove 'testdir/': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm -r testdir
+rm: cannot remove 'testdir': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rmdir testdir
+rmdir: failed to remove 'testdir': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm -rf testdir
+rm: cannot remove 'testdir': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ rm -r testdir
+rm: cannot remove 'testdir': Device or resource busy
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ redir testdir
+bash: redir: command not found
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ mkdir vcs
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c
+$ cd vcs
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs
+$ git imit
+git: 'imit' is not a git command. See 'git --help'.
+
+The most similar command is
+        init
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs
+$ git init
+Initialized empty Git repository in C:/vcs/.git/
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ ls
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ ls -a
+./  ../  .git/
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git config --list
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=openssl
+http.sslcainfo=C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager-core
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=main
+core.repositoryformatversion=0
+core.filemode=false
+core.bare=false
+core.logallrefupdates=true
+core.symlinks=false
+core.ignorecase=true
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ :q
+bash: :q: command not found
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git config --global user.name^C
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git config --global user.name lesngjn82
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git config --global user.name lesngjn82@gmail.com
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ touch a.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ echo 'hello' >> a.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ ls
+a.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        a.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git add a.txt
+warning: in the working copy of 'a.txt', LF will be replaced by CRLF the next time Git touches it
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   a.txt
+
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git rm --cached a.txt
+rm 'a.txt'
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        a.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git add a.txt
+warning: in the working copy of 'a.txt', LF will be replaced by CRLF the next time Git touches it
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git commit -m '[main:01]create a.txt add hello'
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'GDJ54@DESKTOP-TV0A0R5.(none)')
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log
+fatal: your current branch 'main' does not have any commits yet
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log
+fatal: your current branch 'main' does not have any commits yet
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git commit -m '[main:01]create a.txt add hello'
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'GDJ54@DESKTOP-TV0A0R5.(none)')
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log
+fatal: your current branch 'main' does not have any commits yet
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log --oneline
+fatal: your current branch 'main' does not have any commits yet
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git config --global user.name lesngjn82
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git config --global user.email lesngjn82@gmail.com
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git commit -m '[main:01]create a.txt add hello
+> '
+[main (root-commit) 17256da] [main:01]create a.txt add hello
+ 1 file changed, 1 insertion(+)
+ create mode 100644 a.txt
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log
+commit 17256dae2f21b8174565b92e828b17398cbf579f (HEAD -> main)
+Author: lesngjn82 <lesngjn82@gmail.com>
+Date:   Thu Jul 21 18:56:43 2022 +0900
+
+    [main:01]create a.txt add hello
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log online
+fatal: ambiguous argument 'online': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log --online
+fatal: unrecognized argument: --online
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log --oneline
+17256da (HEAD -> main) [main:01]create a.txt add hello
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ ^C
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git remote
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git remote add origin https://github.com/seungjunleelllll/vcs.git
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ touch .gitignore
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ echo 'b.txt' >> .gitignore
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ touch README.md
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ echo '# vcs >> README.md
+>
+> echo '# vcs' >> README.md
+
+> echo '# vcs >> README.md
+
+echo '# vcs' >> README.md
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ echo '# vcs' >> README.md
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git status
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git commit -am '[main:02]create .gitignore and READ.md'
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git add .
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git commit -m '[main:02]create .gitignore and READ.md'
+[main d451683] [main:02]create .gitignore and READ.md
+ 2 files changed, 8 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 README.md
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git log --oneline
+d451683 (HEAD -> main) [main:02]create .gitignore and READ.md
+17256da [main:01]create a.txt add hello
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ git push -u origin main
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (7/7), 567 bytes | 283.00 KiB/s, done.
+Total 7 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/seungjunleelllll/vcs.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$ cp
+cp: missing file operand
+Try 'cp --help' for more information.
+
+GDJ54@DESKTOP-TV0A0R5 MINGW64 /c/vcs (main)
+$

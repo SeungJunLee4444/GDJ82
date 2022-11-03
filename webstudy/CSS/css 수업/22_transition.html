@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1. transaction 
+            - 특정 속성이 이행(transaction)되는 과정을 설정
+            - 주요 이행속성 
+                    : all(디폴트), width, height, margin, padding, background-color, border, opacity, visibility
+                      transform(주로 이행과 함께 사용)
+    
+    
+    -->
+    <style>
+        .box1 {
+            width: 400px;
+            height: 100px;
+            border: 1px solid gray;
+            /* 트랜지션 속성 */
+            transition-property: width; /* width의 변화를 확인할 수 있음 */
+            transition-duration: 1s;    /* 1초동안만 줄어듬  */
+        }
+
+        .box1:hover {
+            width: 50px;
+
+        }
+
+        .box1:active {
+            width: 100px;
+
+        }
+    </style>
+
+    <div class="box1">
+        BOX1
+    </div>
+
+    <hr>
+
+    <style>
+        .box2 > input {
+            padding: 10px;
+            border: 1px solid gray;     /* 평소 테두리  */
+            outline: none;                 /* 선택시 테두리 : 대체로 없애버림  */
+            /* 트랜지션 단축속성 */
+            transition: border 1s linear, background-color 1s linear; /* linear: 동등한 속도로 변함 */
+        }
+
+        .box2 > input:focus {           /* radio, checkbox는 :checked, text들은 선택시 :focus */
+            border: 1px solid crimson;
+            background-color: beige;
+        }
+    </style>
+    
+    <div class="box2">
+        <input type="text">
+        <!-- 평소의 테두리 : border, 선택시 생성되는 진해진 테두리 : outline 
+        =>  
+    -->
+    </div>
+
+    <style>
+        .box3 {
+            margin: 0 auto; /* 바디 중앙, 즉 화면 중앙으로 온다 */
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+            transition: transform 1s linear;
+        }
+
+        .box3:active {
+            transform: rotate(1080deg);    /*  회전  */
+            transform: scale(2, 1);         /* 가로2배, 세로 1배 */
+            transform: translate(100px, 100px); /* 가로 100, 세로 100 만큼 이동 */
+        
+        }
+    </style>
+
+    <div class="box3">
+        BOX3
+    </div>
+
+
+</body>
+</html>

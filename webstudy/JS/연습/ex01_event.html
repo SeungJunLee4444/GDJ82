@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- 1. 버튼을 누르면 이미지가 바뀐다. -->
+    <div id="box1">
+        <img src="../../images/uncheck.png" width="50px">
+        <br>
+        <button id="btn1">OFF</button>
+    </div>
+    <script>
+        var img = document.querySelector('#box1 > img');
+        document.getElementById('btn1').onclick = function(event) {
+            if(this.textContent == 'OFF') {
+                this.textContent = 'ON';
+                img.src = '../../images/check.png';
+            } else {
+                this.textContent = 'OFF';
+                img.src = '../../images/uncheck.png';
+            }
+        }
+    </script>
+
+    <hr>
+
+    <!-- 2. 이미지 슬라이드 -->
+    <div id="box2">
+        <button id="btn_prev">이전</button>
+        <span id="img_no"></span>
+        <button id="btn_next">다음</button>
+        <div id="img_box"></div>
+    </div>
+    <style>
+        #img_box {
+            width: 960px;
+            height: 640px;
+            border: 5px solid gray;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            transition: background-image 0.5s;
+        }
+    </style>
+    <script>
+
+        // 사용할 문서객체
+        var btnPrev = document.getElementById('btn_prev');
+        var btnNext = document.getElementById('btn_next');
+        var imgNo = document.getElementById('img_no');
+        var imgBox = document.getElementById('img_box');
+
+        // 배열과 인덱스
+        var idx = 0;  // 초기 인덱스 0
+        var images = [
+            'animal1.jpg',
+            'animal2.jpg',
+            'animal3.jpg',
+            'animal4.jpg',
+            'animal5.jpg',
+            'animal6.jpg',
+            'animal7.jpg',
+            'animal8.jpg',
+            'animal9.jpg',
+            'animal10.jpg'
+        ];
+
+        // 초기 이미지
+        imgBox.style['background-image'] = 'url(../../images/' + images[0] + ')';
+
+        // 초기 이미지 번호
+        imgNo.textContent = '1 / ' + images.length;
+
+        // 이미지 변경 함수
+        function changeImg(n) {
+
+            // 인덱스 갱신
+            idx += n;
+
+            // 첫 이미지에서 이전 버튼을 누른 경우 마지막 이미지가 열림
+            if(idx == -1) {
+                idx = images.length - 1;
+            }
+
+            // 마지막 이미지에서 다음 버튼을 누른 경우 첫 이미지가 열림
+            if(idx == images.length) {
+                idx = 0;
+            }
+
+            // 배열의 이미지를 div에 적용
+            imgBox.style['background-image'] = 'url(../../images/' + images[idx] + ')';
+
+            // 이미지 번호 span에 적용
+            imgNo.textContent = (idx + 1) + ' / ' + images.length;
+
+        }
+
+        // 이전 버튼 이벤트
+        btnPrev.onclick = function(event) {
+            changeImg(-1);  // 변경할 인덱스를 전달
+        }
+
+        // 다음 버튼 이벤트
+        btnNext.onclick = function(event) {
+            changeImg(1);   // 변경할 인덱스를 전달
+        }
+
+    </script>
+
+    <hr>
+
+    <!-- 3. 썸네일 선택하면 큰 이미지 보여주기 -->
+    <div id="box3">
+        <div id="origin"></div>
+        <ul id="thumbnails"></ul>
+    </div>
+    <style>
+        #box3 {
+            width: 960px;
+        }
+        #origin {
+            width: 100%;
+            height: 640px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        #thumbnails {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        #thumbnails > li {
+            width: 96px;
+            height: 64px;
+            margin: 10px 10px 0 10px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border: 3px solid white;
+        }
+    </style>
+    <script>
+
+        // 문서객체
+        var origin = document.getElementById('origin');
+        var thumbnails = document.getElementById('thumbnails');
+
+        // 배열과 인덱스
+        var idx = 0;
+        var images = [
+            'fruit1.jpg',
+            'fruit2.jpg',
+            'fruit3.jpg',
+            'fruit4.jpg',
+            'fruit5.jpg',
+            'fruit6.jpg'
+        ];
+
+        // 초기 origin
+        origin.style['background-image'] = 'url(../../images/' + images[0] + ')';
+        
+        // 썸네일 이미지를 나타낸 <li> 추가
+        var li = '';
+        for(let i = 0; i < images.length; i++) {
+            li += '<li></li>';
+        }
+        thumbnails.innerHTML = li;
+
+        // <li> 태그마다 썸네일 이미지 넣기
+        var list = document.querySelectorAll('#thumbnails > li');
+        for(let i = 0; i < list.length; i++) {
+            list[i].style['background-image'] = 'url(../../images/' + images[i] + ')';
+        }
+
+        // 썸네일 이미지를 선택하면 원본이 변경되는 이벤트 처리
+        for(let i = 0; i < list.length; i++) {
+            list[i].onmouseover = function(event) {
+                origin.style['background-image'] = 'url(../../images/' + images[i] + ')';
+                this.style['border'] = '3px solid orange';
+            }
+            list[i].onmouseout = function(event) {
+                this.style['border'] = '3px solid white';
+            }
+        }
+
+    </script>
+
+    <hr>
+
+    <!-- 4. 체크 이미지 사용하기 -->
+    <div id="box4">
+        <ul>
+            <li>Java</li>
+            <li>Oracle</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JS</li>
+        </ul>
+    </div>
+    <style>
+        #box4 > ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #box4 > ul > li {
+            margin: 5px;
+            width: 16px;
+            height: 16px;
+            background-image: url(../../images/uncheck.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            text-indent: 20px;
+        }
+        #box4 > ul > li:hover {
+            cursor: pointer;
+        }
+        #box4 > ul > li.checked {
+            background-image: url(../../images/check.png);
+        }
+    </style>
+    <script>
+
+        // 문서객체
+        var list = document.querySelectorAll('#box4 > ul > li');
+
+        // 클릭 이벤트
+        for(let i = 0; i < list.length; i++) {
+            list[i].onclick = function(event) {
+                list[i].classList.toggle('checked');  // 클릭할때마다 class=checked가 토글됨
+            }
+        }
+
+    </script>
+
+</body>
+</html>

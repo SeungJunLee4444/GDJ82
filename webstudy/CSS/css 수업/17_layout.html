@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        /* 1. 수평 레이아웃 (1)
+        => 홈페이지에 수평으로 정렬된 블록을 만들려면 필요하다 
+        - 부모 요소에 display=flex를 지정하면 자식 요소들이 수평 레이아웃을 가짐
+        - 부모 요소만 작업하면 됨
+        * 부모 요소에 들어갈 flex 속성들
+            1) display : flex;                          (수평레이아웃선언)
+            2) flex-direction(row,coulum,reverse)       (정렬방향)
+            3) flex-wrap                                (부모범위를 벗어나면 줄바꿈)
+            4) justify-content(space-around, between)   (자식요소간 배치)
+        */
+        .container1 {
+            width: 300px;
+            height: 100px;
+            background-color: red;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: right;
+            /* justify-content: space-between; */
+            /* justify-content: space-between; */
+            
+        }
+
+        .container1 > div {
+            width: 100px;
+            height: 50px;
+            border: 1px solid gray;
+        }
+
+        /* & display-flex 
+        (1) 부모 요소에선언하면, 블록레벨인 자식요소들을 수평으로 정렬되게 해줌, 즉 인라인 요소를 가지게 만든다
+        => 인라인 요소 특징인 수평정렬
+        (2) flex-direction : 정렬될 자식요소들의 정렬 방향과 순서를 정함
+        (3) flex-wrap : 부모 태그의 범위를 넘어서면 줄바꿈을 시행
+        (4) justify-content: 양쪽 정렬(space-between, space-around, right, left)
+    
+        */
+        /* 
+            & 수평 레이아웃 하는법
+            (1) display: flex 방식      : 부모요소에 display-flex 사용
+            (2) one true layout 방식    : 부모요소에 overflow: hidden, 자식요소에 float:left 사용
+
+        */
+
+        
+
+        /* 2. 수평레이아웃 (2) 
+        - 부모 요소에 overflow : hidden, 자식 요소에 float: left
+        -> 위와 같은 방식을 one true layout이라고 하며,
+        자식 요소들이 수평 레이아웃이 된다
+        */
+
+        .container2 {
+            overflow: hidden;
+        }
+
+        .container2 > div {
+            width: 100px;
+            height: 50px;
+            border: 1px solid gray;
+            float: left;
+        }
+
+        
+    </style>
+
+    <div class="container1">
+        <div>BOX1</div>
+        <div>BOX2</div>
+        <div>BOX3</div>
+    </div>
+
+    <hr>
+
+    <div class="container2">
+        <div>BOX1</div>
+        <div>BOX2</div>
+        <div>BOX3</div>
+    </div>
+    
+</body>
+</html>

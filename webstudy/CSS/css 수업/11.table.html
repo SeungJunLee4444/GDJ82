@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+         .box1 > table {
+            /* table의 width, height 지정 가능함 */
+            width: 500px;
+            height: 400px;
+             /* table의 border는 테이블의 바깥쪽 테두리를 의미함 */
+             /* border: 1px solid yellow; */
+
+             
+       
+
+           /* table의 border-collapse(테두리 붕괴)를 이용해 table과 td의 border를 합칠 수 있음 */
+
+           /* & border-collapse 는 테이블에서 border 간의 겹침을 없애기 위해 사용된다 
+            겹쳐진 border을 하나로 합침
+            // table의 속성이기 때문에, 부모 테이블에 작성
+           */
+           /* border-collapse: collapse; */
+
+           /* 여기 왜 안먹지? */
+
+          
+
+        }
+
+        .box1 > table td {
+            /* td의 border는 각 셀(cell)의 테두리를 의미함 */
+            /* border: 3px solid red; */
+
+            /* text-align : 가로정렬 */
+           text-align: center;
+           
+           /* vertical-align : 세로정렬 */
+           vertical-align: top;
+        }
+
+        
+
+        /* &
+        (1) text-align : 블럭 요소 안의 인라인 요소를 가로축에서 정렬한다
+        (블록 요소만 가능, 블록 안 인라인 요소만 가능(텍스트))
+        (2) vertical-align : 인라인, 인라인블록 요소를 수직정렬할때 사용
+        (테이블 속성, 테이블 각 셀 안 텍스트의 정렬에 사용)
+        (3)
+        (4)
+        
+        */
+
+        /* 1. tr, td:nth-of-type(0)
+        - 각 셀마다 행의 높이, 열의 너비를 다르게 조절할 수 있다
+        */
+        /* 1) tr행의 높이를 조절하기 */
+
+        /* & 후손태그: 태그와의 관계가 한칸차이든 두칸차이든 상관없이 띄어쓰기 하나로 해결할 수 있다 */
+
+        .box1 > table tr:nth-of-type(0) {
+            height: 30px;
+        }
+
+        .box1 > table tr:nth-of-type(1) {
+            height: 50px;
+        }
+
+
+        .box1 > table tr:nth-of-type(2) {
+            height: 100px;
+        }
+
+        .box1 > table tr:nth-of-type(3) {
+            height: 200px;
+        }
+
+
+        /* .box1 > table td:first-of-type {width: 100px; }
+
+        .box1 > table td:nth-of-type(2) {width: 200px; }
+
+        .box1 > table td:nth-of-type(3) {width: 100px;}
+
+        .box1 > table td:last-of-type {width: 100px;} */
+
+        /* .box1 > table td:nth-of-type(n)로 지정하면, n에 0,1,2값을 자동으로 삽입
+        => 모든 열의 너비를 100px로 맞춤
+        */
+
+        /* td:nth-of-type(n)
+        
+        */
+
+        .box1 > table td:nth-of-type(n) {
+            width: 100px;
+            height: 150px;
+        }
+        .box1 > table td:nth-of-type(2) {
+            width:200px;
+        }
+
+        /* .box1 > table > tbody > tr:hover {
+            background-color: red;;
+        } */
+
+        /* & 후손관계는 띄어쓰기 하나로 호출 가능
+        - 다만 가독성때문에 쓰는게 아닐까함
+        */
+        .box1 tr:active {
+            background-color: blue;
+        }
+        /* & hover : 마우스를 올리면 반응 */
+        /* & active : 마우스로 클릭하면 반응 */
+
+    </style>
+
+    <div class="box1">
+        <!-- table태그의 border은 외부, 내부 테두리를 전부 생성 -->
+        <table>
+            <thead>
+                <tr>
+                    <td>제품번호</td>
+                    <td>제품명</td>
+                    <td>제품가격</td>
+                    <td>제품출시일</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td >111111</td>
+                    <td>신라면</td>
+                    <td>1000</td>
+                    <td>2000-01-01</td>
+                </tr>
+                <tr>
+                    <td>222222</td>
+                    <td>진라면</td>
+                    <td>2000</td>
+                    <td>2000-02-02</td>
+                </tr>
+                <tr>
+                    <td>333333</td>
+                    <td>삼양라면</td>
+                    <td>3000</td>
+                    <td>2000-03-03</td>
+                </tr>
+            </tbody>
+            <tfoot>
+            
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- ------아래부터 공부 -->
+
+    <!-- 연습문제
+    1) 테이블 생성
+    2) 날짜마다 색상 변경
+    3) 호버
+    
+    -->
+
+    <style>
+        table {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            width: 700px;
+            height: 500px;
+            
+
+            
+        }
+
+        table > thead {
+            
+        
+
+
+        }
+
+        table > tbody {
+
+        }
+
+        table > tbody td {
+            border: 1px solid gray;
+            text-align: left;
+
+        }
+    </style>
+
+
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    SUN
+                </td>
+                <td>
+                    MON
+                </td>
+                <td>
+                    TUS
+                </td>
+                <td>
+                    WED
+                </td>
+                <td>
+                    THU
+                </td>
+                <td>
+                    FRI
+                </td>
+                <td>
+                    SAT
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <td>28</td>
+            <td>29</td>
+            <td>30</td>
+            <td>31</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>22</td>
+            <td>23</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
+            <td>28</td>
+            <td>29</td>
+            <td>30</td>
+        </tr>
+        <tbody>
+
+        </tbody>
+        
+    </table>
+    
+</body>
+</html>

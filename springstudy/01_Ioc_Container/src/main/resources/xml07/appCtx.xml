@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- [생성자 인젝션] 
+	- <constructor-arg> 태그 사용
+	- 특징 : name 속성에 생성자의 매개변수 순서대로 
+	  -->
+	  <bean id="contact" class="com.gdu.app01.xml7.Contact">
+	  	<constructor-arg value="가산동"></constructor-arg>	<!-- = address -->
+	  	<constructor-arg value="user@naver.com"></constructor-arg>	<!-- = email  -->
+	  	<constructor-arg value="010-1111-1111"></constructor-arg>	<!-- = tel  -->
+	  </bean>
+	  
+	  <bean id="user" class="com.gdu.app01.xml7.User">
+	  	<constructor-arg value="user"></constructor-arg>
+	  	<constructor-arg ref="contact"></constructor-arg>	<!-- =참조하는 클래스와 id동일 -->
+	  </bean>
+
+</beans>

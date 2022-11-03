@@ -1,0 +1,102 @@
+
+1. 상속관계
+=> 부모자식 상속관계인 is_a 관계와, 클래스 자체를 소유하는 has_a 관계로 나뉜다
+
+2. 소유관계에서 메서드 호출
+1) gun
+# 메서드 : shoot();
+2) soldier 
+# 필드 : Gun gun;
+# 메서드 : setgun, getgun
+3) soldierMain
+Soldier solider = new Soldier();
+
+=> soldier이 총을 쏘기 위해서는
+(1) 
+Gun gun = new Gun(); 선언
+gun.setModel
+gun.setBullet
+=> 건이라는 객체를 실체화 시켜야 한다
+(2) 
+Soldier soldier = new Soldier();
+=> soldier.setGun(gun);
+=> 선언된 gun 객체를 매개변수로 저장
+
+(3) 
+solider.getGun().shoot();
+=> 총을 들고, 쏜다(gun의 메서드)
+
+3. final 설정
+ex) 
+# 필드
+private final int MAX_BULLET = 15;
+
+=> final선언시 값을 수정할 수 없고 고정되기 때문에, set 메서드를 생성할 수 없다
+
+4. 클래스 필드
+=> 필드에 있는 값은 클래스 선언시 저장할 수 있는 값의 타입이며,
+이는 String 클래스가 문자열만 저장하는 것과, 정수타입이  정수값만 저장할 수 있는 것과 같은 원리다
+ex) 
+
+5. 생성자에 따른 상속
+if) Person(부모클래스) - Student(자식클래스) 라면,
+Student student = new Student;
+=> Student는 자식 클래스로서 부모클래스의 모든 멤버를 호출 가능하다
+* 개발자 생성자면 super()을 이용해 부모의 생성자를 상속받는다 + 자신의 필드값
+ex) 
+Person
+public Person(String name) {
+		this.name = name;
+
+Student
+# 필드
+private String school;
+public Student(String name, String school) {
+		super(name);
+		this.school = school;
+	}
+
+6. 메서드 오버라이징
+=> 부모의 메서드를 상속받되, 내용을 변화시킬때 사용
+ex) 
+Coffee(부모클래스)
+public void taste() {
+}
+Espresso(자식클래스)
+@Override		=> * ctrl + 스페이스바로 자동생성 가능
+public void taste() {
+	System.out.println("달다");
+}
+
+7. 정보생성 메서드
+public void info() {
+		System.out.println("도형의 종류:" + type);
+}
+=> 반환이 없는 타입
+
+8. 부모클래스에게 상속받은 매개변수를 삭제할 때
+ex) 
+직사각형(부모) - 정사각형(자식)
+public Rectangle(String type, double width, double height) {
+	super(type);
+	this.width = width;
+	this.height = height;
+}
+=> 직사각형과 달리 정사각형은 높이길이가 필요없다
+public Square(String type, double width) {
+	super(type, width, width);
+	 # 너비만 받아, 슈퍼클래스의 높이에 넣는다
+}
+=> 매개변수에서 높이란을 없애고, super상속란에 height 자리에 너비 값을 넣는다
+
+
+
+
+
+
+& 기타
+1) Math 클래스
+Math pi		# 파이값
+Math pow	# 제곱수 구하기 (제곱할 값, 제곱할 횟수)
+
+

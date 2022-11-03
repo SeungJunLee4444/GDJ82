@@ -1,0 +1,75 @@
+[Bean]
+
+* 빈 타입
+=> dto, vo의 형태를 java bean이라 생각하면된다
+=> 필드는 private로만 구성, get,set로만 접근가능하고, 전달인자가 없는 생성자를 가지는 것이 특징이다
+(no-argument 생성자 : 전달인자가 없는 생성자 = 매개변수x, 내용도x)
+
+1. 생성패턴
+1. 값을 수정하는 방법
+(1) setter 메서드로 우회하여 private 필드값을 수정하거나, 
+ex) User user = new User();
+	user.setUserNo(1);
+	user.setId("admin");
+	user.setEmail("admin@naver.com");
+(2) 개발자 생성자를 통해, 매개변수로 값을 대입하는 법이 있다
+ex) User user = new User(1, "admin", "admin@naver.com");
+
+===============================================
+
+(3) singleton Pattern
+=> 인스턴스를 하나로만 고정시키는 패턴
+* 클래스의 인스턴스를 객체라 한다
+=> static을 사용하여 필드에 처음부터 클래스를 선언하고, 
+getInstance()로 가져다 쓰는 용도
+=> User 객체는 User 클래스 안에서만 사용 가능하다
+ex) 
+# 필드 
+private static User user = new User();
+
+# 
+public static User getInstance() {
+}
+=> static 클래스 메서드를 통해, 객체 생성 전에 메모리에 필드값을 형성하며, 
+User 클래스는 user 필드 내에서만 사용할 수 있다
+=> user 클래스는 필드내에 이미 선언되있기 때문에, User user.getInstacne로 호출한다
+
+=================================================
+
+(4) builder Pattern *?
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================================
+
+(5) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

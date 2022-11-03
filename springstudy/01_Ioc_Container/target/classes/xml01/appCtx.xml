@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		1. 
+		안녕, 난 spring configuration file이야
+		난 bean을 만드는 xml이야
+		내가 만든 bean은 컨테이너(container)에 보관되지
+	  -->
+	  
+	  <!-- 
+	  	2. 자바빈을 만드는 법 2가지(* import를 해줘야한다)
+		(1) 디폴트 생성자 + setter
+	   -->
+	   <bean class="com.gdu.app01.xml01.Calculator" id="calc"></bean>
+	   <!-- => xml인데 자바랑 연결되있음, 자바 클래스를 호출할 수 있다 -->
+	   <!-- - id : bean의 이름, class는 저장한 빈의 클래스타입 -->
+	   
+	   <bean id="haksang" class="com.gdu.app01.xml01.Student">
+	   		<property name="name">
+	   			<value>홍길동</value>
+	   		</property>
+	   		<property name="school">
+	   			<value>가산대학교</value>	<!-- & 1) 기본타입들은 value태그를 사용한다  -->
+	   		</property>
+	   		<property name="calculator">	<!-- & 2) 그 외에 참조타입들은 ref 태그를 사용한다  -->
+	   			<ref bean="calc"></ref>
+	   		</property>
+	   </bean>
+	   <!-- * setter를 사용하려면 property 태그를 사용해야한다(setter = property)
+	   => 스프링 프레임워크의 정해진 규칙!
+	      -->
+	   
+	   
+	   
+	   <!-- 
+	  	(2) 생성자(generate constructor using fields)
+	   -->
+
+</beans>

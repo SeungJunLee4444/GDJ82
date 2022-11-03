@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- jquery 사용을 위해서 아래 2개 작업 중 반드시 1개 작업을 수행해야 함 -->
+
+    <!-- 1. 다운로드 받은 jquery 라이브러리 포함하기 -->
+    <script src="jquery-3.6.1.min.js"></script>
+
+    <!-- 2. jquery CDN(Content Delivery Network) 포함하기 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <script>
+        /*
+            jquery wrapper
+
+            1. jquery wrapper로 감싼 대상이 jquery 기능을 사용할 수 있음
+            2. $() - 이게 jquery wrapper임
+            3. $() == jQuery()임. 즉 $는 jQuery와 동일함
+        */       
+    </script>
+
+    <script>
+        /*
+            jquery의 DOM 처리
+
+            1. jquery wrapper와 selector를 사용
+            2. 예시
+                1) document.getElementById('box')         : $('#box')
+                2) document.getElementsByClassName('box') : $('.box')
+                3) document.getElementsByTagName('div')   : $('div')
+        */
+    </script>
+
+    <script>
+        /*
+            jquery 주요 메소드
+
+                jquery                          JS
+                ------------------------------------------------------------------------
+            1.  $().text()                      DOM.textContent
+                $().text('안녕')                DOM.textContent = '안녕'
+            2.  $().html()                      DOM.innerHTML
+                $().html('<a href="#"></a>')    DOM.innerHTML = '<a href="#"></a>'
+            3.  $().attr('class')               DOM.getAttribute('class')
+                $().attr('class', 'box')        DOM.setAttribute('class', 'box')
+            4.  $().prop('className')           DOM.className
+                $().prop('className', 'box')    DOM.className = 'box'
+            5.  $().css('width')                DOM.style.width 또는 DOM.style['width']
+                $().css('width', '10px')        DOM.style.width = '10px' 또는 DOM.style['width'] = '10px'
+        */
+    </script>
+
+    <div id="box1">Hello World</div>
+    <script>
+        console.log($('#box1').text());
+        $('#box1').text('안녕 제이쿼리');
+    </script>
+
+    <div id="box2"><a href="#">클릭</a></div>
+    <script>
+        console.log($('#box2').html());
+        $('#box2').html('<h1>Hello World</h1>');
+    </script>
+
+    <div id="box3">
+        <input type="checkbox">
+        <input type="radio">
+    </div>
+    <script>
+        // attr()
+        console.log($('#box3 input[type=checkbox]').attr('checked'));
+        $('#box3 input[type=checkbox]').attr('checked', 'checked');
+        // prop()
+        console.log($('#box3 input[type=radio]').prop('checked'));
+        $('#box3 input[type=radio]').prop('checked', true);
+    </script>
+
+    <div id="box4">
+        Hello World
+    </div>
+    <script>
+        $('#box4').css('font-size', '32px').css('color', 'teal');
+    </script>
+
+    <div id="box5">
+        <ul>
+            <li>Spring</li>
+            <li>Summer</li>
+            <li>Autumn</li>
+            <li>Winter</li>
+        </ul>
+    </div>
+    <script>
+        /*
+            jquery 반복 메소드 : each()
+
+            $.each(배열, function(인덱스, 요소){
+
+            })
+        */
+        $.each($('#box5 ul li'), function(i, elem){
+            console.log('인덱스 ' + i + ', 요소 ' + elem + ', 요소 텍스트 ' + $(elem).text());
+            console.log('인덱스 ' + i + ', 요소 ' + elem + ', 요소 텍스트 ' + elem.textContent);
+        })
+    </script>
+
+    <div id="box6">
+        <ul>
+            <li id="google" class="aa"><a href="javascript:void(0)">구글</a></li>
+            <li id="naver" class="bb"><a href="javascript:void(0)">네이버</a></li>
+            <li id="kakao" class="cc"><a href="javascript:void(0)">카카오</a></li>
+            <li id="instagram" class="dd"><a href="javascript:void(0)">인스타그램</a></li>
+            <li id="facebook" class="ee"><a href="javascript:void(0)">페이스북</a></li>
+        </ul>
+    </div>
+    <script>
+
+        // 부모 찾기
+        console.log($('#google').parents());         // 모든 부모               [ul, div#box6, body, html]
+        console.log($('#google').parents()[2]);      // 3번째 부모              body
+        console.log($('#google').parent());          // 부모                    [ul]
+        console.log($('#google').parent().parent()); // 부모의 부모             [div#box6]
+        console.log($('#google').closest('div'));    // 부모 중 가장 가까운 div [div#box6]
+        
+        // 자식 찾기
+        console.log($('#box6').children());             // 자식             [ul]
+        console.log($('#box6').children().children());  // 자식의 자식      [li#google, li#naver, li#kakao, li#instagram, li#facebook]
+        console.log($('#box6').find('a'));              // 자식 중 <a> 태그 [a, a, a, a, a]
+        
+        // 형제 찾기
+        console.log($('#kakao').prev());           // 이전 형제                      [li#naver]
+        console.log($('#kakao').prevAll());        // 이전 모든 형제                 [li#google, li#naver]
+        console.log($('#kakao').next());           // 다음 형제                      [li#instagram]
+        console.log($('#kakao').nextAll());        // 다음 모든 형제                 [li#instagram, li#facebook]
+        console.log($('#kakao').siblings());       // 모든 형제                      [li#google, li#naver, li#instagram, li#facebook]
+        console.log($('#kakao').siblings('.aa'));  // 모든 형제 중 class='aa'인 형제 [li#google.aa]
+        
+        // 구조 찾기
+        console.log($('#box6 li:first'));  // 첫 번째 li
+        console.log($('#box6 li:last'));   // 마지막 li
+        console.log($('#box6 li:eq(2)'));  // 인덱스가 2인 li (세 번째 li)
+        console.log($('#box6 li:lt(2)'));  // 인덱스 2 미만인 li (less than)    : 인덱스 0, 1을 의미
+        console.log($('#box6 li:gt(2)'));  // 인덱스 2 초과인 li (greater than) : 인덱스 3, 4를 의미
+        console.log($('#box6 li:odd'));    // 인덱스가 홀수인 li : 인덱스 1, 3을 의미
+        console.log($('#box6 li:even'));   // 인덱스가 짝수인 li : 인덱스 0, 2, 4를 의미
+
+        // 구조 확인
+        $('#box6 li:even').css('color', 'skyblue');
+
+    </script>
+
+    <div id="box7">
+        <form id="frm1">
+            <input type="text" value="admin"><br>
+            <input type="password" value="1234"><br>
+            <input type="radio" name="gender" value="male">남
+            <input type="radio" name="gender" value="female">여
+            <input type="radio" name="gender" value="none" checked>선택안함<br>
+            <select>
+                <option value="1">일반회원</option>
+                <option value="2">기명회원</option>
+                <option value="3">무기명회원</option>
+                <option value="4" selected>사이버회원</option>
+            </select>
+        </form>
+    </div>
+    <script>
+        // type에 의한 입력 요소
+        console.log($('#box7 :text'));          // input type=text
+        console.log($('#box7 :password'));      // input type=password
+        console.log($('#box7 :radio'));         // input type=radio
+        // 상태
+        console.log($('#box7 :focus'));         // 포커스를 가진 요소 (이벤트 처리 시 확인 가능)
+        $('#box7 :text').focus();
+        if($('#box7 :text').is(':focus')){
+            $('#box7 :text').css('background', 'gray');
+        }
+        console.log($('#box7 :radio:checked')); // input type=radio 중 체크된 요소
+        console.log($('#box7 :selected'));      // 선택된 요소
+        // value 속성
+        console.log($('#box7 :text').val());
+        console.log($('#box7 :password').val());
+        console.log($('#box7 :radio').val());
+        console.log($('#box7 :focus').val());
+        console.log($('#box7 :radio:checked').val());
+        console.log($('#box7 :selected').val());
+    </script>
+
+    <div id="box8">
+        <ul id="menu">
+            <li>부대찌깨</li>
+        </ul>
+    </div>
+    <script>
+
+        // 1. 추가 (부모-자식)
+        //    1) 부모.prepend(자식)   : 첫 번째 자식으로 추가
+        //    2) 부모.append(자식)    : 마지막 자식으로 추가
+        //    3) 자식.prependTo(부모) : 첫 번째 자식으로 추가
+        //    4) 자식.appendTo(부모)  : 마지막 자식으로 추가
+        $('#menu').prepend('<li>김치찌개</li>');
+        $('#menu').append('<li>된장찌개</li>');
+        $('#menu').prepend($('<li>').text('순두부찌개'));  // $('li').text('순두부찌개')
+        $('#menu').append($('<li>').text('참치찌깨'));     // $('li').text('참치찌깨')
+        $('<li>제육볶음</li>').prependTo('#menu');
+        $('<li>계란찜</li>').appendTo('#menu');
+        $('<li>').text('육개장').prependTo('#menu');       // $('li').text('육개장')
+        $('<li>').text('해장국').appendTo('#menu');        // $('li').text('해장국')
+        
+        // 2. 추가 (형제)
+        //    1) 형제.before(형제)    : 이전 형제로 추가
+        //    2) 형제.after(형제)     : 다음 형제로 추가
+        $('#menu').before($('<h1>').text('오늘의 식단'));  // $(h1).text('오늘의 식단')
+        $('#menu').after($('<a>').text('메뉴추가하기')     // $(a).text('메뉴추가하기')
+                  .attr('href', 'javascript:void(0)'));
+        
+    </script>
+
+    <div id="box9">
+        <ul id="movies">
+            <li id="alien">에일리언</li>
+            <li id="terminator">터미네이터</li>
+            <li id="avatar">아바타</li>
+        </ul>
+    </div>
+    <script>
+
+        // 1. 특정 요소 제거
+        $('#alien').remove();
+
+        // 2. 전체 제거
+        $('#movies').empty();  // #movies 내부가 비워짐. #movies는 남는다.
+
+    </script>
+
+    <div id="box10">
+        Hello World
+    </div>
+    <style>
+        .bold_text {
+            font-weight: bold;
+        }
+        .red_text {
+            color: red;
+        }
+    </style>
+    <script>
+
+        // 1. class 속성 추가
+        // 1) 하나씩 추가
+        $('#box10').addClass('bold_text');
+        $('#box10').addClass('red_text');
+        // 2) 메소드 체이닝 이용
+        $('#box10').addClass('bold_text').addClass('red_text');
+        // 3) 한 번에 모두 추가
+        $('#box10').addClass('bold_text red_text');
+
+        // 2. class 속성 제거(추가와 동일한 방법을 사용)
+        $('#box10').removeClass('red_text');
+
+        // 3. class 속성 토글(추가/제거)
+        $('#box10').toggleClass('bold_text');  // bold_text 클래스 속성 제거
+        $('#box10').toggleClass('bold_text');  // bold_text 클래스 속성 추가
+
+    </script>
+
+    <box id="box11">
+        <button id="btn1">버튼1</button>
+    </box>
+    <script>
+        /*
+            jquery 이벤트
+
+            1. 예전 이벤트
+                1) bind()
+                2) live()
+                3) delegate()
+            2. 요즘 사용하는 이벤트
+                1) on()
+                    (1) 여러 이벤트타입을 한 번에 등록할 수 있음
+                    (2) 동적으로 생성된 요소에 이벤트 등록 가능
+                    (3) 형식
+                        ① $(부모).on(이벤트타입, 이벤트대상, 이벤트리스너)
+                        ② $(이벤트대상).on(이벤트타입, 이벤트리스너)
+                2) one()
+                    (1) 한 번만 동작하는 이벤트를 등록
+                    (2) 형식
+                        ① $(이벤트대상).one(이벤트타입, 이벤트리스너)
+                3) off()
+                    (1) 이벤트 제거 가능
+                    (2) 형식
+                        ① $(이벤트대상).off(이벤트타입)
+        */
+    </script>
+    <script>
+        
+        // 정적 요소에 이벤트 등록하기
+        // 1) on() 메소드 이용
+        /*
+        $('#btn1').on('click', function(event){
+            alert('click');
+        });
+        */
+        // 2) 이벤트타입을 메소드로 이용
+        $('#btn1').click(function(event){
+            alert('click');
+        });
+        
+        // 동적 요소 추가하기
+        $('#box11').append($('<button>').text('버튼2').attr('id', 'btn2'));
+        // 동적 요소에 이벤트 등록하기
+        $('#box11').on('click', '#btn2', function(event){
+            alert('클릭');
+        });
+
+    </script>
+
+</body>
+</html>

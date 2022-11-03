@@ -1,0 +1,126 @@
+& exception(2)
+
+1. throws
+=> 기존에는 메서드 내부에 각각 try-catch문을 작성하여 처리
+=> throws를 통해 특정 메서드에 try-catch문을 몰아주는 방법을 쓸 수 있다
+
+ex) 
+public void addCar() throws RuntimeException {
+if(idx == cars.length) {
+	throw new RuntimeException("FULL");	// #1 예외 발생 시 throw 작성
+													//    runtimeexception이 catch의 e로 가고
+public void deleteCar() throws RuntimeException {	
+if(idx == 0) {
+	throw new RuntimeException("EMPTY");
+
+public void findCar() throws RuntimeException {
+if(idx == 0) {
+	throw new RuntimeException("EMPTY");
+
+public void printAllCars() throws RuntimeException {
+if(idx == 0) {
+	throw new RuntimeException("EMPTY");
+	
+=> 
+public void manage() {	
+while(true) {
+try {
+System.out.println("1. 추가 2. 제거 3. 조회 4. 전체목록 0. 종료 >>>");
+int choice = sc.nextInt(); 
+switch(choice) {
+case 1: addCar(); break;
+case 2: deleteCar(); break;
+case 3: findCar(); break;
+case 4: printAllCars(); break;	
+case 0: return;
+default : throw new RuntimeException("Bad Request"); 
+}
+} catch (InputMismatchException e) {
+sc.next();	
+System.out.println("처리명령은 정수(1~4)");	
+} catch (RuntimeException e) {
+System.out.println(e.getMessage());
+}
+=>  throws runtimeexception : 각 메서드에 throws를 선언하고, manage 메서드에 전부 던져서 일괄처리
+=> inputmismach : 입력값에 생길 수 있는 오류
+=> sc.next()로 입력된 값을 지운다
+
+---------------------------------
+
+2. myexception과 직렬화
+1. 직렬화 
+=> 클래스 구조 : seriarizable - throwable - exception - myexception 
+(1) seriarizable : 직렬화, 메서드내용이 없는 타입 구분용 클래스
+* serializable 인터페이스 : 이 인터페이스를 구현하면 직렬화가 가능
+=> 대신 serialversionUID 값을 가져야 한다
+* serialversionUID : long타입, 개발자가 아닌 컴퓨터가 버전 비교에 사용
+		,static final: 고유한 값
+(2) throwable, exception, myexception : serialversionUID 값이 필요함
+
+---------------------------------
+											 
+3. 사용자 정의 예외 클래스 규칙
+=> 규칙은 오직 "Exception 클래스 상속"받으면 된다
+
+
+---------------------------------
+
+4. 
+
+
+& 같은단원 복습
+
+1. 예외클래스 구조와 trycatch
+exception - unchecked exception - uncheckd exception : trycatch생략가능
+	 -checked exception : 생략불가
+
+2. 예외 클래스 상속구조
+(부모) => (자식)
+java.lang.Exception
+java.lang.RuntimeException
+java.util.NoSuchElementException
+java.util.InputMismatchException
+
+3. 접근제어자 default
+=> default(package) : 같은 패키지 내 공유
+
+4. 내용이 없는 클래스
+=> 내용이 없는 클래스는 '타입'으로서 활용한다
+ex) car(부모) - 자동차 종류 클래스들(자식)
+
+
+& 기타
+<시험>
+1. lombok 생성자
+@AllArgsConstructor : 직접 만든 생성자
+@NoArgsConstructor : 디폴트 생성자
+=> 둘중에서 필요한 하나만 존재해야 한다
+=> 불필요한 롬복은 원래 없어야함
+
+2. 입력된 문자열에 공백이 있을 때
+1) sc. next();	
+=> 입력된 문자열이 공백이 없는 타입일 때
+* sc. next().trim() : 굳이 trim을 쓸 필요는 없을듯 
+2) sc. nextLine();
+(1) 입력된 문자열이 공백을 포함하는 타입
+(2) 입력창 뒤에 엔터를 먹는 역할
+
+
+<복습>
+1. 객체 선언과 메서드를 동시에
+=> new ParkingLot().manage();
+
+2. 데이터 구조
+=> arraylist	 
+=> stack
+=> linkedlist
+=> queue
+=> deque
+=> vector 
+
+3. @data 
+=> getter, setter, tostring 롬복으로 한꺼번에 호출
+
+
+
+

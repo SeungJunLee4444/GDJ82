@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- [목록태그] 
+         - 종류 : ul, ol, dl
+    -->
+    <!-- 1. 순서없는 목록(unordered list)
+         - 형태 : <ul> <li> 
+         - 블록 레벨
+         - 앞에 글머리기호가 달린 태그
+         - type 속성에 따라 다양한 기호가 붙음
+         (1) <ul type="disc">   : ● (디폴트)
+         (2) <ul type="circle"> : ○
+         (3) <ul type="square"> : ■ 
+
+         - 구성 : ul이 부모, li가 자식태그로 사용됨
+         (1) ul : 전체 목록을 포함하는 태그
+         (2) li : 목록을 구성하는 각 항목을 나타내는 태그
+    -->
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+    <!-- 2. 순서가 있는 목록(ordered list)
+         - 형태 : <ol> <li> 
+         - 블록 레벨
+         - 각 목록을 번호로 나타냄
+         (1) <ol type="1">  : 1,2,3.. (디폴트)
+         (2) <ol type="A">  : A,B,C..
+         (3) <ol type="a">  : a,b,c..
+         (4) <ol type="I">  : I,II,III
+         (5) <ol type="i">  : i,ii,iii
+
+         - 구성 : ol이 부모, li가 자식태그로 사용됨
+         (1) ol : 목록 태그
+         (2) li : 항목태그
+    -->
+
+    <h1>SELECT문은 어느 언어에 속하는가</h1>
+    <ol type="I">
+        <li>DDL</li>
+        <li>DML</li>
+        <li>DCL</li>
+        <li>DQL</li>
+        <li>TCL</li>
+    </ol>
+
+    <!-- 3. 개요 목록(description list) 
+         - 형태 : dl(부모) dt, dd(같은자식)
+         - 블록 레벨
+         - 한 개요는 용어와 설명으로 구성
+         (1) dl : 목록 태그(description list)
+         (2) dt : 용어 태그(description term)
+         (3) dd : 설명 태그(description description)
+
+         - 예시
+         - <dl>
+            <dt> 용어 </dt>
+            <dd> 설명 </dd>
+           </dl>
+    -->
+
+    <h1>오징어게임</h1>
+    <dl>
+        <dt>오픈</dt>
+        <dd>20210917</dd>
+        <dt>채널</dt>
+        <dd>넷플릭스</dd>
+        <dt>등장인물</dt>
+        <dd>
+            <ul>
+                <li>기훈</li>
+                <li>새벽</li>
+                <li>덕수</li>
+            </ul>
+        </dd>
+    </dl>
+    
+</body>
+</html>

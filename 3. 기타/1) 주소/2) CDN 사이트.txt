@@ -1,0 +1,15 @@
+cdnjs
+https://cdnjs.com/
+
+1. 폰트 제공
+https://fonts.google.com/noto/specimen/Noto+Sans+KR
+
+2. 무료 이미지 pixabay
+https://pixabay.com/ko/
+
+3. 공공 api
+https://www.data.go.kr/index.do
+
+4. 아이콘 제공 : 폰트어썸
+https://fontawesome.com/
+https://cdnjs.com/

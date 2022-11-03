@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+
+<!-- ===The definition of the 'Root Spring Container(1장의 ioc 컨테이너)' shared by all Servlets and Filters -->
+	<!-- 
+		
+		[스프링 web.xml]
+		- 용도 : 웹 에플리케이션의 다양한 설정을 하는 곳
+		
+		# <context-param> : contextConfigLocation
+		- <context-param> : 같은 웹 에플리케이션에 있는 서블릿들이 같이 공유해서 사용할 수 있는 전역변수
+		- contextConfigLocation : Spring container을 의미한다, 자바빈을 만드는 곳
+		- root-context.xml : Spring container의 실제 경로
+	 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+	</context-param>
+	
+	<!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+	
+	<!--# listener  --> 
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+		<!-- 몰라도됨x -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+	<!-- # 서블릿  -->
+	
+	<!-- Processes application requests : 요청을 처리하는 서블릿  -->
+
+	<!-- 2. servlet-name과 class -->
+	<!-- <servlet-name>appServlet</servlet-name> : 서블릿을 appServlet이라 부르겠다 -->
+	<!-- <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> : 실제 서블릿은 DispatcherServlet이다
+	즉, DispatcherServlet의 이름을 appServlet이라 부르겠다-->
+	
+	<!-- 
+	<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+	</init-param>
+	=> dispatchderServlet은 위 내용을 읽어서 동작한다
+	 -->
+	
+	<servlet>
+		<servlet-name>appServlet</servlet-name>												<!--=> 서블릿을 appServlet이라 부르겠다(별명) : servlet-context -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>	<!--=> 실제 서블릿의 경로(디스페쳐 서블릿 : 프론트 컨트롤러) -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>									<!--=> 서블릿을 appServlet이라 부르겠다 -->
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>		<!--=> dispatcherservlet서블릿은 itit-param 태그 내용을 읽어서 실행한다 -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!--
+	 & 태그설명(지금은 그렇게 안중요함)
+	 servlet-name   : servlet-class의 alias(별명)	* servlet-mapping의 이름과 동일해야한다
+	 servlet-class  : 실제 서블릿
+	 init-param		: context-param과 같으나 한 서블릿 내에 지역변수처럼 사용
+	 load-on-startup: 서블릿 컨테이너를 시작하자마자 서블릿을 생성하고 초기화 하고 싶을때 사용, 0이상의 값이 들어가면 인스턴스생성
+	 				, 0에 가까운 순서대로 실행
+ 	 -->
+	
+	 <!-- # 현재 서블릿 설정  
+		 - 서블릿의 별명 : appServlet
+		 - 실제 서블릿   : DispatcherServlet
+		 - 서블릿의 실제 경로 : /(컨텍스트패스)
+	 -->
+	 
+	 <!-- # 서블릿 맵핑  -->
+	 <!-- 
+	 	- 개념 : @webServlet 에너테이션을 의미한다
+	 	#####################################################################################
+	 	ex) @webservlet('mapping') 을 통한 servlet + servlet-mapping 설명
+	 	=> 이 webservlet의 이름은 appservlet이고, 컨텍스트 패스 값을 지닌다
+	 	=> 즉, 실제 appservlet인 dispatcherServlet서블릿은 컨텍스트 패스 경로에서 동작한다
+	 	#####################################################################################
+	 	
+	 	- servlet-name과 맞혀서 name을 작성해야한다
+	 	- / : 컨텍스트 패스를 의미
+	 	
+	 	* <servlet> 동작설명
+	 	(1) appServlet의 동작은 매핑 /(contextPath 경로)에서 이루어진다
+	  	(2) DispatcherServlet은 http://localhost:9090/app02의 경로(프로젝트=애플리케이션의 시작경로)에서 동작한다
+	 	
+	 	 -->
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- * 컨텍스트 패스 확인하는법 : property - web project setting-->	 
+
+</web-app>
+

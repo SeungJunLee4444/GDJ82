@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연산자</title>
+</head>
+<body>
+    <script>
+        /* 
+            [연산자]
+
+            & 모르는 내용 모음
+            1) '나눗셈'의 몫구하기
+            (1) 정수변환 : paraseInt(5/2) == 2 
+            (2) 내림함수 : Math.floor(5/2) ==2
+
+            2) 제곱
+            - ** 사용
+            ex) 5 ** 2 == 25
+
+            3) 관계연산자
+            (1) 이상    : >=
+            (2) 이하    : <=
+
+            4) 문자열 연산자(예시있음)
+            (1) +            : 문자열 연결
+            (2) + 이외 연산자: 문자열이 포함되도 산술연산
+
+        */
+
+        //=============================================================================
+
+        //[실습]
+
+        // & 복합연산자 사용법
+        var a = 5;
+        var b = 2;
+        b *= a;     // b에 a를 곱한 값이 b다
+        console.log(b); // 10
+
+        b &= a; // 10 에 5를 나눈 나머지값이 b다 // 0
+        console.log(b); // 0
+
+        // & 문자열 연산자
+        var a = '5';
+        var b = 2;
+        console.log(a + b); // 52       // +는 문자열연결
+        console.log((Number(a) + b));   
+        // 7, +로 산술연산을 하려면 문자를 숫자타입으로 변환해줘야한다
+        console.log(a / b); // 2.5      // + 이외에는 산술연산
+
+    </script>
+
+    <!-- ============================================================================= -->
+
+    <script>    
+        // 문제
+        // 최저시급 9160원
+        // 8시간 근무 : 시급
+        // 8시간 초과 근무 : 시급 * 1.5
+        // 10시간 근무하면 일급 얼마?
+        var payPerHour = 9160;  // const payPerHour = 9160;
+        var workTime = 10;
+        var regular = payPerHour * workTime;  // 기본급여
+        var extra = (workTime <= 8) ? 0 : (workTime - 8) * payPerHour * 0.5;  // 초과급여
+        console.log(regular + extra);
+    </script>
+
+    
+</body>
+</html>

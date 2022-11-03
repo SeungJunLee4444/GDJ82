@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>속성</title>
+</head>
+<body>
+    <script>
+        /* 
+            [DOM객체]
+            - 문서객체모델
+            & 용도 : html의 문서요소를 객체로 사용해 각 문서를 계층적으로 접근,
+            각 요소에 요소의 추가, 수정, 속성의 추가와 텍스트 수정이 가능하다
+
+            & 속성값의 변경(= 새롭게 할당)
+
+
+            - 형태 : document.문서객체.문서속성
+
+            1. 문서객체
+            (1) document.getElementById('아이디')         : 속성값을 변수로 반환
+            (2) document.getElementsByClassName('클래스') :          배열로 변환
+            (3) document.getElementsByTagName('태그')     :          배열로 반환
+            (4) document.querySelector('선택자')          :          변수로 반환
+            (5) document.querySelectorAll('선택자')       :          배열로 반환
+            & QuerySelector의 선택자란 css의 선택자를 의미한다 (ex 'ul > li')
+
+            & 태그와 클래스는 복수가 존재할 수 있기 때문에 배열로 값을 반환하며,
+            설사 값이 하나뿐이여도 접근시 [0]인덱스를 이용해야한다(추후추가설명)
+
+            --------------------------------------------------------------------
+
+            2. 문서객체속성
+            (1) textContent : 텍스트
+            (2) innerHTML   : 태그 자체(요소)
+                & innerHTML은 해당 요소의 안에 HTML를 적용하는 것으로, HTML의 자식태그와 
+                각종 특수문자들을 사용할 수 있다(자식태그로서 생성)
+            (3) style       : css(inline방식이라 무조건적용)
+                 & style객체 속성의 css 속성 접근법 2가지
+                1) .(마침표)   : a.style.fontSize
+                - 입력 특징
+                (1) -(하이푼)제거
+                (2) camelcase 방식으로 입력
+                ---------------------(style은 이것만봐라)----------------------
+                2) [](대괄호)  : a.style
+                & 대괄호는 css의 속성표기법을 그대로 사용하니, 2)번만 사용하자
+
+                & js의 style 속성은 inline이라, 무조건 적용된다
+                => 콘솔에도 요소에 css 속성이 추가되있는것을 확인할 수 있다
+                ----------------------------------------------------------------
+
+            
+
+            & 텍스트 수정(띄어쓰기)
+            - 단순히 텍스트 수정과 추가를 하고 싶으면 textcontent
+            - 띄어쓰기(&nbsp)까지 적용하고싶으면 innerHTML
+            --------------------------------------------------------------------
+
+            3. 속성 조작방법
+            1) 직접조작(아래에 실습예시있음)
+            2) 메서드 조작
+            (1) 확인            : getAttribute('속성명');
+            (2) 생성 및 수정    : setAttribute('속성명', '속성값');
+
+        
+        */
+    </script>
+
+    <!-- ============================================================================= -->
+    <!-- [실습] -->
+
+    <!-- 실습 : queryselector(선택자) 사용법 -->
+    <div>
+        <h1 id="query">Hello World</h1>
+    </div>
+    <script>
+        var a = document.querySelector('#query').innerHTML += '&nbsp weather';
+        // & innerHTML 적용으로 인해 띄어쓰기가 적용된다
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    <!-- 실습 : 속성조작방법 2가지 -->
+    <h1 id="attr">Hi World</h1>
+    <script>
+        var a = document.getElementById('hi');
+        // (1) 직접조작
+        a.id = 'halla'; // halla
+        // a.id += 'hapa'; // hallahapa
+
+        // (2) 메서드 조작
+        a.setAttribute('id', 'attr');   // attr
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+
+<!-- 실습 : 배열로 값을 반환했을 때 배열의 값을 확인하는법 -->
+<!-- & 문서객체에서 배열값을 확인할 때, 인덱스[0]을 사용해야하는 이유 : 
+    답 : 값이 하나라도 배열이기때문이다-->
+    <div>
+        <div>
+            <div class="index">
+                배열인덱스1
+            </div>
+            <div class="index">
+                배열인덱스2
+            </div>
+        </div>
+    </div>
+    <script>
+        // 1) & 배열형 문자객체는 배열이라는 정보와, 배열의 길이만 보여준다
+        // class속성을 이용해 문자객체 만들기
+        var a = document.getElementsByClassName('index');
+        console.log(a); // htmlcollection(2), 배열정보가 출력
+
+        // 2) & 배열의 값에 접근하려면 인덱스를 사용하면 된다
+        console.log(a[0]);  // 배열인덱스1
+        console.log(a[1]);  // 배열인덱스2
+    </script>
+
+    <!-- 실습 : style속성 사용법 -->
+    <div id="box">
+        BOX
+    </div>  
+    <!-- 결과 : 자바스크립트의 style속성은 inline방식이기 때문에 무조건 적용되며, 실제 태그에 표시된다(f12에서 확인) -->
+    <!-- <div id="box" style="font-size: 32px; font-weight: 900; color: red;">
+        BOX
+    </div> -->
+
+    <script>
+        var a = document.querySelector('#box');
+        a.style.fontSize = '32px';
+        a.style.fontWeight = 900;
+        a.style['color'] = 'red';
+    </script>
+
+
+
+    
+</body>
+</html>

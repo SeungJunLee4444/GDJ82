@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date함수</title>
+</head>
+<body>
+    <script>
+        // [Date 객체와 시간만들기]
+        // - 용도 : 날짜/시간처리
+
+        // 1. 현재 날짜와 시간
+        var now = new Date();
+        console.log(now);
+        // 결과 : Sun Oct 09 2022 15:09:54 GMT+0900
+
+        //---------------------------------------------------------------------
+
+        // 2. 특정 날짜와 시간
+        
+        // 1) 숫자형으로 전달할경우
+        // => 월은 코드상에서 0~11로, 필요로 하는 날짜보다 하나 적게 입력해야한다
+        // ex) 1 입력 => 2월
+        var datetime1 = new Date(2022, 9, 28);             // 결과 : 2022-10-28 (월: 0~11)
+        var datatime4 = new Date('2022', '9', '28');       // 결과 : 숫자형과 동일하게 적용
+        var datetime2 = new Date(2022, 9, 28, 15, 30, 45)  // 결과 : 2022-10-28 15:30:45
+        
+
+        // 2) 문자형(-)으로 전달할경우,
+        // => 월은 필요한 날짜 그대로 표기하면된다
+        var datetime3 = new Date('2022-10-28 15:30:45');   // 2022-10-28 15:30:45 (문자열로 전달하는 경우 월을 그대로 사용)
+        console.log(datetime1, datetime2, datetime3);
+        console.log(datatime4);
+
+        //---------------------------------------------------------------------
+
+        // 3. 날짜 추출
+        //---------------------------------------------------------------------
+        // & 날짜 추출시 주의할점
+        // (1) 월은 실제 월보다 하나 적게 나온다
+        // (2) getDate는 날짜일수, getDay는 요일별 인덱스가 출력된다(일:0~토:7)
+        //---------------------------------------------------------------------
+
+
+        // => 현재시간 기준(2022-10-09)
+        // (1) 년()
+        var year = now.getFullYear();   // 2022
+        // (2) 월
+        var month = now.getMonth();     // 9(월은 하나 적게 나온다, 실제로는 10월)
+        // (3) 일
+        var day = now.getDate();        // 9
+        var weekNo = now.getDay();      // 0
+        // => getDate는 일수를 표현
+        // => getDay는 요일에 따른 숫자를 표현(일: 0 ~토: 7)
+        // (4) 시
+        var hour = now.getHours();      // 15
+        // (5) 분
+        var minute = now.getMinutes();  // 17
+        // (6) 초
+        var second = now.getSeconds();  // 30
+        console.log(year, month, day, weekNo, hour, minute, second);
+
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    <script>
+        // 실습 : 오늘 요일 출력하기
+        var weekNames = ['일', '월', '화', '수', '목', '금', '토'];
+        var day = weekNames[now.getDay()];
+        console.log(day);   // 일
+        // => 방법
+        // (1) getDay는 현재날짜 기준,요일별 인덱스값을 반환하는 메서드 
+        // (2) 배열의 인덱스값에 해당 메서드를 넣어서 연계하는 방법으로 해결
+
+
+        // 심화버전
+        // Date 클래스에 요일을 반환하는 getDaynName 메서드를 추가
+        // => 기존에 내장된 클래스에 prototype을 이용하여 요일을 반환하는 메서드를 추가
+
+        Date.prototype.getDayName = function () {
+
+            //----------------------------------------------------------------------------------
+            // & 변수에 저장하지않은 배열의 사용
+            // 1) 원래 방식
+            // return ['일', '월', '화', '수', '목', '금', '토'][new Date().getDay()] + '요일';
+            // => 
+            // 배열도 변수에 저장하지 않고 그대로 사용할 수 있다
+
+            // 2) 이해하기 쉽게 변형
+            var weekNames2 = ['일', '월', '화', '수', '목', '금', '토'];
+            return weekNames2[new Date().getDay()];
+            // => 해석 : 현재날짜의 요일별 인덱스값과, + 배열의 인덱스를 이용한 요소접근방법
+            //----------------------------------------------------------------------------------
+
+            
+        }
+        console.log(now.getDayName());  // 일
+    
+    </script>
+
+    <!-- -------------------------------------------------------------------------------------- -->
+
+    <style>
+        .over50 {
+            color: red;
+        }
+    </style>
+    <div>
+        <h1>
+            <span id="hour"></span> : 
+            <span id="minute"></span> : 
+            <span id="second"></span> 
+            <span id="ampm"></span>
+        </h1>
+    </div>
+    <script>
+        // 문제 : 시계만들기&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+        // = 50초가 지날때마다 텍스트에 스타일 지정
+
+        // & 해결법
+        // (1) setinterval을 이용해 시간계속 반복출력
+        // (2) date함수를 이용해 현재 시간 구하기
+        // (3) 시,분,초 단위로 추출해 문서객체를 이용해 요소에 대입하기
+        setInterval(function() {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            document.getElementById('hour').textContent = appendZero(hour >= 13 ? hour - 12 : hour);
+            document.getElementById('minute').textContent = appendZero(minute);
+            document.getElementById('second').textContent = appendZero(second);
+            document.getElementById('ampm').textContent = hour < 12 ? 'am' : 'pm';
+
+            // & 50초 초과시 새로운 클래스를 추가해 스타일을 부여
+            if(second >= 50) {
+                document.getElementById('second').className = 'over50';
+            } else {
+                document.getElementById('second').className = '';
+                // ''공백을 부여하지않으면 모든 시간초가 스타일이 적용된다? 왤까?
+                // => 추측 : undefined는 아무런 값이 부여되지 않은 상태기 때문에 스타일이
+                // 계속 유지되는거고, ''공백은 엄연히 값이 있는것, 즉 다른값이기 때문에
+                // 스타일이 바뀌는것이다?
+            }
+
+        }, 1000);
+        
+        // 추가사항 : 시간단위를 0에서 00으로 바꿔주기(두자리)
+        // => 00시에서 09시까지 한자리 시간대에 0을 추가해서 두자리시간대 만들어주는 함수
+            function appendZero(n) {
+            return (n <= 9) ? '0' + n : n;
+        }
+
+    
+    </script>
+
+
+
+</body>
+</html>

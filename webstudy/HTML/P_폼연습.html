@@ -1,0 +1,183 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>연습문제-1</h1>
+        <form action="1_html 기초.html" method="post">
+        <input type="email" name="id" placeholder="example@naver.com">
+        <input type="password" name="pw" placeholder="비밀번호">
+        <button>로그인</button>
+    </form>
+
+    <!-- 회원가입창 생성 주의사항
+    1. form태그로 꼭 감싸기
+    2. form에 action(내부경로) 와 method 전달방식을 꼭 사용하기
+    3. 입력은 name속성, 선택은 name과 value 속성 꼭 사용하기
+    4. label 기능 꼭 사용하기
+    5. 버튼의 기능에 따라 잘 구분하기 
+    -->
+
+    <!-- 테이블 생성시 주의사항
+    1. 한칸에 두개 이상의 텍스트나 버튼을 넣고 정렬하고 싶을때,
+    => th, td를 colspan을 이용해 좌우합병 후 하나의 th, td 태그 안에 필요한 태그들을 집어넣는다
+    & th, td 안에는 한개 이상의 내용이 들어올 수 있다
+
+    2. 텍스트의 정렬원리 
+    - 테이블을 쓰든 아니든 텍스트는 왼쪽부터 정렬된다
+    - 다만, th태그, 셀간 합병시 텍스트는 가운데로 정렬된다
+    -->
+
+    
+    <!-- 오답체크
+    1. 입력/선택의 제출에는 꼭 form태그로 감싸줘야한다
+    => <form action="내부경로" method="전달방법">
+    2. form에서 입력시 name(파리미터) 속성이 꼭 필요하다
+    -->
+
+
+    <h1>연습문제-2</h1>
+    <!-- 테이블의 정렬기능을 이용해 form 텍스트창을 정렬 -->
+    <form action="1_html 기초.html" method="POST">
+        <table>
+            <tr>
+                <td><input type="text" name="id" placeholder="아이디"></td>
+                <td rowspan="2"><button>로그인</button></td>
+            </tr>
+            <tr>
+                <td><input type="password" name="pw" placeholder="비밀번호"></td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- 오답체크
+    - 1번 문제외 동일오답
+    -->
+
+    <h1>연습문제-3</h1>
+    <form action="1_html 기초.html" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <td colspan="2">개인 정보 작성</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>이름</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>메일 주소</td>
+                    <td><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td>연락처</td>
+                    <td><input type="text" name="contact"></td>
+                </tr>
+                <tr>
+                    <td>블로그/홈페이지</td>
+                    <td><input type="url" name="blog"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2">
+                        <button>제출하기</button>
+                        <input type="reset" value="다시작성">
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <!-- 오답체크 
+    & 버튼 두개를 가운데에 정렬시키는 법
+    => th(또는td)을 좌우합병하고, th(또는td) 태그 하나 안에 두개의 버튼 태그를 넣는것
+    -->
+
+    <h1>연습문제-4</h1>
+    <form action="1_html 기초.html" method="post">
+        <a href="https://www.naver.com/" title="네이버" target="_blank">
+            <img alt="네이버" src="../학습용이미지/naver.png" width="200px">
+        </a>
+        <br><br>
+<!-- 
+        <a href="#id">아이디</a>
+        <a href="#pw">비번</a>
+        <a href="#name">이름</a>
+        <a href="#gender">성별</a>
+        <a href="#email">이메일</a>
+        <a href="#call">휴대전화</a> -->
+
+        <label for="user_id"><strong>아이디</strong></label><br>
+        <input type="text" name="id" id="user_id">@naver.com
+        <br><br>
+        <label for="user_pw"><strong>비밀번호</strong></label><br>
+        <input type="password" name="pw" id="user_pw">
+        <br><br>
+        <label for="user_pw2"><strong>비밀번호 재확인</strong></label><br>
+        <input type="password" id="user_pw2">
+        <br><br>
+        <label for="user_name"><strong>이름</strong></label><br>
+        <input type="text" name="name" id="user_name">
+        <br><br>
+        <label for="yyyy"><strong>생년월일</strong></label><br>
+        <input type="text" name="year" id="yyyy" placeholder="년(4자)" maxlength="4" size="4">
+        <select name="month">
+            <option value="">월</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <input type="text" name="day" placeholder="일" maxlength="2" size="4">
+        <br><br>
+        <label for="user_gender"><strong>성별</strong></label><br>
+        <select id="gender" name="user_gender">
+            <option valye="" selected disabled>성별</option>
+            <option value="male">남</option>
+            <option value="female">녀</option>
+        </select> 
+        <br><br>
+        <label for="user_email"><strong>본인 확인 이메일</strong>(선택)</label><br>
+        <input type="text" name="email" id="user_email" placeholder="선택입력">
+        <br><br>
+        <label for="user_tel"><strong>휴대전화</strong></label><br>
+        <select name="country">
+            <option value="+233">가나 +233</option>
+            <option value="...">...</option>
+            <option value="+82" selected>대한민국 +82</option>
+            <option value="...">...</option>
+            <option value="+832">홍콩 +832</option>
+        </select><br>
+        <input type="text" name="tel" id="user_tel" placeholder="전화번호 입력" size="10">
+        <input type="button" value="인증번호 받기"><br>
+        <input type="text" placeholder="인증번호 입력하세요" disabled>
+        <br><br>
+        <button>가입하기</button>
+        
+
+
+     <!-- 오답체크
+    1. 회원가입창 입력칸 간의 거리를 벌리기 위해서는 ,테이블 태그정렬이 아닌 <br>을 통한 정렬이 필요
+    2. label 꼭 사용하기
+    3. select태그의 select에 name, option에 value 속성을 사용한다
+    
+    & 비밀번호 재확인, 인증번호 받기는 자바스크립트의 함수를 이용한 버튼기능이 필요한듯?
+    -->
+    
+</body>
+</html>

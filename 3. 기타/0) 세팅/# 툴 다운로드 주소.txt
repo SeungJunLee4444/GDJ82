@@ -1,0 +1,21 @@
+자바 11 다운로드
+https://www.oracle.com/kr/java/technologies/javase/jdk11-archive-downloads.html
+
+깃 다운로드
+https://git-scm.com/download/win
+
+이클립스 설치
+https://www.eclipse.org/downloads/packages/release/2021-03/r
+
+이그노어 자동설정
+https://www.toptal.com/developers/gitignore/
+
+sql Developer
+https://www.oracle.com/tools/downloads/sqldev-downloads-2041.html
+
+spring sts3
+- 다운로드 : https://github.com/spring-attic/toolsuite-distribution/wiki/Spring-Tool-Suite-3
+- 주의 : 이클립스 4.19 버전에 맞게 다운로드
+
+sts4, 4.16.0 windows x86_64
+- 다운로드 : https://spring.io/tools 

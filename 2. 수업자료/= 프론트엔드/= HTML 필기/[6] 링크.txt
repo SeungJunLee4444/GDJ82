@@ -1,0 +1,98 @@
+[6] 링크(anchor)
+- 웹 상에 클릭 시 이동할 수 있는 링크를 생성하는 인라인 태그다
+
+1. 형태
+- <a></a> 
+
+2. 속성
+1) href	: 링크 경로
+2) title	: 도움말 메시지(마우스를 대면 나타나는 메시지)
+3) target	: 어떤 창으로 해당 경로로 이동할지 결정
+(1) _self	: 현재 창에서 해당 경로로 이동
+(2) _blank: 새로운 창에서 해당 경로로 이동
+
+3. 종류
+1) 비어있는 링크
+(1) <a href="#"></a>
+=> 클릭시 누른 흔적 남음
+(2) <a href="javascript:void(0)"></a>
+=> 완전히 반응x
+
+2) 웹 링크
+ex) <a href="https://www.google.com/" target="_self">구글</a>
+=> 구글을 누르면 구글 링크로 이동
+
+3) 이미지 링크
+- 이미지를 클릭하면 해당 링크로 이동
+* img 태그를 a(링크)태그로 감싸주는것이 핵심
+ex)
+<a href="https://www.naver.com/">
+        <img src="../../images/naver.png" width="200px">     
+</a>
+=> 너비 200px의 네이버 이미지를 클릭시, 현재 페이지에서 네이버 홈페이지로 이동
+
+4) 파일링크
+- href에 파일 경로를 입력해, 파일을 실행
+ex) <a href="01_overview.html" target="_blank">오버뷰</a>
+=> 오버뷰를 클릭하면 01_html파일을 실행
+
+5) 동일 문서 안에서 이동하기(#id경로)
+- 각 태그의 id 속성을 경로로 삼아, 해당 웹 상에서 빠르게 위치로 이동
+- 형태: href 경로에 #id속성명을 붙인다
+
+ex)
+<p>
+        <a href="#image">이미지</a><br>
+        <a href="#content">내용</a><br>
+        <a href="#description">세부사항</a><br>
+</p>
+    <p id="image">
+        <img src="../../images/apple.jpg" width="1000px">
+    </p>
+    <p id="content">
+        맛있는 사과가 한 개 1000원<br>
+        맛있는 사과가 한 개 1000원<br>
+        맛있는 사과가 한 개 1000원<br>
+        맛있는 사과가 한 개 1000원<br>
+        맛있는 사과가 한 개 1000원<br>
+   </p>	
+   <p id="description">
+            원산지 : 청송 사과 <br>
+   </p>
+</p>
+=> 해설 : 이미지를 누르면 image 속성명을 가진 p태그로, 내용을 누르면 content 속성명을 가진 p 태그로
+세부사항을 누르면 description 속성명을 가진 p 태그로 바로 이동한다
+
+6) 이미지 맵
+- 이미지의 일부분에 링크를 생성
+- 방법 : img 태그 + map 태그
+- img 태그 위에 map이라는 경로를 담은 종이를 덧씌우는 느낌					& map
+- 형태
+(1) img 태그 생성, 속성으로 사용할 맵 이름 지정
+<img src=이미지경로 usemap=맵이름>
+
+(2) map 태그 생성, name 속성에 img와 동일한 명칭 사용(img와 map의 연결)
+<map name=맵이름>
+
+(3)
+<map name=맵이름>
+	<area shape=모양 href=이동할 링크주소 coords=좌표>
+	(1) shape : 범위의 모양, rect(사각형), circle(원형)
+	(2) coords: 이미지 일부의 범위
+
+	- 원형일 경우	: <area shape="circle" coords="원의 중심x, 원의중심y, 반지름">
+	- 직사각형일 경우	: <area shape="rect" coords="왼쪽상단x, 왼쪽상단y, 오른쪽하단x, 오른쪽하단y">
+
+
+ex)								
+(1)
+<img usemap="#domino_event" src="../../images/dominopizza.jpg">
+    <map name="domino_event">   
+        <area shape="rect" href="https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101" coords="300, 2015, 900, 2170">
+        <area shape="circle" href="https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101" coords="820, 640, 70">
+</map>
+=> 한 이미지 안에 두개의 경로 집어넣기
+
+
+		
+

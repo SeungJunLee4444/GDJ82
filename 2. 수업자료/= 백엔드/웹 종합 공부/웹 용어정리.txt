@@ -1,0 +1,9 @@
+[crud]
+- 정의 : create, read, update, delete 데이터 처리기능을 줄여서 부르는 명칭
+- 용도 : 서비스 구현할때 생성, 조회, 수정, 삭제를 하는경우를 말한다
+
+JDBC
+
+DBCP
+
+MyBatis

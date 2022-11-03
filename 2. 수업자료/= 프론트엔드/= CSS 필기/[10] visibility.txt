@@ -1,0 +1,63 @@
+[10] visibility
+- 특정 이미지, 텍스트를 보이게, 안보이게 할 수 있음
+- display태그와 유사
+
+1. 종류
+1) visibility : visible
+=> 디폴트값
+
+2) visibility : hidden(숨기기)
+=> 해당 텍스트, 이미지를 안보이게 만듬
+=> 다만, 원래 차지해야할 공간은 차지함
+
+2. 커서로 이미지 선택시 이미지 숨기기
+1) img에 visibility: hidden 부여
+2) img 태그를 감싸는 div 태그를 만든 후, div에 :hover 별도로 부여
+
+* img에 hover을 직접 부여시, img의 hidden으로 인해 hover를 못하게됨
+(현상: 이미지 선택 시, 화면이 부르르르 떨림, 오작동)
+
+ex) css
+  .box2 > div {
+            width: 320px;
+        }
+
+        .box2 > div >img {						& div			
+            width: 100%;
+            (이미지 상에 동일한 크기의 div를 얹는 느낌)
+        }
+
+        .box2 > div:hover > img {	 * 해석 : div를 선택하면 img를 숨겨라 
+            visibility: hidden;
+        }
+
+
+3. 숨겨진 값을 마우스로 고를시 보이게 하는 법
+=> 예시참조가 가장 확실
+
+ex)
+ .answer {
+            visibility: hidden;
+        }
+
+        .show_answer:hover + span {					& 포인트!
+            visibility: visible;
+
+        }
+
+    </style>
+
+    
+    <h1>다음 중 블록레벨이 아닌 태그는 무엇인가?</h1>
+    <ol>
+        <li>&lt;div&gt;</li>
+        <li>&lt;ul&gt;</li>
+        <li>&lt;a&gt;</li>
+        <li>&lt;p&gt;</li>
+    </ol>
+    <span class="show_answer">정답보기</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="answer">2</span>
+    
+</body>
+</html>

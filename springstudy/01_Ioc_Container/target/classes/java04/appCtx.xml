@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 1. 총 (생성자는 constructor-arg태그 사용, 생성자의 매개변수 순서대로 작성해야한다  -->
+	<bean id="gun" class="com.gdu.app01.java04.Gun">
+		<constructor-arg value="k-2"></constructor-arg>
+		<constructor-arg value="15"></constructor-arg>
+	</bean>
+	
+	<bean id="soldier" class="com.gdu.app01.java04.Soldier">
+		<constructor-arg value="가나다"></constructor-arg>		<!--  - 기본타입은 value 사용 -->
+		<constructor-arg ref="gun"></constructor-arg>			<!-- - 참조타입은 ref를 사용한다 -->
+	</bean>
+
+</beans>

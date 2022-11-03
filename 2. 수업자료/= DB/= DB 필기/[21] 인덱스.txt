@@ -1,0 +1,39 @@
+[21] 인덱스
+* 장점 : 빠른 검색을 위해 특정 칼럼에 인덱스를 부여, 검색속도가 빨라짐
+* 단점 : 수정이 자주 발생하는 칼럼에 부여하면 성능저하
+* 인덱스가 자동으로 지정된 경우 : PK칼럼, UNIQUE 칼럼			
+
+* 인덱스를 만들 해당 위치 앞에 ON을 사용(~상에만든다)						& 인덱스 전치사
+
+* 목적 : 일반 칼럼에 인덱스를 부여하는 연습 필요
+1. 인덱스 생성
+1) 비고유 인덱스(칼럼내용에 중복O)
+=> CREATE INDEX 인덱스_이름 ON 테이블_이름(칼럼);
+2) 고유 인덱스(칼럼내용에 중복X)
+=> CREATE UNIQUE INDEX 인덱스_이름 ON 테이블_이름(칼럼);
+
+2. 인덱스 여부 확인										& 사전
+1) USER_INDEXS : 		유저가 만든 인덱스 조회(인덱스명)
+=> SELECT INDEX_NAME, TABLE_NAME FROM USER_INDEXES;
+
+2) USER_IND_COLUMNS: 	유저가 만든 인덱스가 동작하는 칼럼 확인(인덱스명 + 해당칼럼명)	
+=> SELECT INDEX_NAME, COLUMN_NAME FROM USER>IND_COLUMNS;
+
+* 주의점 : 특정 칼럼에 함수가 개입하면 인덱스를 쓸수없게됨
+ex) WHERE CODE = 1 (CODE는 PK, VARCHAR2 타입)	
+=> 문자타입 CODE와 숫자타입 1을 비교하기 위해 TO_NUMBER 함수가 개입하게 됨	
+=> 인덱스 사용을 위해서는 WHERE 등호 좌측은 최대한 가공 안하는 상태가 좋다			& 인덱스 주의점			
+
+
+3. 실습
+
+1) 인덱스 조회
+SELECT INDEX_NAME, TABLE_NAME FROM USER_INDEXES
+WHERE TABLE_NAME = 'STUDENT';
+
+2) 인덱스 생성
+CREATE INDEX IDN_NAME ON EMPLOYEE(NAME);
+=> 사원 테이블의 NAME 칼럼에 인덱스 생성(CREATE-ON)
+
+
+	

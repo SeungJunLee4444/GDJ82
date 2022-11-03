@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- [form 태그]                                                  & 회원가입창 생성
+         - 사용자 입력/ 선택을 서버측으로 전송하는 태그
+         - 대체로 인라인레벨
+
+         1) 서브밋(용어사전)
+         - form 태그의 모든 요소를 서버측으로 보낸다는 의미
+         - 서버경로를 action, 보내는 방법을 method라 한다
+
+         2) form 태그의 하위태그
+         (1) <input>    : 사용자입력(단일행)
+         (2) <textarea> : 사용자입력(다중행)
+         (3) <select>   : 사용자선택
+         (4) <button>   : 서브밋을 위한 요소(태그)
+         (5) <fieldset> : 입력/선택 요소들을 그룹화(주제별), 미세한 테두리가 생김
+             - legend 속성 : fieldset의 이름을 작성하게 해줌
+
+         3) form 태그의 속성
+         (1) action  
+             - 데이터를 전송할 서버경로
+             - 서버 내부경로를 주로 작성?
+         (2) method    
+             - 데이터를 전송하는 방식
+             - 종류
+             (1) GET방식    : 전송데이터가 주소(URL)에 노출, 빠른전송, 보안취약(디폴트)
+             (2) POST방식   : 전송데이터를 본문에 포함, 느린전송, 보안우수
+            & 소문자로 써도 상관없음
+
+         (3) enctype(파일첨부)   
+             - 파일을 첨부할 때 사용하는 속성
+             - 파일첨부시 form태그는 무조건,
+             <form method="post" enctype="multipart/form-data">를 사용한다
+    -->
+
+    <!-- 1. input태그 
+         - type 별로 다양한 속성들이 존재한다
+         - input type의 종류
+         (1) type=text, password
+         - placeholder : 사전에 예시입력값
+         - maxlength   : 최대 텍스트입력값(한글,영어 상관없이 동일값=동일글자수)
+         - size        : 텍스트칸의 사이즈
+         - readonly    : 읽을 수만 있게 만듬(입력불가)
+         - required    : 필수입력적용, 입력하지 않으면 전송시 오류메시지를 띄운다
+
+         * password는 text와 달리 입력값이 ****로 표시된다
+
+         (2) type=number
+         - 정해진 범위의 숫자를 선택할 수 있는 타입(버튼으로조절가능)
+         - 해당범위는 min, max 속성으로 정함
+
+         (3) type=email 
+         - 이메일 입력창이 생성(생긴건 text와 동일)
+
+         (4) type=url
+         - url 입력칸 생성(생긴건 text와 동일)
+
+         (5) type=file
+         - 파일을 첨부할 수 있는 버튼이 생성
+         - accept       : 첨부할 수 있는 파일의 타입 결정 ex) jpg, txt, *(전체)
+            (1) 모든 이미지 유형    : accept="image/*"
+            (2) 모든 오디오 유형    : accept="audio/*"
+            (3) 모든 비디오 유형    : accept="video/*"
+         - multiple     : 다중첨부가 가능하게 만드는 속성
+
+         (6) type=hidden
+          - 검색시, 웹 상에는 보이지 않지만 자동적으로 같이
+            서버에 전달되는 파라미터와 값에 부여하는 속성
+        -->
+    <form>
+        <input type="text" placeholder="텍스트" maxlength="4" size="10"><br>
+        <input type="text" value="텍스트" readonly><br>
+        <input type="passowrd" placeholder="비밀번호"><br>
+        <input type="number" placeholder="숫자" min="0" max="100"><br>
+        <input type="email" placeholder="이메일" size="50"><br>
+        <input type="url" placeholder="URL"><br>
+        <button>전송</button>
+    </form>
+
+    <hr>
+
+    <!-- 2. name속성
+         - 서버측에서 인식하는 파라미터의 이름
+         - 동일한 name이 여러개 있으면 서버 측에서는 배열로,
+           동일한 name이 없으면 서버 측에서는 변수로 인식
+         - 서브밋(데이터전송)시 사용된다
+         - 자바에서 곧바로 인식하기 때문에 자바 네이밍(camel case) 사용 ?
+    -->
+
+    <form>
+        <input type="text" placeholder="성" name="lastName" required>
+        <input type="text" placeholder="이름" name="firstName" maxlength="20">
+        <button></button>
+    </form>
+
+    <hr>
+
+    <!-- 3. 단일선택 input 태그(체크태그)
+         - 형태 : input type="radio"
+         - 여러개 중 하나만 선택 가능
+         - 동일한 name을 사용해야함
+         - 모든 선택요소에는 value 속성이 지정되어야 서버 측에서 value 속성을 확인
+
+
+         & 입력과 선택의 차이
+         - 입력 : name속성(파라미터) 필요(파라미터값은 입력하기 때문)
+         - 선택 : name + value(파라미터값) 필요(파라미터값을 선택하기 때문)
+    -->
+
+    <form>
+        <fieldset>
+            <legend>성별</legend>
+            <input type="radio" name="gender" value="1">남&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="gender" value="2">여<br>
+            <input type="radio" name="gender" value="3">선택안함
+            <button>전송</button> 
+        </fieldset>
+    </form>
+
+    <hr>
+
+    <!-- 4. 다중선택 input 태그(체크태그)
+         - 형태 : input type="checkbox"
+         - 여러개 중에서 원하는 만큼 선택가능
+         - 동일한 name을 사용하면 서버측에서 배열로 인식
+         - 다른 name을 사용하면 변수로 인식
+         - 선택태그에는 name(파라미터)와 value(파라미터값) 속성 두가지를 사용해야한다
+    
+         & 다중선택은 name이 동일하든 말든 상관없이 전송된다
+         => 추측 : 다르게 하는게 좋은것 같다?
+        -->
+
+
+    <form>
+        <fieldset>
+            <legend>동의여부</legend>
+            <input type="checkbox" name="agreement" value="1">개인정보약관
+            <input type="checkbox" name="agreement" value="2">사이트이용약관
+            <input type="checkbox" name="agreement" value="3">맞춤광고동의
+            <button>전송</button>
+        </fieldset>
+    </form>
+
+    <!-- 5. textarea 태그
+         - input type="text" 와 달리 여러 줄을 입력할 텍스트 창을 생성
+         - 속성을 통해 텍스트창의 크기조절가능(input은 size)
+         (1) rows 속성 : 행의 개수(세로길이조절)
+         (2) cols 속성 : 열의 개수(가로길이조절)
+
+         & input와 textarea의 차이
+         (1) input은 한줄, textarea는 여러줄 입력가능
+         (2) input는 size 속성, textarea는 rows, cols 속성 사용
+    
+    -->
+
+    <form>
+        <textarea name="conference" placeholder="회의록    작성" rows="3" cols="5"></textarea><br>
+        <button>전송</button>
+    </form>
+
+    <!-- 6. select 태그(목록선택태그)
+         - 형태
+         <select>
+            <option></option>
+         </select>
+
+         - 목록을 만들어 선택하는 태그
+         - 목록중 한개(이상)을 선택할 수 있음
+         - 각 항목은 option 태그로 작성
+         - 선택태그이기 때문에, value 속성이 필수다(value값을 서버에서 확인)
+         - 속성
+         (1) selected : 사전에 선택된 값
+         (2) disabled : 선택할 수 없는 값
+
+         & input의 radio, checkbox와 select의 차이
+         - 전자는 체크형태, 후자는 목록에서 선택하는 방식이다
+         - 전자는 필요한 만큼 해당 태그를 반복사용, 후자는 자식태그인 option 태그를 사용
+     -->
+
+     <!-- ex) 전화번호 입력 예시 -->
+     <form>
+        <select name="tel">
+            <option value="" selected disabled>선택안함</option>
+            <option value="010">010</option>
+            <option value="02">02</option>
+            <option value="031">031</option>
+            <option value="032">032</option>
+        </select>
+        -
+        <input name="tel" type="text" maxlength="4" size="4">
+        -
+        <input name="tel" type="text" maxlength="4" size="4">
+        <button>전송</button>
+    </form>
+
+    <!-- 7. 콤보(선택 또는 입력) 
+         - 선택과 입력을 동시에 할 수 있는 태그
+         - 방법 : 입력을 위한 input와 선택을 위한 datalist를 연결
+    -->
+
+    <form>
+        <input type="text" name="userId" placeholder="아이디">
+        @
+        <input type="text" list="domains" name="domain" placeholder="선택또는입력">
+        <datalist id="domains">
+            <option value="naver.com"></option>
+            <option value="kakao.com"></option>
+            <option value="gmail.com"></option>
+        </datalist>
+        </datalist>
+    </form>
+
+    <!-- & select와 datalist 공통점과 차이점
+     - 공통점 : 둘다 자식태그로 option 태그를 사용, value 속성 사용
+     - 차이점 : select는 텍스트값을 선택, datalist는 도움말형태의 value값에서 선택
+    -->
+
+
+    <!-- & 연결해 사용하는 태그들
+        1. 이미지 일부에 링크 연결
+        img의 usemap="#"속성과 map의 name 속성
+
+        2. 바로가기
+        a의 href="#"와 p(그외)의 id속성
+
+        3. 콤보(입력+선택)
+        input의 list속성과 datalist의 id속성
+
+        4. 라벨태그
+        input의 id를 label의 for에 연결
+    -->
+
+    <!-- 8. 버튼 태그 
+        1) <button type="submit"> : 서브밋용도, =<button>과 동일
+        2) <input type="submit">  : 서브밋용도
+        3) <input type="reset">   : 입력 요소 초기화
+        4) <input type="button">  : 아무 일도 안 함(주로 할 일을 자바스크립트로 등록할 때 사용)
+            
+        & 버튼은 value 속성을 통해 버튼명을 변경할 수 있다
+   
+    -->
+
+    <form>
+        <input type="text" name="name" placeholder="이름">
+        <input type="text" name="age" placeholder="나이" maxlength="3" size="3">
+        <button>서브밋</button>
+        <input type="submit" value="서브밋">
+        <input type="reset" value="입력초기화">
+        <input type="button" value="클릭" onclick="alert('아야')">
+    </form>
+
+    <hr>
+
+    <!-- hidden
+    해당 홈페이지에는 안보이지만 값이 전달될 때 같이 자동으로 전달되는 태그들의 속성?
+    -->
+
+    <!-- 9. 파일첨부
+         - 형태 : <form method="post" enctype="multipart/form-data">
+         - 다중첨부가 필요한 경우 multiple 속성을 추가함
+    -->
+    <form method="post" enctype="multipart/form-data">
+        증명사진
+        <input type="file" name="profile" accept="image/*" multiple>
+        <button>전송</button>
+    </form>
+
+    <hr>
+
+    <!-- 10. label 태그
+         - 특정 입력요소에 붙이는 이름표
+         & 입력, 또는 선택시 범위를 확장시켜주는 편의성을 지님
+         - 방법 : input의 id를 label의 for에 연결
+
+    -->
+
+    <form>
+        <fieldset>
+            <legend>성별</legend>
+            <input type="radio" id="male" name="gender" value="1">
+            <label for="male">남</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" id="name" name="id">
+            <label for="name">이름</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="file" id="file"> 
+            <label for="file">파일</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" list="pw" name="pw" placeholder="비번" id="password">
+            <datalist id="pw">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </datalist>
+            <label for="password">비밀번호</label>
+        </fieldset>
+
+        <!-- & label과 datalist를 동시에 사용시
+        => label기능이 datalist 둘다 기능한다
+        -->
+
+    </form>
+
+    <!-- 11. hidden 속성 
+         - 검색시, 웹 상에 노출되지 않지만 서버에 같이 전달되는 파라미터와 값을 의미
+    -->
+
+    <!-- 1) 네이버 검색창 -->
+    <form action="https://search.naver.com/search.naver"
+            method="get">
+        <!-- hidden -->
+        <input type="hidden" name="where" value="nexearch">
+        <input type="hidden" name="sm" value="top_hty">
+        <input type="hidden" name="fbm" value="0">
+        <input type="hidden" name="ie" value="utf8">
+        <!-- 검색창 -->
+        <input type="text" name="query">
+        <button>검색</button>
+    </form>
+
+<!-- 2) 다음 검색창 -->
+    <form action="https://search.daum.net/search"
+          method="get">
+        <!-- hidden -->
+        <input type="hidden" name="w" value="tot">
+        <input type="hidden" name="DA" value="YZR">
+        <input type="hidden" name="t__nil_searchbox" value="btn">
+        <!-- 검색창 -->
+        <input type="text" name="q">
+        <button>검색</button>
+    </form>
+
+
+    
+    
+</body>
+</html>

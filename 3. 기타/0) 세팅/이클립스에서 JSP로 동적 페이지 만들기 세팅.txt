@@ -1,0 +1,14 @@
+1. 이클립스 실행
+2. workspace를 GDJ/jspstudy로 변경
+3. Perspective가 JavaEE인지 확인
+4. 기본 Preferences 설정 (PPT/JavaPPT/01.자바설치및시작.pdf  github에도 올라가 있음)
+    1) Theme
+    2) Text Font
+    3) Text file encoding : UTF-8
+    4) Syntax Coloring
+5. 추가 Preferences 설정
+    1) [Web] - [CSS Files] - Encoding : ISO 10646/Unicode(UTF-8)
+    2) [Web] - [HTML Files] - Encoding : ISO 10646/Unicode(UTF-8)
+    3) [Web] - [JSP Files] - Encoding : ISO 10646/Unicode(UTF-8)
+6. 기본 브라우저 설정
+    [Window] - [Web Browser] - Chrome 선택

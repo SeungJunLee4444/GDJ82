@@ -1,0 +1,120 @@
+& 상속(2) 
+
+1. 보충학습
+책(번호, 제목) 			-book.java(lombok)사용
+도서관(책배열) 			-library.java	
+-책추가, 책제거, 책검색, 전체조회 
+scanner 클래스로 입력받아서 처리
+				-main.java
+
+2. 연습문제 복습
+3. 메모장 정리 -> 블로그 업로드
+
+
+1. 다운캐스팅(ex10, 11)
+if) person(부모) student(자식) alba(후손) 순이라면,
+Person p = new Alba();
+=> 업캐스팅에 해당하며,  부모클래스인 person의 멤버들만 호출 가능하다
+
+* 다운캐스팅을 쓰는 이유: 업캐스팅되어 못쓰는 자식, 후손 클래스의 메서드를
+호출시킬 수있다
+=> instanceof 연산자를 통해 해결가능(결과값은 true, false)
+=> 해석: 객체는 상속받았는가?(instanceof) + ~클래스를(부모)
+* 객체에 대한 레퍼런스에만 사용(int x)
+
+* instanceof 연산자의 쓰임새 두가지
+1) 인스턴스가 어떤 클래스 타입인지 확인할 때
+System.out.println(p instanceof Person);
+System.out.println(p instanceof Student);
+System.out.println(p instanceof Alba);
+=> 인스턴스는 = 객체다
+=> 업캐스팅이란 ' 서브클래스를 슈퍼클래스로 만들어주는 것이다'
+=> 업캐스팅이 되면 서브클래스의 멤버들을 참조할수 없게된다
+=> 위에서 Person p = new Alba(); 라 선언했기 떄문에
+=> Person 클래스를 참조하지만, 본래는 alba 클래스기 때문에
+
+
+2. Object(ex12)
+1) 오브젝트는 모든 클래스의 부모클래스다
+ex) Person의 객체명 p
+=> p. 에 나오는 다양한 메서드들은 전부 Object의 메서드들이다
+2) Object는 모든걸 저장할 수 있기 때문에, 다양한 타입을 저장하는데 사용된다
+
+3) Object에 저장된 객체는 (다운)캐스팅해서 사용된다
+4) Object의 쓰임에는 크게 두가지가 있다
+(1) 객체정보 확인 : toString()을 오버라이징해서 만든다
+
+(2) 객체정보 비교 : equals을 오버라이징해서 만든다
+
+
+(1), (2) 는 source에서 자동으로 생성가능하다
+=> 어떻게 쓰는지만 이해하면 된다
+
+3. abstract 추상(ex13)
+=> 이름을 바꿔서 쓰기 때문에 자주 보기힘듬, 중요함
+1) 추상메서드
+(1) 본문이 없는 메서드
+(2) 호출용으로 사용되는 메서드들
+(3) 중괄호{} 자체를 없애고, 세미콜론;을 추가함
+(4) 입력법 : public abstract(추천)  또는 abstract public 둘다 작동
+
+2) 추상클래스
+(1) 추상 메서드가 있으면 추상 클래스
+(2) 입력법 : public abstract class 처리
+(3) 본문이 없는 메서드를포함하기 때문에 객체생성이 불가
+Shape s1 = new Shape("도형"); x
+Shape s3 = new Circle("원", 3); o
+Circle s2 = new Circle("원", 1); o
+=> 추상 클래스 객체들은 못만들게됨
+=> shape 클래스는 객체가 아닌 타입으로서만 기능하게된다
+(4) 추상 클래스를 상속받는 클래스는 "반드시" "모든" 추상 메서드를 오버라이징 해야함
+
+* 자식 클래스를 포괄하는 개념인 추상적 개념은 전부 추상클래스로 만들어야한다
+(동물, 사람, 모형, 제품 등)
+
+기타
+quiz 4,5,6 
+=> 연습문제
+
+6. 
+1) 롬복(lombok-1.18.18)
+=> 이클립스에 설치
+=> setter, getter, customer 등 생성자를 쉽게 만들어줌
+
+2) 설치과정
+(1) cd: c/GDJ/installer/jar
+(2) java -jar lombok-1.18.18.jar
+(3) 이클립스 실행파일 찾아주기
+(4) 설치
+
+3) 제거하는법
+(1) 이클립스 폴더 안에 lombol 파일 삭제
+(2) 이클립스 ini 파일 마지막줄 제거
+-javaagent:C:\GDJ\installer\eclipse-jee-2021-03-R-win32-x86_64\eclipse\lombok.jar
+
+* 설치 안되는 이유
+=> 위 경로에 공백, 한글이 포함되 있음
+
+
+4) 생활용어
+singleBuilder
+bean 
+vo
+dto
+=> 데이터 보관용 객체명
+
+// 1) 프로젝트에 롬복을 사용할 수 있도록 설정
+// buildpath - configure - library - external - lombok 파일 누르고 적용
+// => 생성한 7장 프로젝트에서만 사용할 수 있음
+
+
+
+
+
+
+
+
+
+
+
+

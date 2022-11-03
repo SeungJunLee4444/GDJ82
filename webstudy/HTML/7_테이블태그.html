@@ -1,0 +1,215 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- [테이블 태그]                                                        & 표 생성
+         - 표 만드는 태그
+         & 블록, 인라인 자체가 의미없음
+         - 형태
+         <table>
+            <thead>         : 테이블의 제목 영역, 생략가능
+                <tr>        : 행 태그, 반드시 사용
+                     <th></th>   
+                     <td></td>
+                </tr>
+            </thead>
+            <tbody>         : 테이블의 본문영역, 반드시 사용됨(생략시 자동추가)
+                 <tr>
+                     <th></th>   : 제목열태그, 주로 thead에서 사용, 굵게, 가운데 정렬처리
+                     <td></td>   : 일반열태그, 모든 영역에서 사용
+                </tr>
+            </tbody>
+            <tfoot>         : 테이블의 하단 영역, 생략가능
+                 <tr>
+                     <th></th>   
+                     <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    -->
+
+    <!-- 1. 기본형태 -->
+    <table border="50">
+        <thead>
+            <tr>
+                <th>제품명</th>
+                <th>입고수량</th>
+                <th>출고수량</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>홈런볼</td>
+                <td>100</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>꼬북칩</td>
+                <td>200</td>
+                <td>100</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>합계</th>
+                <td>300</td>
+                <td>150</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <hr>
+
+    <!-- 2. 레이아웃 테이블 
+    => 테이블의 정렬 기능을 이용해서 레이아웃처럼 표현
+    -->
+    <table>
+        <tbody>
+            <tr>
+                <td><image alt="베리" src="학습용이미지/fruit1.jpg" width="200px"></image></td>
+                <td><image alt="아보카도" src="학습용이미지/fruit2.jpg" width="200px"></image></td>
+                <td><image alt="바나나" src="학습용이미지/fruit3.jpg" width="200px"></image></td>
+            </tr>
+            <tr>
+                <td>10000원<br>베리</td>
+                <td>20000원<br>아보카도</td>
+                <td>30000원<br>바나나</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 3. 셀 병합 
+         - th, td 태그에 사용
+         - 병합 속성을 사용해 병합
+         - 종류
+         (1) colspan : 현재 셀의 우측 셀과 병합 
+         (2) rowspan : 현재 셀의 아래쪽 셀과 병합
+
+         <td colspan="2"> : 현재 셀과 우측 셀 한칸 병합(기본이 2)
+         <td rowspan="3"> : 현재 셀과 아래쪽 셀 2칸 병합
+
+
+         & 주의점
+         (1) 병합시 병합되는 위치의 셀에 존재하는 태그는 사라지지 않고 밀리게된다
+         (2) -를 사용한 반대방향 병합은 x
+         
+         & 표 만드는 순서
+         (1) 기본 형태 만들기 : 전부 일정한 행과 열 만들기(내용이없어도)
+         (2) 이후 병합을 실시
+    
+    -->
+
+    <table border="1">
+        <tr>
+            <td>AAAAA</td>
+            <td>BBBBB</td>
+            <td colspan="-2">CCCCC</td>
+        </tr>
+        <tr>
+             <td colspan="2">AAAAA</td>   <!-- 열병합 -->
+            <td rowspan="2">CCCCC</td>
+        </tr>
+        <tr>
+            <td>AAAAA</td>
+            <td>BBBBB</td>
+            <!-- <td>CCCCC</td> -->
+        </tr>
+    </table>
+
+    <hr>
+
+    <table border="1">
+        <tr>
+           <th>이름</th>
+           <th>나이</th>
+           <th>주소</th>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20세</td>
+            <td>서울시 마포구 노고산동</td>
+        </tr>
+        <tr>
+            <th>특기</th>
+            <td colspan="2">먹기</td>
+        </tr>
+        <tr>
+            <th rowspan="2">신체</th>
+            <td colspan="2">180.0cm</td>
+        </tr>
+        <tr>
+            <td colspan="2">83kg</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- 4. 기타 테이블태그
+         1) caption 태그
+         - 테이블의 제목을 작성할 수 있는 태ㅐ그
+
+         2) colgroup 태그
+         - 형태 
+         <colgroup>
+            <col></col>
+         </colgroup>
+         - 열 단위로 공통 스타일을 적용할 수 있는 태그
+         - thead, tbody, tfoot의 하위태그
+         - 각 해당열은 자식태그인 col이 담당
+
+         & colgroup의 특징
+         (1) colgroup는 표 전체의 특정 열에 스타일을 변경한다
+         (2) thead,tbody, tfoot의 하위든, 같은 위치든 동일하게 적용된다
+         (3) 만약 열에 공통된 스타일을 적용하고, 특정 셀만 스타일을 바꾸고싶지않다면,
+         해당 th, td에 스타일을 적용하면된다
+
+         & 셀의 style 변경
+         - thead, tbody, tfoot : 해당 범위 전체에 스타일변경(표전체의 폰트 적용에 사용)
+         - 열단위 스타일변경 : colgroup
+         - 행단위 스타일 변경 : tr에 사용
+         - 하나의 셀에 스타일변경 : td 각각에 사용
+    -->
+
+    <table border="1">
+        <caption>테이블제목</caption>
+        <tbody style="background-color: aqua ;">
+            <!-- <colgroup>
+                <col style="background-color: red">
+                <col style="background-color: blue">
+                <col style="background-color: orange">
+                <col style="background-color: gray">
+            </colgroup> -->
+            <tr style="background-color: pink ;">
+                <td style="background-color:plum;">AAAAA</td>
+                <td>BBBBB</td>
+                <td>CCCCC</td>
+                <td>DDDDD</td>
+            </tr>
+            <tr>
+                <td>AAAAA</td>
+                <td>BBBBB</td>
+                <td>CCCCC</td>
+                <td>DDDDD</td>
+            </tr>
+            <tr>
+                <td>AAAAA</td>
+                <td>BBBBB</td>
+                <td>CCCCC</td>
+                <td>DDDDD</td>
+        </tbody>
+    </table>
+
+    <hr>
+
+   
+
+    
+    
+</body>
+</html>

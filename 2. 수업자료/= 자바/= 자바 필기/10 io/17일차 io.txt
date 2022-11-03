@@ -1,0 +1,524 @@
+& 17일차		: IO
+
+[1]. file 클래스의 기능
+1) 파일에 관한 각종 정보를 자바 프로그램을 통해서 알아낼 수 있음
+ex) 파일의 이름, 유형, 크기
+2) 폴더, 파일을 직접 만들 수 있음
+=> 단 파일의 내용을 넣을순 없음
+
+* 텍스트 외에도, 이미지, 동영상 파일도 관리할수있다
+
+------------------
+[2] Stream
+=> 입력과 출력이 이루어지는 가상의 연결통로
+* 정보를 전달하는 키보드, 모니터와 자바프로그램 사이에 존재한다
+* file은 파일의 생성, 삭제, 리스트화는 가능하지만, 파일의 내용을 수정할수없다
+=> file의 내용을 추가하기 위해선 stream를 사용해야한다
+
+* file 객체를 만들고, filewritter로 파일을 생성
+* 대부분의 데이터는 json, xml, csv로 제공된다
+
+& 만드는거, 읽어드리는거
+
+------------------
+ex) 
+키보드를 통해 정보를 자바로 입력할때 입력 스트림을 system.in
+이를 모니터로 출력하는 출력스트림을 system.out 
+
+* 파일도 마찬가지로 입력스트림과 출력스트림이 있다
+
+* stream은 두가지 있다
+(1) 바이트 스트림 : 입출력데이터를 바이트로 처리, 모든 파일형식 처리가능
+=> inputstream, outputstream으로 끝나면 바이트
+(2) 문자 스트림 : 입출력데이터를 문자로 처리, 문자로된 파일만 처리가능
+=> reader/writer로 끝나면 문자 스트림
+
+* 주의
+영문으로만 구성된 텍스트파일은 바이트 스트림으로 처리할 수 있는가?
+=> 가능, 하지만 한글은 한글자가 2~3바이트라 반드시 문자스트림으로 처리해야한다
+
+------------------
+
+[3] 응용
+1) 파일복사 프로그램
+2) 파일이동 프로그램
+
+------------------
+
+& 핵심
+* file 클래스는 폴더파일을 생성, 관리하는 클래스다
+* 파일은 내용 수정이 안되기 때문에, 주로 폴더 관리에 사용된다
+
+* file
+
+--------------------------------------------------------------------------------------------
+
+& 추가할일
+1) 리눅스사용
+2) 자바 api복습
+3) 명령프롬프트 폴더이동
+4) 타임스탬프
+
+
+--------------------------------------------------------------------------------------------
+
+1. file 클래스
+1) 기능
+=> 파일 및 디렉터리를 생성, 관리
+
+2) 생성방법
+(1) new file(폴더 or 파일)
+(2) new file(경로, 파일)
+
+3) 폴더 만들기 과정
+(1) 새로운 폴더 생성(생성방법 2-2)
+=> File dir = new File("C:\\storage");
+* :(콜론)은 드라이브를 의미
+* 자바에서는 \를 이스케이프 문자로 인식하기 때문에, 꼭 \\두개 사용하기
+
+(2) 폴더가 존재하지 않으면 생성, 존재하면 삭제
+if(dir.exists() == false) {
+	dir.mkdirs();
+else {
+	dir.delete();			
+	dir.deleteOnExit();
+}
+
+------------------
+
+& 핵심
+* exist : 존재여부
+* mkdir : 폴더 생성
+* delete, deleteonexit : 폴더 삭제, jvm 종료후 폴더 삭제
+
+------------------
+
+
+4) 파일 만들기 과정
+(1) 파일 만들기 과정
+=> File file = new File("C:\\storage", "my.txt");
+
+(2) 파일이 없으면 새로 만들고, 있으면 삭제
+try {
+if(file.exists() == false) {
+	file.createNewFile();
+} else {
+	file.delete();
+}
+} catch (IOException e) {
+
+* 만약 여러 파일을 삭제하려면,
+파일을 배열로 만들고 for문으로 삭제하면된다
+
+------------------
+
+& 핵심
+* createnewfile : 파일 생성
+* 오류발생 : 파일 생성이 실패할 수 있는 ioexception이 발생한다
+=> try-catch문을 사용해 해결 
+* 에러를 콘솔에 띄우는 catch 블록코드(개발용)
+=> e.printStackTrace(); 
+
+* e. getmessage    : 오류 메시지 출력
+* e. printstacktrace : 오류발생의 근원지를 찾아서 단계별 경고출력(좀더 자세함)
+
+------------------
+
+5) file 메서드
+(1) 파일이름 알아내기
+=> System.out.println("파일명:" + file.getName());
+(2) 경로 알아내기
+=> System.out.println("경로:" + file.getParent());
+(3) 파일 + 경로 동시에 알기
+=> System.out.println("전체경로(경로 + 파일명" + file.getPath());
+(4) 폴더인지, 파일인지 확인
+=> System.out.println("폴더인가?:" + file.isDirectory());
+=> System.out.println("파일인가?:" + file.isFile());
+(5) 마지막으로 수정된 날짜 확인
+=> long lastModifiedDate = file.lastModified();
+	System.out.println("수정한 날짜:" + lastModifiedDate);
+
+(5-1) simpledateformat으로 날짜를 형식으로 표현하기
+=> SimpleDateFormat sdf = new SimpleDateFormat("a hh:mm yyyy-MM-dd");
+
+String lastModified = sdf.format(file.lastModified());
+	System.out.println(lastModified);
+
+(6) 파일 크기 확인하는 법
+=> long size = file.length();
+
+(7) 해당 폴더 내 모든 리스트 열람
+(7-1) File dir = new File("c:\\GDJ");
+=> 파일의 경로를 객체에 저장
+
+
+(7-2) 
+File[] list = dir.listFiles();
+=> 해당 객체의 모든 파일리스트를 배열에 저장
+for(int i = 0; i < list.length; i++) {
+	System.out.println(list[i].getName());
+}
+=> for 반복문으로 모든 파일명을 출력
+
+(8) 숨김폴더 확인여부
+=> ishidden으로 해당 폴더, 파일이 숨김폴더인지 확인하여 true,false값을 반환
+=> 콘솔에는 숨김폴더도 전부 표시되기 때문에, 이를 활용한다
+
+(9) 플랫폼마다 다른 경로 구분자 지원
+=> File file = new File("C:" + File.separator + "storage" + File.separator + "my.txt");	
+* 여기서 File은 클래스다(주의)
+
+------------------
+& 핵심
+파일이름 : getname
+경로	: getparent
+파일 + 경로 : getpath
+파일인지, 폴더인지 확인 : isfile, isdirectory
+마지막 수정날짜: lastmodified
+파일크기 : size
+
+파일의 경로를 객체에 저장 : 
+(1) File dir = new File("c:\\GDJ");
+(2)해당 객체의 모든 파일리스트를 호출해 배열에 저장 : File[] list = dir.listFiles();
+(파일목록을 file 배열객체에 반환 : listfile)
+(3) for(int i = 0; i < list.length; i++) {
+	System.out.println(list[i].getName());
+}
+=> 이후 for반복문으로 모든 파일명을 출력
+
+플랫폼 공통 구분자 지원: File.separator
+
+
+------------------
+
+--------------------------------------------------------------------------------------------
+
+2. Stream
+=> 사용법 : 스캐너처럼 값을 입력하고 출력하는 형태, 좀더 성능이 좋음
+=> 입력과 출력이 이루어지는 가상의 연결통로
+* 정보를 전달하는 키보드, 모니터와 자바프로그램 사이에 존재하는 통로다
+
+1) filewritter 클래스
+=> file 클래스는 파일의 생성, 삭제, 리스트화는 가능하나 파일의 내용수정은 불가능하다
+=> stream을 통해 이를 해결할 수 있다
+
+(1) file로 폴더 만들기
+File dir = new File("c:\\storage");
+if(dir.exists() == false) {
+	dir.mkdir();
+}
+=> 대체로 file클래스로 폴더를 만든다
+
+(2) file 클래스 파일객체 생성
+File file = new File(dir, "m1.txt");
+=> 앞에 경로를 "" String 타입 뿐 아니라, 폴더의 객체명(dir)으로도 할 수 있다 **
+=> 이 상태에서는 아직 파일이 생성되지 않았다
+
+(3) FileWriter 클래스를 통해 출력스트림을 생성하면 파일을 생성할 수 있다-------------?
+* file.createnewfile 메서드를 이용하면 ioexception이 생기는 번거로움을 피할 수 있다
+
+try {
+	fw = new FileWriter(file);
+
+} catch (IOException e) {
+	e.printStackTrace();	
+	} finally {			
+	try {
+	if(fw != null) {	// 문제2 해결
+		fw.close();	// *문제1해결책 finally에 작성하면, 예외가 발생하든 말든 종료된다
+	}
+	// 문제2 null값이 close()메서드로 가게됨, nullpoint 
+	// => if문을 사용해 해결
+				
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+}
+
+
+
+2) 파일에 내용 저장하기
+(1) 파일 생성
+File file = new File("c:\\storage", "m2.txt");
+
+(2) 타입에 따라 파일에 데이터 입력하기
+=> 한글자일때는 int / 여러글자일때는 char[], String에 담는다
+int c = 'i';
+char[] cbuf = {' ', 'a', 'm'};
+String str = " IronMan";
+
+
+(3) try-catch-resources 문
+File file = new File("c:\\storage", "m3.txt");
+try(FileWriter fw = new FileWriter(file)) {
+=> try안에 filewriter 클래스의 선언과 생성을 넣는다
+
+
+
+(3-1) 데이터 일부분만 저장
+fw.write(cbuf, 0, 2);	 인덱스0부터 2글자		
+fw.write(str,2, 3); 
+
+
+
+(4) bufferedwriter 보조 스트림
+
+try {
+				
+	fw = new FileWriter(file); // *1 출력 메인스트림
+	bw = new BufferedWriter(fw); // *2 속도 향상을 위한 보조스트림(메인스트림이없으면 사용x)
+				
+	 //fw.write(null);	
+	bw.write("오늘은 수요일인데 수업이 안끝나요 ㅎㅎㅎ");	// * 만들고 나면 이걸로 사용
+				
+} catch (IOException e) {
+	e.printStackTrace();	// * 정밀한 오류내역 출력
+} finally {
+	try {
+		// *3 메인스트림은 닫을 필요가 없다(보조를 닫으면, 메인은 자동으로 닫힘)
+		if(bw != null) {	// * 시작값이 null이라서?
+			bw.close();
+		}
+	} catch (IOException e) {
+		e.printStackTrace();
+
+------------------------------------------------
+
+
+2. csvwritter
+// => 콤마로 분리된 G
+// ex) a, b, c, ...
+// 확장자가 .csv인 파일(엑셀, 메모장으로 오픈가능)
+// (일반 txt파일과 별로 다를게 없는 파일)
+
+ex) 예시데이터
+List<String> header = Arrays.asList("제품번호", "제품명", "가격");
+List<String> product1 = Arrays.asList("100", "새우깡", "1500");
+List<String> product2 = Arrays.asList("101", "양파링", "2000");
+List<String> product3 = Arrays.asList("102", "홈런볼", "3000");
+	
+List<List<String>> list = Arrays.asList(header, product1, product2, product3);
+
+=> 2차배열을 list 인터페이스로 구현
+
+ex) 
+File file = new File("c:\\storage", "product.csv");
+FileWriter fw = null;
+BufferedWriter bw = null;
+	
+try {
+	fw = new FileWriter(file, StandardCharsets.UTF_8); // * 
+	bw = new BufferedWriter(fw);
+	for(int i = 0, length = list.size(); i < length; i++) {
+		List<String> line = (list.get(i));
+		for(int j = 0, size = line.size(); j < size; j++) {
+		if(j == size - 1) {
+				bw.write(line.get(j) + "\n");	// * 마지막이 아니면 줄바꿈
+			} else {
+				bw.write(line.get(j) + ",");	// * 마지막 요소는 ,
+			}
+		}
+	}
+} catch (IOException e) {
+	e.printStackTrace();
+} finally {
+	try {
+		if(bw != null) {
+			bw.close();
+		}
+	} catch (IOException e) {
+		e.printStackTrace();
+			}	}
+
+3. xmlwritter
+// => csv, xml, 등은 데이터 관련 확장자 이름
+// => 확장 마크업 언어
+// => 표준 마크업 언어인 html의 확장버전
+// => 정해진 태그(<>)를 쓰는 html과 달리 사용자가 직접 제작
+		
+/*
+	 <product>
+	 	<number>100</number>	// * 하나하나를 element(요소)라 하며,
+	 	<name>새우깡</name>		// 크게 보면 product도 element라 본다
+	 	<price>1500</price>		// * 계층구조이기 때문에, 
+	 <product>					// product.appendchild(product의 자식추가)
+	  <product>					// => 자바스크립트에서 자주나옴
+			<number>101</number>
+			<name>양파링</name>
+			<price>2000</price>
+	 <product>
+	  <product>
+	 	<number>102</number>
+			<name>홈런볼</name>
+			<price>3000</price>
+	 <product>
+	 
+	 // => 이런 형태로 제공되는 데이터를 xml데이터라 한다
+	 */
+
+
+4. jason 
+	
+		// 1. JSON ( * 매우중요)
+		// => 자바스크립트 객체 표기법
+		// ex) "name" : "100"
+		
+		// => 객체는 {}, 배열은 [], 숫자와 텍스트는 자바와 동일
+		
+		// 1) JSON-JAVA 라이브러리
+		// => JSONObject: 객체(Map기반)
+		// => JSONArray	: 배열(List기반,arrayList와 사용이 거의 같음)
+		
+		
+		// ** jasonobject는 map과 동일한 메서드를 사용한다
+		JSONObject obj = new JSONObject();
+		// * 생성시 map을 전달하면, json으로 변화시켜줌
+		obj.put("name", "가나다");	// Map 프레임워크와 동일
+		obj.put("age", "15");
+		obj.put("man", "true");
+		obj.put("height", "180.5");
+		System.out.println(obj);
+		System.out.println(obj.toString());
+		
+		// 결과 : {"name":"가나다","man":"true","age":"15","height":"180.5"}
+	}
+	
+	public static void m2() {
+		
+		// 2) 예시
+		JSONObject obj1 = new JSONObject();
+		obj1.put("name", "제임스");
+		obj1.put("age", 30);
+
+		JSONObject obj2 = new JSONObject();
+		obj2.put("name", "에밀리");
+		obj2.put("age", 40);
+		
+		// ** 두 object 객체를 arr 배열에 입력
+		JSONArray arr = new JSONArray();	// * collection소속 set와 list를 불러올수있음
+		arr.put(obj1);
+		arr.put(obj2);
+		
+		System.out.println(arr);
+		System.out.println(arr.toString());
+		
+		}
+	
+	public static void m3() {
+		
+		String str = "{\"name\":\"가나다\",\"man\":\"true\",\"age\":\"15\",\"height\":\"180.5\"}";
+		// * 공공api한테 받아온 데이터
+		// => 라이브러리는 각 데이터를 뽑아 나눌수있음
+		
+		JSONObject obj = new JSONObject(str);	// * map이라 생각
+		String name = obj.getString("name");
+		// 문제1) 반환값은 object인데 저장은 string
+		// => String으로 강제 캐스팅
+		
+		boolean man = obj.getBoolean("man");
+		int age = obj.getInt("age");
+		double height = obj.getDouble("height");
+		
+		System.out.println(name);
+		System.out.println(man);
+		System.out.println(age);
+		System.out.println(height);
+		
+		// 결과 : * 배열값을 각 데이터로 나눠서 출력
+		// 가나다
+		// true
+		// 15
+		// 180.5
+
+
+
+
+
+& 퀴즈
+1) 해당 폴더내 파일의 마지막 수정날짜, 이름, 용량 등을 출력
+File dir = new File("c:\\GDJ");
+	File[] list = dir.listFiles();
+	int dirCnt = 0;
+	int fileCnt = 0;
+	long totalSize = 0;
+	for(File file : list) {
+		if(file.isHidden()) {
+			continue;	// 조건문만 벗어나고, 반복문으로 다시 돌아감
+		}
+		String lastmodified = new SimpleDateFormat("yyyy-MM-dd a hh:mm").format(file.lastModified());
+		String directory = file.isDirectory() ? " <DIR>" : "     ";
+		String size = "";
+
+		if(file.isDirectory()) {
+			directory = " <DIR>";
+			size = "     ";
+			dirCnt++;
+		} else {
+			directory = "     ";
+			size = new DecimalFormat("#,##0").format(file.length())  + "";
+			fileCnt++;
+			totalSize += Long.parseLong(size.replace(",", ""));	// * 문자열에 포함된 ,를 지우고 숫자로 변환하기
+		}
+		String name = file.getName();
+		System.out.println(lastmodified + " " + directory + " " + size + "  " + name);
+		// * decimalformat.format는 숫자에 형식을 부여하여 작성할 수 있는 simpledateformat와 비슷한 메서드다
+		}
+	System.out.println(dirCnt + "개 디렉터리");
+	System.out.println(fileCnt + "개 파일" + new DecimalFormat("#,##0").format(totalSize) + "바이트");
+	
+		System.out.println();
+}
+
+--------------------------------------------------------------------------------------------
+
+& 기타
+1) 천단위 문자(1,111)을 숫자로 변환할 때
+Long.parseLong(size.replace(",", ""));	
+=> 문자열에 포함된 ,를 지우고 숫자로 변환하기
+* replace는 특정 문자열을 제거하는 메서드다
+
+2)) 숫자에 특정한 형식을 부여하고 싶을 때
+ex) size = new DecimalFormat("#,##0").format(file.length())  + "";
+=> decibelformat을 사용하여, 숫자에 천단위마다 ,를 부여하거나 한다
+* 기본적인 기능은 simpledateformat과 같다
+
+=> ,를 없애고 싶으면 1)을 활용
+
+3) import 정리
+=> ctrl + shift + o 
+* import 정리, 필요한 내용 만들어주고, 필요없는 내용 가져와줌
+
+4) try-catch 문 주의
+// *3 
+// 코드
+// 코드 (문제1)	: 오류, 이러면 예외가 있는 코드 이후의 코드들이 실행되지 않는다
+// 코드
+
+
+
+
+
+
+
+
+
+이번주
+목금 - collection 정리 
+토일 - io 정리
+
+
+
+
+
+
+
+
+
+
+굳이 지난걸 복습x
+당일 주 : 당일 주에 진행한 진도 + 연습문제 위주 공부
+별도로 책을 통해 개인진도 복습 시행
+* 이전걸 찾아서 복습하기 보다는 문제가 되는 부분만 캐치해서 공부하고,
+별도의 진도로 복습
+
+

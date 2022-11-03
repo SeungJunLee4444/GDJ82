@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            /* 1) 글자 크기
+             - 디폴트 16px */
+            font-size: 32px;
+
+            /* 2) 글자굵기
+             - 디폴트 400 (숫자가 클수록 두꺼워짐) */
+            font-weight: 900;
+
+            /* 3) 기울임(none, italic 등) */
+            font-style: italic;
+
+            /* 4) 글꼴 
+             - (글꼴1, 글꼴2......)
+             - 앞에서부터 존재하는 글꼴을 적용  */
+             font-family: '궁서', '명조', serif;
+             font-family: '맑은 고딕', sans-serif;
+
+             /* * font-family 사용시 같이 쓰는 속성
+                1) serif : 꺾이는 획이 있는 글꼴, 명조계열과 함께 사용
+                2) san-serif : 고딕계열과 함께 사용
+             */
+    
+             /* 5) rgb(0,0,0) 글자색깔 */
+             color: rgb(0, 100, 50);
+
+             /* rgb
+             rgb(0, 0, 0): 화이트
+             rgb(255, 255, 255) : 블랙
+             rgb(128, 128, 128) : 그레이
+             (255,0,0) : 빨강
+             (0,0,255) : 파랑
+             (0,128,0) : 초록
+             (255,255,0) : 옐로우
+             
+             */
+
+             /* hex
+             #000, #000000 : 블랙
+                #fff, #ffffff : 화이트
+                #888, #888888 : 그레이
+             */
+             color: #000;
+             /* 6) 투명도
+                rgba(0,0,0,0.5)
+                 - 알파값(투명도) 추가가능
+                 - 범위: 0(안보임) 에서 1(불투명)까지
+             */
+             color: rgba(0, 0, 0, 0.5);
+
+            /* 7) 정렬(left, right, center, justify)                                -----------------
+
+             * 인라인요소는 정렬이 적용되지 않는다(정렬에는 공간이 필요하기 때문)
+            */
+            text-align: center;
+
+            /* 8) 밑줄(none 밑줄없애기, underline) 
+
+             - 용도 <a> 링크에서 밑줄 삭제시 사용된다
+            */
+            text-decoration: underline;
+            text-decoration: none;
+
+            /* 9) 그림자(x y blur color) 
+             - -를 사용하면 반대 방향에서도 그림자 생성 가능
+             - blur : 그림자의 진한 정도 
+            */
+            text-shadow: -5px -5px 1px yellow;
+
+            /* 10) 행높이 
+             - 세로, 가운데 정렬할 때 많이 사용 
+            */
+            line-height: 50px;
+
+            /* 11) 자간(글자간격) *
+             - -를 이용해 자간을 줄일 수 있음*/
+            letter-spacing: 50px;
+
+
+            /* 12) 밴더 프리픽스(vender prefix)
+             - css 속성 앞에 브라우저 제공업체를 작성
+             - 브라우저마다 다른 기능이거나 설정 방법이 다른 경우에 사용
+             - 종류
+                (1) -webkit- : 크롬, 사파리
+                (2) - moz-   : 파이어폭스
+                (3) -o-      : 오페라 
+                (4) -ms-     : 익스플로러
+             */
+             /* 텍스트의 색상과 두께 */
+             -webkit-text-stroke-color: red;
+             -webkit-text-stroke-width: 1px;
+
+
+        }
+
+        span {
+            text-align: center;
+            /* * 인라인요소는 정렬이 적용되지 않는다(정렬에는 공간이 필요하기 때문) */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 1. div : 블록 레벨의 영역 지정 -->
+    <div style="background-color: greenyellow">1구역</div>
+    <!-- 2. span : 인라인 레벨의 영역 지정 -->
+    <span style="background-color: orange">2구역</span>
+</body>
+</html>

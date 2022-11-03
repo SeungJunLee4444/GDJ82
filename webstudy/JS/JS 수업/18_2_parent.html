@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18_2_parent</title>
+</head>
+<body>
+    <h1 id="msg_parent"></h1>
+    <input type="text" id="parent_ipt">
+    <button id="btn">전송</button>
+
+    <!-- 실습 : 채팅창만들기
+    open객체와 window.opener 함수를 활용한 채팅을 주고받기
+    -->
+
+    <script>
+        // 1. 문서객체
+        var parentIpt = document.getElementById('parent_ipt');
+        var btn = document.getElementById('btn');
+
+        // 2. 창 객체
+        // => 창 객체는 전역변수로 선언하고 모둔 함수에서 사용
+        var childWindow = null;
+
+        // 3. 창 열기함수
+        // => url과 name을 인수로 전달하면 새로운 창 생성
+        function openChildWindow(url, name) {
+            // features
+            // 1) 생성하려는 창의 크기
+            const windowWidth = 480;
+            const windowHeight = 320;
+
+            // 2) 창을 브라우저창 가운데에 위치시키기
+            // => (전체 브라우저 창 - 생성창) 2 만큼 이동하면된다
+            const left = (screen.width - windowWidth) / 2;
+            const top = (screen.height - windowHeight) / 2;
+            const features = 'width=' + windowWidth + 'px, height=' + windowHeight + 'px, left=' + left + 'px, top=' + top + 'px';
+            if(childWindow == null || childWindow.closed) {
+                childWindow = open(url, name, features);
+            }
+        }
+
+        // 4. 데이터보내기 함수
+        function sendData() {
+            // onload : 자식창이 모두 열린 뒤 처리
+            childWindow.onload = function(event) {
+                childWindow.document.getElementById('msg_child').textContent = parentIpt.value;
+            }
+        }
+
+         // 5. 버튼 클릭 이벤트
+         btn.onclick = function(event){
+            openChildWindow('18_2_child.html', '자식창');
+            sendData();
+        }
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- [구조태그]
+         - 종류 : <h> <p> <pre>
+         - 전부 블록레벨 태그다
+    -->
+         
+    <!-- 
+        1. 제목태그
+        - 형태 : <h1> <h2> <h3> <h4> <h5> <h6>
+        - 블록레벨 
+        - 제목을 만드는 태그
+        - 숫자가 작을수록 텍스트의 크기와 굵기가 커짐
+     -->
+     <h1>1번째로 큰 제목</h1>
+     <h2>1번째로 큰 제목</h2>
+     <h3>1번째로 큰 제목</h3>
+     <h4>1번째로 큰 제목</h4>
+     <h5>1번째로 큰 제목</h5>
+     <h6>1번째로 큰 제목</h6>
+
+     <!-- 2. 문단태그(paragraph)
+          - 형태 : <p> 
+          - 블록레벨 
+          - 문단을 만드는 태그
+          - 특징
+          (1) 띄어쓰기(공백)은 한칸만 적용됨    => &nbsp; 사용
+          (2) 줄바꿈(엔터)는 적용안됨           => <br> 사용
+          (3) 엔터는 스페이스바 한번으로 인식
+    -->
+
+    <p>
+        p태그p태그p태그
+        p태그p태그p태그
+        p태그p태그p태그
+    </p>
+
+    <!-- 3. 형식을 갖춘 문단(pre-formatted paragraph)
+         - 형태 : <pre>
+         - 블록 레벨
+         - 포맷(형식)을 가지고 있는 문단을 만드는 태그
+         - 사용자가 작성한 대로 나타남
+         => 즉, 엔터, 스페이스바가 먹힌다
+
+         * p와 pre의 차이점
+         (1) p는 줄바꿈시 특수기호와 태그가 필요하지만, pre는 상관없음
+         (2) pre는 p태그보다 텍스트의 굵기가 얇다
+    -->
+
+    <pre>
+        pre태그pre태그pre태그
+        pre태그pre태그pre태그
+        pre태그       pre태그pre태그
+    </pre>
+
+    <!-- 4. 줄바꿈과 엔티티코드
+         1) 줄바꿈 : <br> 
+         2) 엔티티코드 
+         - 특수문자
+         - html 구성요소와의 충돌 방지
+        (1) &lt;     : 작다(less than)  
+        (2) &le;      : 작거나 같다(less than equal)
+        (3) &gt;      : 크다(greater than)
+        (4) &ge;      : 크거나 같다(greater than equal)
+        (5) &nbsp;   : 띄어쓰기(공백)
+        (6) &amp;    : 엠퍼센트(&)
+    -->
+
+    &lt;
+    &le;
+    &gt;
+    &ge;
+    &nbsp;
+    &amp;
+
+    <!-- 5. 수평선태그
+         - 형태 : <hr>
+         - 문단을 의미(주제)적으로 분리하고자 할 때 사용
+    -->
+
+</body>
+</html>

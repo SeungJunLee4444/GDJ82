@@ -1,0 +1,24 @@
+1. 절댓값
+* -5의 절대값은 5다 
+
+2. 조건연산자로 절댓값 구하기
+int a = -5;
+int abs = (a < 0) ? -a : a; // => 조건연산자로 절댓값 구하기 
+System.out.println(a + "의 절대값은" + abs + "입니다");
+		
+* 조건 연산자는 ifelse대신 개발자가 자주쓴다, 시각적으로 보기 좋기 때문
+
+3. integer클래스로 최대최소값 구하기
+int max = Integer.MAX_VALUE;
+int mix = Integer.MIN_VALUE;
+
+4. 조건연산자 간편히 출력하기(삼항 연산문)
+(1)
+String check = (age > 20) ? "성인" : "미성년자";
+System.out.println(check);
+=> System.out.println(age >= 20 ? "성인" : "미성년자" + "입니다");
+
+(2)
+System.out.println(i * j == answer ? "정답" : "땡");
+
+5. 배열을 이용해 월과 일 구하기

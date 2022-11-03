@@ -1,0 +1,192 @@
+& 09 컬렉션 프레임워크
+* 다수의 데이터를 쉽고 간단하게 처리하기 위한 클래스의 집합으로,
+interface와 클래스로 구성된다
+
+------------------------------------------------------------------------------------------------
+
+1. 인터페이스의 구조와 각 특징
+* 구현해야할 컬렉션 인터페이스와 구현되어야할 컬렉션 클래스로 나뉜다
+
+1) Collection(부모인터) 
+(1) list(자식인터)
+=> 순서있게 저장(index 있음), 데이터(요소) 중복저장 가능
+=> ArrayList(배열만들기)를 구현 클래스로 주로 사용
+
+(2) set(자식인터)
+=> 순서없이 저장(index 없음), 데이터 중복저장 불가능
+=> HashSet(주로 사용), TreeSet
+
+2) Map<k, v>
+=> key와 value가 하나의 entry 데이터로서 저장되며, key는 변수역할을 한다
+* key는 중복되지않지만, value값은 중복될 수 있다
+=> HashMap, TreeMap, 
+
+* 주로 Arraylist와 Map을 자주 사용한다
+
+------------------------------------------------------------------------------------------------
+
+2. 입력타입
+1) Generic	: 구체화라 하며, 컬렉션의 객체를 생성할 때 타입을 
+		사용자가 직접 지정하는 것을 말한다
+
+2) Wrapper 클래스 : 기본타입 클래스를 타입으로 사용하고 싶을 때 참조하는 클래스
+=> Integer, Long, Byte, Character, Boolean, Float, Double
+
+------------------------------------------------------------------------------------------------
+
+3. List 인터페이스의 메서드
+* arraylist, 배열을 만드는데 자주 사용되는 인터페이스
+* 순서있게 저장되기 때문에, index값을 반영한 메서드를 사용한다
+
+1) 생성(add)
+ex) List<String> list = new ArrayList<String>();
+2) 추가 / 제거 / 제거된 내용 확인
+ex)
+list.add("월");
+
+3) 제거(remove) * 인덱스를 통한 제거와, 문자열 직접 제거 두가지가 있다
+(1) list.remove(0);
+(2) boolean result = list.remove("일");	
+
+4) 제거한 내용을 저장해서 확인
+String removeItem = list.remove(0);	
+System.out.println(removeItem);
+
+5) 수정
+list.set(0, "일");
+
+6) 리스트 초기화 작업
+* 배열을 리스트로 변환하는 과정을 말한다
+List<String> list = Arrays.asList("일", "월", "화", "수");
+
+* new Arraylist와 Arrays.asList의 차이
+=> Arraylist는 기본적으로 배열을 리스트화하는 것으로 이 때 새롭게 객체를 만들기 때문에,
+주소값이 기존 배열과 다르다
+
+=> aslist는 기존의 배열을 그대로 복사해 리스트화하기 때문에, 주소값이 같으며,
+배열의 길이를 조정할 수 없고(add.), 내용의 수정(set) 시 기존의 배열요소에도 영향을 준다(똑같이 수정)
+
+
+7) 리스트 길이
+int size = list.size();
+
+8) 개발요소 확인
+String element1 = list.get(0);
+
+9) for문 
+(1) 일반 for
+for(int i = 0; i < list.size(); i++) {
+	System.out.println(list.get(i));
+}
+=> size메서드가 4번 반복되는 비효율적인 형태
+for(int i = 0, length = list.size(); i < length; i++) {
+	System.out.println(list.get(i));
+}
+=> size 메서드를 한번만 작동하게 만든 개선된 형태 * 적극사용
+for(String element : list) {
+	System.out.println(element);
+}
+=> 향상 for문 *
+
+10) 비어있는 리스트
+ex) boolean result = list.isEmpty();
+
+11) 특정요소를 포함하고 있는지
+ex) 
+if(list.contains(4)) {
+	System.out.println("4를 포함한다");
+} else {
+	System.out.println("4를 포함하지 않는다");
+}
+
+------------------------------------------------------------------------------------------------
+
+4. Set 인터페이스의 메서드
+* 순서없이 값이 저장되기 때문에, 
+
+1) 생성
+ex) Set<String> set = new HashSet<String>();
+
+2) 추가
+ex) set.add("일");
+
+3) 제거
+ex) set.remove("일");	
+
+4) 세트의 초기화
+=> 리스트를 세트로 변환하는 방식으로 초기화
+ex) Set<String> set = new HashSet<String>(Arrays.asList("일", "월", "화", "수"));
+
+5) 세트의 길이
+ex) int size = set.size();
+
+6) 향상 for문
+ex) for(String element : set) {
+	System.out.println(element);
+
+7) 집합
+(1) 교집합(retain)
+ex) set1.retainAll(set2);
+(2) 합집합(addAll)	
+ex) set1.addAll(set2);
+=> (set1은 set2를 전부 더한값)
+(3) 차집합(removeAll)
+ex) set1.removeAll(set2);	
+=> 겹치는 부분을 제외한 집합을 말한다(set1은 set2를 전부 제외한값)
+(4) 부분집합(containAll)
+* 부분집합인지 아닌지, 참 거짓여부를 반환함
+ex) boolean result = set1.containsAll(set2);
+=> set2는 set1의 부분집합인지?
+
+8) 중복여부 필터링에 사용 *******************************************************************
+=> set이 중복된 값을 저장 못하는 특성을 이용
+* 방법: list를 set에 저장하고 다시 list에 저장
+
+(1) list 인터페이스로 배열만들기
+List<String> list = new ArrayList<String>();
+list.add("일");
+list.add("월");
+list.add("화");
+list.add("화");
+
+(2) set에 list의 요소를 저장
+Set<String> set = new HashSet<String>(list);
+=> 이 때, list의 특성(중복가능, 순서)가 사라진다
+		
+(3) list.clear();
+=> 기존 list의 모든 특성을 지운다
+
+(3) set을 다시 list에 저장
+list = new ArrayList<String>(set);
+=> set의 특성이 반영된 값이 다시 list에 저장된다
+
+-----------------------------------------------------------------------------------------
+
+5. Hashcode
+=> Integer타입의 십진수 주소값
+=> 많은 데이터를 효율적으로 조회하기 위해 사용된다
+=> 클래스에 hashcode() 메서드를 자동생성하여 사용한다
+
+
+
+
+& 기타
+1. <prac04> 
+ex) Tour(인터페이스), TourGuide(클래스) 
+Main에서 TourGuide의 객체로 Tour 인터페이스의 메서드를 부르기 위해서는? 
+
+TourGuide guide = new TourGuide(tour);
+guide.sightseeing(); 	
+guide.leisure();
+=> (1) TourGuide에 Tour 인터페이스를 필드값으로 선언하고,
+=> (2) 동일한 이름의 메서드를 만들어, 그 내용으로 tour 메서드를 넣으면 된다 
+
+2. return;
+ex) 
+public int sum (int a, int b) {
+ return a + b;
+}
+=> 객체.sum(5, 6)
+=> 11
+
+3. 인터페이스의 초기화는 왜 하는건가?

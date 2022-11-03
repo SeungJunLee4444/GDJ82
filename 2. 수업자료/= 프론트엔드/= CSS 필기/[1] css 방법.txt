@@ -1,0 +1,42 @@
+[1] css 방법
+- css는 html 문서에 스타일을 적용하는 언어
+
+1. css 지정방법
+1) internal : html 문서 안에 <head> 태그 안에 <style> 태그 생성
+ex)
+<head>
+	<style>
+		선택자(태그) {
+		css속성 : 값; css속성2 : 값2;
+		}
+	</style>
+</head>
+
+
+2) external : css 파일을 생성하여 <head> 태그에 경로 설정
+ex)
+<head>
+	<link rel="stylesheet" href="경로">
+</head>
+=> rel="stylesheet"는 무조건 작성(규칙)
+
+
+3) inline : html의 <body> 태그에 직접 style 속성을 지정
+* 가장 우선순위가 높은 적용방법(무조건 적용)
+* js로 css를 적용하면 inline 적용이 된다(=js로 적용하면 무조건 적용된다)
+
+ex)
+<body>
+	<태그 style=~></x태그>
+</body>
+
+
+2. css 방법에 따른 적용 우선순위
+1) 기본적으로는 inline 방식이 가장 높은 적용방법
+2) !important를 internal, external에 적용해 우선할 수 있으나 사용은 추천x
+
+* css 우선순위
+!important > inline > internal, external
+=> !important는 되도록 사용x
+
+

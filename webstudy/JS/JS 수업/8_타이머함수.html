@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머함수</title>
+</head>
+<body>
+    <script>
+        /*
+            [타이머함수]
+            1. 한번만 동작하는 타이머함수
+            1) 동작(호출)
+            var timer = setTimeout(동작할 함수, 시간(밀리초))
+            2) 동작취소
+            clearTimeout(timer);
+
+            2. 반복 동작하는 타이머함수
+            1) 동작(호출)
+            var timer = setInterval(동작할 함수, 시간(밀리초))
+            2) 동작 취소
+            cleartInterval(timer);
+
+            & 타이머함수는 변수에 저장해서 사용한다
+            & 밀리초 : 1000 = 1초
+
+            ----------------------------------------------------------------------
+            // & 타이머함수의 용도
+            // 일정 시간이 되면 알려주는 settimerout,(알람?)
+            // 시계를 만들어주는 setinerval,
+            // 일정 시간이 지나면 자동으로 작동을 멈춰주는 동작취소 함수들(알람?)
+            ----------------------------------------------------------------------
+        */
+
+        // 실습 : 한번만 동작하는 타이머함수
+        var timer = setTimeout(function() {
+            console.log('settimeout');
+        }, 5000);
+        // => 결과 : 5초 후에 settimeout 콘솔에 출력
+        
+        clearTimeout(timer);    // 실행자체가 안됨(단 1회도)
+        // => 함수선언이 호이스팅으로 인해 먼저 실행되기 때문에, 호출위치상관x
+
+        // 실습 : 반복 동작하는 타이머함수
+        var timer = setInterval(function() {
+            console.log('setinterval');
+        }, 3000);
+        // => 결과 3초마다 setinterval을 출력
+
+        clearInterval(timer);   // 실행안됨
+
+        // => 총 결과 : setinterval(3초) -> settimeout(5초) -> 이후 setinterval 반복
+    </script>
+
+    <!-- =============================================================================== -->
+
+    <div id="box1"></div>
+    <!-- <script>
+        // 연습 : 5 4 3 2 1 발사 , 1초마다 출력하는 타이머함수 구현하기
+        var countDown = 5;
+        setInterval(function() {
+            document.getElementById('box1').style['font-weight'] = '900'; 
+            if(countDown == 0) {
+                document.querySelector('#box1').textContent = '발사';   
+                return; // 함수의 작동정지에는 return 사용
+            }
+            document.getElementById('box1').textContent = countDown--;
+        }, 1000); -->
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    <div id="box2"></div>
+    <script>
+        // 연습 : 5 4 3 2 1 발사 , 1초마다 출력하는 타이머함수 구현하기
+        // 단, settimeout으로 하기
+        var countDown2 = 5;
+        function launch() {
+        setTimeout(function(){
+            if(countDown2 == 0) {
+                document.getElementById('box2').textContent = '발사';
+            }
+            document.getElementById('box2').textContent = countDown2--;
+            launch();
+        }, 1000);
+        }
+        // launch();
+
+        // & settimeout는 한번만 작동하기 때문에, 해당 함수를 사용후, 다시 호출해주는 것이
+        // 관건이다
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    <script>
+        // 연습 : 재귀함수 이해하기????????????????????????????????????????????????
+        // 재귀함수(factorial)
+        // - 정의           : 1부터 어떤 양의 정수 n까지 정수를 모두 곱한 것을 말한다
+        // - 표기법(변수)   : n
+
+        // & 재귀호출 : 자기함수를 다시 부름
+        // => 콜백함수는 함수를 인수로 전달하고, 매개변수로 함수를 받는것을 말한다
+        /*
+            5! = 5 * 4 * 3 * 2 * 1
+            4! = 4 * 3 * 2 * 1
+            3! = 3 * 2 * 1
+            2! = 2 * 1
+            1! = 1
+            -----------------------
+            5! = 5 * 4!
+            4! = 4 * 3!
+            3! = 3 * 2!
+            2! = 2 * 1!
+            1! = 1
+        */
+
+        // 함수 선언
+        function factorial(n) {
+            if(n == 0) {
+                return 1; 
+                // 1을 리턴하고 종료
+            }
+            var result = n * factorial(n - 1);  
+            // console.log(result);                // 1, 2, 6, 24, 120 => 재귀함수라 반복문처럼 조회된다
+            return result;                      
+        }
+
+        // r
+        // result
+
+        // 함수 호출
+        var a = factorial(5);    // 1, 2, 6, 24, 120 왜 둘의 값이 다른가?
+
+        console.log(a);         // 120
+        
+    </script>
+    
+</body>
+</html>

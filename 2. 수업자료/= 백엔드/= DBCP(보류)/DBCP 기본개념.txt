@@ -1,0 +1,56 @@
+[DBCP]
+
+& dbcp 코드 특징
+1. 톰캣 jdbc.jar을 외부라이브러리에 추가 + ojdbc.jar
+2. db에 직접 접근하는 dao에 jdbc가 코드가 들어간 형태
+3. database객체를 통해 jdbc보다 효율적으로 해당 커넥션을 요청가능
+
+################################################
+1. 개념
+- 이름 : db 커넥션 풀
+- database connection pool
+- 커넥션 풀 : db에 접근시 매번 driver을 로드하는 비효율적 방법 대신,
+필요한 connection을 미리 여러개 만들어두고 DataSource를 통해서 사용하는 방식
+
+2. 동작방식
+1) 미리 connection을 여러개 생성해둠
+2) connection 요청이 들어오면 connection pool에 있는 connection을 하나 제공해줌
+3) connection 요청이 끝나면 다시 connection을 회수함
+
+& client - connection pool(connection 보유) - db
+
+3. dbcp 사전세팅
+1) dbcp 라이브러리
+- 톰캣 라이브러리의 tomcat-dbcp.jar
+
+2) context.xml
+- connection pool 설정에 필요한 정보를 context.xml에 작성해야한다
+- 위치 : web root/meta-inf/context.xml 생성(meta-inf 폴더 내 context.xml 파일 생성)
+- 형태
+<Resource								& 예시
+(1) auth : 자원관리 주체(container/application)					,Container
+(2) name : JNDL 이름 (context의 lookup() 으로 검색				, jdbc/oracle11g
+(3) type	: resource이름							, javax.sql.DataSource
+(4) driverClassName : JDBC 드라이버이름					, oracle.jdbc.OracleDriver
+(5) url : 데이터베이스 커넥션 url						, jdbc:oracle:thin:@localhost:1521:xe
+(6) usename : 데이터베이스 사용자						, SCOTT
+(7) password : 데이터베이서 비밀번호						, TIGER
+(8) maxTotal : DataSource로부터 꺼낼 수 있는 최대 connection(기본8개)		, 8
+(9) maxIdle   : 최대로 유지하는 connection(기본8개)				, 2
+(1) maxWait : 남은 connection이 없을때 connection 반납을 기다리는 최대 밀리초	,  5000
+/>
+
+4. JNDL
+- 서버의 특정 resource를 찾는 방식
+- java EE서버에서 resource를 찾는경우 정해진 기본이름이 있음
+
+2) dbcp에 사용되는 jndl
+(1) java:comp/env/jdbc(jndl이름)  : JDBC DataSource를 의미
+- 용도 : dbcp설정이 저장된 resource를 찾는경우 사용해야 하는 jdnl이다
+
+3) DataSource 객체 생성시 JNDL이 필요
+- context.xml에 작성한 <resource> 태그의 name 속성이 필요함
+
+ex) 
+context.xml의 name 속성	: jdbc/oracle11g
+datasource 객체 생성 	: dataSource = (DataSource)context.lookup("java:comp/env/jdbc/oracle11g")

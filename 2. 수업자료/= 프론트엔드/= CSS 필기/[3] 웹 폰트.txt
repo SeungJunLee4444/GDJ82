@@ -1,0 +1,41 @@
+[3] 웹 폰트
+
+1. <link> 태그를 이용한 구글폰트 사용(internal 방식, html내부에 넣는 방식)
+1) link 태그를 복붙		=> <head> 태그 안에 넣기
+2) css 속성 font-family 복붙  => <style> 태그 안에 넣기
+
+ex)
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+   <style>
+        h1 {    
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+   </style>
+
+</head>
+<body>
+         <h1>안녕하세요</h1>
+</body>
+
+2. @import를 이용한 구글폰트 사용(external방식)
+* css파일을 분리해 사용하는 방식이기 때문에 추천됨
+(html 내부에 style 태그 안에 사용해도 작동함)
+1) css 파일생성
+2) css파일 상단에 @import + font-family 복붙
+3) <link> 태그를 이용해 css 파일 포함
+*  <link rel="stylesheet"  href="05_webfont.css">
+=> 무조건 rel="stylesheet"작성
+
+ex)
+(1) css 파일
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+p {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+(2) html 파일에 링크
+ <link rel="stylesheet"  href="05_webfont.css">

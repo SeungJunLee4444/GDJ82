@@ -1,0 +1,31 @@
+1. form의 경로 작성과 전송방법
+=> 데이터 전송을 위해서는
+(1) form의 경로 작성과 전송방법을 꼭 작성하고
+(2) 각 전송할 태그에 name 속성을 꼭 부여해야한다
+
+2. th태그
+=> tr의 하위태그로 가운데 정렬, 글자 굵게 특징을 가지고있다
+=> 보통 thead태그에 쓰지만 다른 태그에서도 사용할 수 있다
+* th는 가운데정렬, td는 왼쪽 정렬
+
+3. 리셋버튼
+=> 리셋버튼의 이름부여는 value 속성으로 한다
+ex) <input type="reset" value="다시작성">
+=> '다시작성' 이름의 버튼 생성
+
+* 이런 특성은 submit 타입, button 타입도 마찬가지
+ex) 
+<input type="submit" value="서브밋">
+<input type="reset" value="입력초기화">
+<input type="button" value="클릭" onclick="alert('아야')">
+
+4. 이미지에 링크 부여
+ex)
+<a href="https://www.naver.com">
+      <img alt="네이버로고" src="../../images/naver.png" width="150">
+</a>
+
+4. select에서 데이터 전송을 위한 값은 <option>의 value 속성에 작성
+
+5. 전송 외의 기능을 가진 버튼은 <input type=button>으로 생성
+ex) <input type="button" value="인증번호받기"><br>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제이쿼리</title>
+    <!-- & 제이쿼리 사용시 세팅 -->
+    <!-- 1. 다운받은 제이쿼리 파일 포함하기 -->
+    <script src="jquery-3.6.1.min.js"></script>
+    <!-- 2. 제이쿼리 cdn 포함하기 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+    <script>
+        /* 
+            [제이쿼리]
+            1. 제이쿼리 사용법
+            - 형태 : $(), jquery wrapper라 한다
+            => ()괄호로 감싼 대상은 jquery 기능을 사용할 수 있다
+            - dom 처리 : $()와 selector
+                (1) $('#box')   = document.getElementById('box')
+                (2) $(''.box')  = document.getElementByClassName('box')
+                (3) $('div')    = document.getElementByTagName('div')
+        */
+    </script>
+
+    <script>
+        /*
+            2. 제이쿼리 메서드
+            1) textContent
+                $().text()                      DOM.textContent
+                $().text('안녕')                DOM.textContent = '안녕'
+            2) innerHTML
+                $().html()                      DOM.innerHTML
+                $().html('<a href="#"></a>')    DOM.innerHTML = '<a href="#"></a>'
+                ? : 제이쿼리는 그럼 기존 태그에 어떻게 추가함?
+
+            3) getAttribute, setAttribute
+                $().attr('class')               DOM.getAttribute('class')
+                $().attr('class', 'box')        DOM.setAttribute('class', 'box')
+            4) className
+                $().prop('className')           DOM.className
+                $().prop('className', 'box')    DOM.className = 'box'
+            5) style(접근법이 마침표. 또는 []대괄호)
+                $().css('width')                DOM.style.width 또는 DOM.style['width']
+                $().css('width', '10px')        DOM.style.width = '10px' 또는 DOM.style['width'] = '10px'
+        */
+    </script>
+
+    <!-- 실습 -->
+    <div id="box1">hello world</div>
+    <script>
+        console.log($('#box1').text());
+        $('#box1').text('안녕 제이쿼리');
+    </script>
+
+    <div id="box2"><a href="#">클릭</a></div>
+    <script>
+        console.log($('#box2').html());
+        $('#box2').html('<h1>Hello World</h1>');
+    </script>
+
+    <div id="box3">
+        <input type="checkbox">
+        <input type="radio">
+    </div>
+    <script>
+        // attr()
+        console.log($('#box3 input[type=checkbox]').attr('checked'));   // undefined
+        $('#box3 input[type=checkbox]').attr('checked', 'checked');
+        console.log($('#box3 input[type=checkbox]').attr('checked'));   // checked
+
+        // prop()
+        console.log($('#box3 input[type=radio]').prop('checked'));      // false
+        $('#box3 input[type=radio]').prop('checked', true);
+        console.log($('#box3 input[type=radio]').prop('checked'));      // true
+
+        
+    </script>
+
+        <!-- & attr()과 prop()의 차이
+        1. attr() : 속성값이나 정보를 조회(실제 속성값)
+        => ex) 만약에 요소에 checked 속성이 부여되있다면?
+        => 있으면 checked 반환, 없으면 undefined반환
+
+        2. prop() : 속성의 상태나 활성화, 체크여부를 제어
+        => 값을 true, false로 반환
+
+        // & 같은 속성이지만 반환하는 값이 다르다
+        -->
+
+
+<body>
+</body>
+</html>

@@ -1,0 +1,74 @@
+[13] sementic 시멘틱 설계
+- 홈페이지를 구분하는 데에는 영역구분이 필요
+- 별도의 의미가 없는 div대신, 의미가 담긴 header, nav, section, footer 등의 semetic 요소들 이용해
+  홈페이지의 영역을 구분해 설계하는 것을 시멘틱 방식이라 한다
+- div와 마찬가지로 sementic요소들은 특별한 기능이 없으며, 영역 구분에 사용된다
+
+1. 종류
+1) header		: 제목
+
+2) nav		: 목록
+ex)
+ <nav>
+        <ul class="gnb">					(gnb는 global navigation block)
+            <li><a href="javascript:void(0)">menu1</a></li>
+            <li><a href="javascript:void(0)">menu2</a></li>
+            <li><a href="javascript:void(0)">menu3</a></li>
+            <li><a href="javascript:void(0)">menu4</a></li>
+            <li><a href="javascript:void(0)">menu5</a></li>
+        </ul>
+    </nav>
+=> 목록을 만들고, 링크를 달아 클릭시 이동할 수 있도록 만듬
+
+3) section	: 본문의 그룹화
+   (1) article	: 주제에 따른 본문들
+
+ex)
+ <section class="main_section">
+        <section class="left_section">
+            <!-- 5. 핵심적인 내용은 article -->
+            <article>
+                <h2>title1</h2>
+                <p>description1</p>
+                <div class="img"></div>
+                <p>content1</p>
+            </article>
+            <article>
+                <h2>title2</h2>
+                <p>description2</p>
+                <div class="img"></div>
+                <p>content2</p>
+            </article>
+        </section>
+        <section class="right_section">
+            <article>
+                <h2>title3</h2>
+                <div class="img"></div>
+                <p>content3</p>
+            </article>
+            <article>
+                <h2>title4</h2>
+                <div class="img"></div>
+                <div class="img"></div>
+                <div class="img"></div>
+            </article>
+            <article>
+                <h2>title5</h2>
+                <p>description5</p>
+                <p>content5</p>
+            </article>
+        </section>
+    </section>
+=> 부모 section과 자식 section을 구분하여 수평 레이아웃을 고려할 것
+=> section은 본문 내용의 그룹화, article은 실제 본문에 담길 컨텐츠를 담을 태그
+
+4) footer		: 하단
+- 저작권, 전화번호 등 정보가 담김
+
+5) aside
+- 주요 컨텐츠 외에 내용을 담는 공간
+- header, section과 별도의 영역에 위치
+
+6) position
+- html 문서상에서 어떤 요소를 특정한 위치에 둘지 결정해주는 속성이다
+

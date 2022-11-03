@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <!-- # mybatis cofiguration xml문서 설정
+       - 작성방법 : mybatis 홈페이지의 문서 참고
+       - 참고 : https://mybatis.org/mybatis-3/ko/configuration.html
+   -->
+
+<!-- # configuration : 모든 태그는 <configuration> 태그 안에   -->
+<configuration>
+
+<!-- #) 1 db.properties 파일 경로 설정
+		 - 해당 태그 내부에 작성할수도 있으며, 외부의 파일을 참고할수도 있다-->
+	<properties resource="mybatis/config/db.properties"></properties>
+
+
+
+<!-- #) 2 setting : 각종 설정
+	     - <setting name="mapUnderscoreToCamelCase" value="true"/>
+	     - 해석 : sql문의 칼럼명 형태를 자바의 카멜 케이스 형태로 자동 맵핑해주기-->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	
+	
+	<!-- # typeAliases : xml문서(mybatis의 쿼리문작성장소)에서 사용될 자바타입에 대한 별명 붙이기
+		 - 해석 : domain폴더의 Board 클래스를 Board로 간단히 부르겠드는의미
+		 * 어디까지나 자바의 dto인 Board를 xml문서 내에서 Board로 줄여부르는데에만 사용된다
+	 -->
+	<typeAliases>
+		<typeAlias type="domain.Board" alias="Board" />
+	</typeAliases>
+
+	
+	<!-- #) 3 environments : 환경설정
+	     - 홈페이지에 있는 정의코드를 그대로 가져오면된다-->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	
+	<!-- #) 4 mapper : 매핑할 sql문서 설정하기 
+		 - mapper 폴더의 board.xml문서로 설정 : 해당 위치에서 sql 쿼리문 작성-->
+	<mappers>
+		<mapper resource="mybatis/mapper/board.xml"/>
+	</mappers>
+
+</configuration>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- [앵커(링크)태그]
+         - 종류 : <a> , <map>
+         - 인라인레벨
+         - 속성
+         (1) href       : 이동할 경로   (src는 가져오는 경로, href는 이동경로)
+         (2) title      : 풍선 도움말(마우스를 대면 나타나는 메시지)
+         (3) target     : 어떤 창으로 이동할 것인가?
+                (1) _self  : 현재 창에서 이동(디폴트)
+                (2) _blank : 새로운 창에서 이동
+
+         (4) href="#id" : 해당 페이지 내에서 바로가기 링크
+ -->
+    <!-- - 링크의 종류 -->
+
+         <!-- 1) 비어있는 링크  -->
+         <a href="#">비어있는링크</a>
+         <a href="javascript:void(0)">비어있는링크2(완전 아무일도없음)</a>
+         
+         <hr>
+
+         <!-- 2) 웹 링크 -->
+         <a href="https://www.naver.com" title="네이버" target="_blank">네이버</a>
+
+         <!-- 3) 이미지 링크 
+              => 이미지를 누르면 해당 링크로 이동
+        -->
+         <a href="https://www.naver.com" title="naver" download="">
+            <img alt="네이버" src="../학습용이미지/naver.png" width="400px">
+         </a>
+
+         <!-- 4) 파일링크 
+         - 특정 파일, 문서를 웹상에 실행시키는 링크
+         & vscode 익스플로러에서 파일이 위치한 폴더를 호출하지않으면 실행되지않는다
+         & 경로는 상대경로
+
+        -->
+         <a href="../a.txt">오버뷰</a>
+
+         <!-- 5) 바로가기링크
+              - 같은 문서 안에서 특정 위치로 바로 이동
+              - href="#id명"를 활용
+
+              & 방법 : a링크의 href 속성에 다른 태그의 id속성을 검
+        -->
+        <p>
+            <a href="#image">이미지</a>
+            <a href="#content">내용</a>
+            <a href="#description">세부사항</a>
+        </p>
+
+        <p id="image">
+            <img src="../학습용이미지/apple.jpg" width="500px">
+        </p>
+
+        <p id="content">
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+            맛있는 사과가 한 개 1000원<br>
+        </p>
+
+        <p id="description">
+            원산지  : 청송사과<br>
+            품종    : 부사<br>
+        </p>
+
+        <!-- 6) 이미지 일부 링크
+             - 이미지의 일부에 링크 생성
+             - <img> 태그와 <map> 태그를 이용
+
+             - 형태
+             <img alt="오류문" src="파일경로">
+             <map name="맵이름">
+                <area shape="모양" href="이동경로" coords="좌표"
+             </map>
+             => img의 usemap 속성과 map의 name 속성을 연결
+             => map의 자식태그 area태그를 통해 이미지의 일부 범위를 설정
+
+             - map의 속성
+             (1) shape  : rect(사각형), circle(원)
+             (2) coords : 
+                    <area shape="rect" coords="왼쪽상단x, 왼쪽상단y, 오른쪽하단x, 오른쪽하단y">
+                    <area shape="circle" coords="원의중점x, 원의중점y, 반지름">
+
+
+        -->
+        <img usemap="#domino" src="../학습용이미지/dominopizza.jpg" alt="도미노">
+        <map name="domino">
+            <area shape="rect" href="https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101" coords="290 2020 900 2200" target="_blank" title="도미노">
+            <area shape="circle" href="https://web.dominos.co.kr/main" coords="818 641 85">
+        </map>
+
+        <!-- 주의점
+        (1) map 사용시 image의 크기 조정을 피해야한다(크기가 조정되면 좌표도 달라지기때문)
+        (2) map 태그도 앵커(링크) 태그로, a태그의 속성인 target과 title을 사용할 수 있다
+        -->
+
+        <!-- #을 사용한 앵커태그(개인적인 해석)
+        - 바로가기링크 : 각 택스트에 id를 부여하고, a링크에 앵커를 건 느낌
+        - map랭크      : map태그에 특정 좌표를 만들어, img 링크에 앵커를 건 느낌
+        => 이동하는 위치가 아니라, 클릭해야하는 기점에 #를 사용한다
+        -->
+    
+   
+    
+</body>
+</html>

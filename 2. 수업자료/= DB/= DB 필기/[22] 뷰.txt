@@ -1,0 +1,34 @@
+[22] 뷰
+* 용도 : 자주 사용하는 쿼리문을 뷰로 만들어서 조회
+* 가상 테이블, 디스크에 저장된 테이블이 아님
+* SELECT 문을 사용									& 문
+* 성능상 이점은 없지만, 보안상 이점은 있음
+* 과도한 조인이 걸릴때 사용
+
+* 사용자함수, 뷰 => SELECT문 사용
+
+CREATE VIEW 뷰이름 AS (쿼리문)		
+
+
+
+* INDEX와 뷰의 차이								& 차이
+=> INDEX : CREATE INDEX INDEX명 ON 테이블(칼럼)
+=> CREATE VIEW 뷰이름 AS (쿼리문)
+
+1) 뷰 생성
+CREATE VIEW VIEW_EMP
+	AS SELECT E.EMP_NO, E.NAME, E.DEPART, D.DEPT_NAME, E.GENDER, E.POSITION, E.HIRE_DATE, E.SALARY
+                  FROM DEPARTMENT D INNER JOIN EMPLOYEE E
+                      ON D.DEPT_NO = E.DEPART); 
+		* 직원과 부서 테이블의 이너 조인된 쿼리문을 뷰로 생성
+
+2) 뷰 확인
+SELECT * FROM VIEW_EMP;
+
+3) 뷰 삭제
+DROP VIEW VIEW_EMP;
+
+4) 사용자가 작성한 VIEW를 확인하기위한 데이터 사전
+데이터사전 : DESC USER_VIEWS;							& 뷰 조회(DESC)
+뷰이름과 내용까지 조회 : SELECT VIEW_NAME, TEXT
+	FROM USER_VIEWS;

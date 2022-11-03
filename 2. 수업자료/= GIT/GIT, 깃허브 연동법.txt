@@ -1,0 +1,49 @@
+
+ 원격저장소 - github.com의 특정 레파지토리(저장소)
+
+    ↑
+
+ 로컬저장소 - PC의 특정 폴더
+
+
+ 1. 로컬 레파지토리 만들기
+    1) C:GDJ 디렉터리로 이동한다.
+       cd C:/GDJ
+    2) 로컬 레파지토리로 만든다.
+       git init
+ 2. 사용자 등록하기
+    1) 사용자 이름    git config user.name 'name'
+    2) 사용자 이메일  git config user.email 'email'
+ 3. 스태이징하기
+    1) git add 파일명 - 특정 파일만 스태이징하기
+    2) git add . - 모든 파일을 스태이징하기
+ 4. 커밋하기
+    1) git commit
+    2) vim 편집기가 열림
+    3) a를 눌러서 추가모드로 진입
+    4) 간단한 commit message 작성하고 ESC 눌러서 추가모드종료
+    5) :wq 눌러서 vim 편집기에서 빠져 나옴
+    * 혹은
+    1) git commit -m '커밋메시지'
+ === 여기까지가 로컬 레파지토리 작업 ===
+
+ 1. 원격 레파지토리 만들기
+    1) github.com 회원가입 및 로그인
+    2) Create Repository
+        (1) name : GDJ
+        (2) view : public
+        (3) add README.md
+        (4) add .gitignore
+ 2. 원격 레파지토리 주소 확인
+    https://github.com/goodeeit/GDJ54.git
+ 3. Personal - Access - Token 만들기
+    만든 다음 메모장에 보관해 둬야 함.
+ === 여기까지가 원격 레파지토리 작업 ===
+
+ === 다시 로컬 레파지토리에서 작업 ===
+ 1. 원격 레파지토리 등록하기
+    git remote add origin '원격 레파지토리 주소'
+ 2. 원격 레파지토리 내용을 로컬 레파지토리로 내려 받기
+    git pull origin main --allow-unrelated-histories
+ 3. 업데이트 된 로컬 레파지토리 내용을 원격 레파지토리로 올리기
+    git push origin main

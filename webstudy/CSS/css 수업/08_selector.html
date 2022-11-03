@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- & 정리
+        (1) 태그선택자          : 태그명
+        (2) class 선택자        : .클래스명
+        (3) id 선택자           : #아이디명
+        (4) 자식 선택자         : 부모 > 자식
+        (5) 후손 선택자         : 할아버지 자식(한칸 공백)
+        (6) 모든 형제 선택자    : 태그1 ~ 태그2         => 태그1과 형제인 태그2 전부(태그1제외)
+        (7) 인접 형제 선택자    : 태그1 + 태그2         => 태그1의 인접형제인 태그2  
+        & 인접형제는 태그의 종류는 전혀 상관이 없다(태그종류 상관없이 그냥 옆에서부터 순서)
+        (8) 구조선택자          : 태그:first-of-type(해당 태그의 첫번째 태그)
+                                : 태그:last-of-type(해당 태그의 마지막태그) 
+                                : 태그:nth-of-type(n)(해당 태그의 n번째 태그)
+
+        (9) 속성선택자          : 요소[속성명]  / 요소[속성명=속성값]
+        (10) 마우스 반응 선택자 : :hover(마우스를 고르고 있는 동안), active(마우스를 누르고 있는 동안)
+        (11) 상태 선택자        : 텍스트창, 또는 체크박스에서 사용된다
+                                : :checked(체크박스를 체크했을때), :focus(택스트창을 선택했을때)
+
+        & 인접형제(+)는 태그의 종류가 상관없다
+        & :nth-child(n)은 태그의 종류가 상관없으며, 인접형제(+와 동일하게 기능한다)
+        & 구조선택자 태그는 태그의 종류가 동일한 경우에 사용된다
+
+        & 자식태그(종류 상관없이 전부) : div > *(이거 사용해도되나?)
+        & 인접형제의형제의형제              : div + span + div + p  => div의 형제에, span의 형제에, div의 형제인 p태그
+
+    
+    
+    
+    -->
+
+
+    <style>
+            /* 1. 태그 선택자 */
+            h1 {
+                color: chartreuse;
+            }
+
+            /* 2. class 선택자 */
+            .box {
+                background-color: palegoldenrod;
+            }
+
+            /* 3. id 선택자 */
+            #Hello {
+                color: violet;
+            }
+
+    </style>
+
+    <h1>Hello CSS</h1>
+
+    <hr>
+
+    <div class="box">Nice to meet yoy</div>
+
+    <hr>
+
+    <div id="Hello">How are toy?</div>
+
+    <hr>
+    <!-- 4. 자식선택자 -->
+    <!-- * 관계 : li는 ul의 부모, a는 ul의 자손 -->
+    <ul>
+        <style>
+            /* 1) ul의 자식 li */
+            ul > li {
+                color: orange;
+            }
+            /* 2) ul의 후손 a */
+            ul  a {
+                color: red;
+                text-decoration: none;
+            }
+
+           
+        </style>
+        <li>
+            <a alt="" href="01_internal.html" target="_blank">01_internal.html</a>
+        </li>
+        <li>
+            <a href="02_externa.html">02_externa.html</a>
+        </li>
+        <li>
+            <a href="03_inline.html">03_inline.html</a>
+        </li>
+    </ul>
+
+    <style>
+        /* 5. 후손 선택자(=4)2) */
+        /* ex) dl의 후손 strong */
+        dl strong {
+            color: purple;
+        }
+        
+    </style>
+
+    <dl>
+        <dt>
+            <strong>이름</strong>
+        </dt>
+        <dd>진라면</dd>
+        <dt>
+            <strong>조리법</strong>
+        </dt>
+        <dd>4분간 끓인다</dd>
+    </dl>
+
+
+    <style>
+        /* 6. 모든 형제 */
+        /* ex) class asia의 자식 h3의 형제 모든 div */
+        .asia > h3 ~ div {
+            color: aqua;
+        }
+    </style>
+
+    <div class="asia">
+        <h3>아시아</h3>
+        <div>한국</div>
+        <div>일본</div>
+        <div>중국</div>
+    </div>
+
+    <style>
+        /* 7. 인접형제 */
+        /* ex) h3와 인접한 div(영국)만 해당 */
+        .europe > h3 + div + h3 + div {
+            color: tomato;
+        }
+
+        .europe > h3:nth-child(3) {
+            color:pink;
+        }
+    </style>
+
+    <div class="europe">
+        <h3>유럽</h3>
+        <div>영국</div>
+        <h3>중국</h3>
+        <div>프랑스</div>
+        <div>독일</div>
+    </div>
+
+
+
+    <style>
+        /* 8. 구조 선택자 
+             - 자식 태그에서 원하는 태그를 선택해 지정
+             1) :first-of-type   : 첫번째 요소
+             2) :last-of-type    : 마지막 요소
+             3) :nth-of-type(n)  : n번째 요소
+        */
+        /* h4의 인접형제 ol의 자식태그 li 2번째 요소 */
+        h4 + ol > li:nth-of-type(2) {
+            color: skyblue;
+            font-weight: 900;
+        }
+        ol > li:first-of-type {
+            color:red;
+        }
+
+        ol > li:last-of-type {
+            color:red;
+        }
+        
+    </style>
+
+
+    <h4>오늘 먹을 점심 메뉴</h4>
+    <ol>
+        <li>돈가스</li>
+        <li>냉면</li>
+        <li>김치찌개</li>
+        <li>두루치기</li>
+    </ol>
+
+    <style>
+        /* 9. 속성 선택자 
+         - 속성, 또는 속성값을 입력해 특정 요소를 선택
+
+         1) 요소[속성의 이름]   : 속성을 가진 '요소'            * 1, 2를 주로 사용
+         2) 요소[속성=값]       : 속성=값인 '요소'              *
+         3) 요소[속성^=값]      : 속성이 값으로 시작하는 요소
+         4) 요소[속성$=값]      : 속성이 값으로 끝나는 요소     * <img> 태그의 src 속성값의 확장자를 이용할 때
+         5) 요소[속성*=값]      : 속성이 값을 포함하는 요소
+        */
+        form > input[placeholder] {
+            color: seagreen;
+        }
+        form > input[type=password] {
+            color: tomato;
+            background-color: navajowhite;
+        }
+    </style>
+
+    <form>
+        <input type="text" placeholder="ID" name="id"><br>
+        <input type="password" placeholder="PW" name="pw">
+    </form>
+
+    <hr>
+
+    <style>
+        /* 10 마우스 반응 선택자
+             1) :active  : 마우스를 누르고 있는 동안
+             2) :hover   : 마우스를 가져다 대는 동안
+        */
+        .link:hover {
+            color:rosybrown;
+        }
+        .link:active {
+            color: orange;
+        }
+        /* 순서는 hover - active 순으로 사용할 것 */
+    </style>
+    
+
+    <a class="link" href="javascript:void(0)">클릭</a>
+
+
+    
+    
+    <style>
+        /* 11. 상태 선택자  
+        1) focus       : 선택했을 때
+        2) checked     : 체크했을 떄
+        */
+        
+        #c:focus {
+            /* background-color: red; */
+            border: 3px solid yellow;
+            /* border-collapse: none; */
+            outline: none;
+            /* & 텍스트창 선택시 강조되는 검은줄 삭제*/
+            
+        }
+        /* .register > div > input[name=gender]:checked + label {
+            font-weight: 900;
+
+        } */
+
+
+        .register input[name="gender"]:checked + label {
+            font-weight: 900;
+        }
+        /* 현재로는 css접근에서 부모 선택자는 존재하지않는다 */
+
+    </style>
+
+    <form class="register">
+        <div>
+            <label for="c">성명</label>
+            <input type="text" id="c">
+        </div>
+        <div>
+            <label for="a">
+                <input type="radio" id="a" name="gender" value="1">
+                남자
+            </label>
+            <input type="radio" id="b" name="gender" value="2">
+            <label for="b">여자</label>
+        </div>
+    </form>
+
+
+
+
+
+</body>
+</html>

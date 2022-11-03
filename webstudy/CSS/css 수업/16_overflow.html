@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- &
+        [overflow]
+        - 요소 내에 컨텐츠가 너무 커서 블록의 범위를 벗어날 경우, 깔끔하게 보여줄 방법을 가진 속성
+        - 종류
+        (1) visible     : 기본값, 넘칠경우 컨텐츠가 상자 밖에서 보여짐
+        (2) hidden      : 넘치는 부분은 잘려서 보여지지 않음
+        (3) scroll      : 스크롤바를 추가(가로세로 모두 추가)
+        (4) auto        : 컨텐츠 양에 따라 스크롤바를 추가할지 자동으로 결정
+        - 텍스트창에 스크롤을 생성
+
+        - width, height로 상자 크기를 조정
+    
+    
+    -->
+    <div class="box1">
+        Vestibulum ut elementum odio, et euismod odio. Mauris tellus erat, scelerisque fermentum bibendum vel, interdum ac diam. Nulla porttitor imperdiet commodo. Nam viverra iaculis leo ornare consequat. Nunc eu lectus suscipit turpis condimentum convallis. Morbi pellentesque interdum venenatis. Donec volutpat eros vitae magna iaculis, nec maximus risus volutpat. Duis sed cursus erat, sit amet congue lectus. Vivamus rutrum in dolor et tincidunt. Suspendisse vestibulum mauris quis vestibulum tincidunt. Nullam lacinia, orci in lacinia molestie, mi est bibendum mi, in imperdiet orci quam sit amet metus.
+    </div>
+
+    <hr>
+
+    <div class="box2">
+        Vestibulum ut elementum odio, et euismod odio. Mauris tellus erat, scelerisque fermentum bibendum vel, interdum ac diam. Nulla porttitor imperdiet commodo. Nam viverra iaculis leo ornare consequat. Nunc eu lectus suscipit turpis condimentum convallis. Morbi pellentesque interdum venenatis. Donec volutpat eros vitae magna iaculis, nec maximus risus volutpat. Duis sed cursus erat, sit amet congue lectus. Vivamus rutrum in dolor et tincidunt. Suspendisse vestibulum mauris quis vestibulum tincidunt. Nullam lacinia, orci in lacinia molestie, mi est bibendum mi, in imperdiet orci quam sit amet metus.
+    </div>
+
+    <hr>
+
+    <div class="box3">
+        Vestibulum ut elementum odio, et euismod odio. Mauris tellus erat, scelerisque fermentum bibendum vel, interdum ac diam. Nulla porttitor imperdiet commodo. Nam viverra iaculis leo ornare consequat. Nunc eu lectus suscipit turpis condimentum convallis. Morbi pellentesque interdum venenatis. Donec volutpat eros vitae magna iaculis, nec maximus risus volutpat. Duis sed cursus erat, sit amet congue lectus. Vivamus rutrum in dolor et tincidunt. Suspendisse vestibulum mauris quis vestibulum tincidunt. Nullam lacinia, orci in lacinia molestie, mi est bibendum mi, in imperdiet orci quam sit amet metus.
+    </div>
+
+    <style>
+        .box1 {
+            width: 250px;
+            height: 50px;
+            border: 1px solid gray;
+            overflow: scroll;
+            /* 가로세로 스크롤바가 생성 */
+
+        }
+        .box2 {
+            width: 200px;
+            height: 100px;
+            border: 1px solid gray;
+            overflow-x: scroll;
+            /* overflow-y: scroll; */
+            /*  &
+                (1) overflow-x: 가로세로 스크롤바 생성
+                (2) overflow-y: 세로 스크롤바만 생성
+            */
+        }
+        .box3 {
+            width: 200px;
+            height: 50px;
+            border: 1px solid gray;
+            overflow: hidden;
+            /* (3) overflow : hidden
+            => 영역을 벗어나면 지움
+            */
+        }
+    </style>
+
+    <hr>
+
+    <!-- 4. overflow를 통해 부모, 자식 블록 숨기기
+    => 일반적으로 자식블록이 부모블록 사이즈를 넘어서면 웹 상에 표시되나,
+    overflow : hidden을 사용하면 부모블록을 넘어선 범위는 안보이게 된다
+    -->
+  
+    <style>
+        .box4 {
+            width: 200px;
+            height: 50px;
+            border: 1px solid green;
+            /* 4. overflow : hidden
+            => 영역을 벗어난 박스들도 지울 수 이음
+            */
+            overflow: hidden;
+        }
+
+        .box4 > div {
+            width: 300px;
+            height: 100px;
+            border: 1px solid red;
+        }
+
+    </style>
+
+    <div class="box4">
+        <div>BOX1</div>
+        <div>BOX1</div>
+        <div>BOX1</div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼</title>
+</head>
+<body>
+
+    <!-- [폼 : 버튼을 이용한 서브밋과 서브밋 방지이벤트] 
+    - js를 이용한 이벤트 함수 부여
+    (1) event.preventDefault : 다음페이지로 넘어가는 실행을 막아줌(ex 서브밋 방지)
+    (2) 
+    -->
+
+    <!-- & 1번과 2번의 차이
+    - 버튼이 서브밋기능을 가졌냐 안가졌냐의 차이
+    - 서브밋 기능을 가진 button 태그는 별도의 문서객체가 필요없다
+    (1) input type="submit", button태그 : 이벤트함수를 form 태그에 onsubmit 속성부여
+    (2) input type="button"             : 이벤트 함수를 input 태그에 onclick 속성부여
+                                        => 이벤트 함수에 form태그에 submit 타입 부여
+                                        => 별도의 기능이 없어서 event.preventDefault를 써줄 필요가없음
+    -->
+
+    <!-- 1. input type="submit" / button 태그를 이용한 서브밋 
+    => 자체적으로 서브밋 기능을 지니고있음
+    -->
+    <form id="frm1" action="https://search.naver.com/search.naver">
+    <!-- & form의 method는 디폴트가 get방식이다 -->
+    <input type="text" name="query" id="query">
+    <!-- & 네이버 검색단어 파라미터(name)은 query -->
+    <input type="submit" value="네이버검색">
+    </form>
+    <!-- & input 타입 버튼은 value 속성을 통해 버튼이름을 부여할 수 있다 -->
+    <script>
+        // & 실습 : 검색어가 없을경우, 페이지의 서브밋을 방지하기
+        // 1) 문서객체
+        var frm1 = document.getElementById('frm1');
+        var query = document.getElementById('query');
+
+        // 2) 서브밋 이벤트 구현(검색어가없으면 서브밋안되게 막기)
+        frm1.onsubmit = function(event) {
+            if(query.value == '') {
+                alert('검색어를 입력하세요');
+                event.preventDefault();
+                // & event.preventDefault() : 다음페이지로 넘어가는 실행을 방지
+                return;
+                // & return : 이벤트 함수 종료
+                // => 없어도 되는거 같은데?
+            }
+        }
+    </script>
+
+    <!-- 2. input type="button" 태그를 이용한 서브밋 
+     => 자체적으로는 서브밋 기능을 지니고 있지않기 때문에, 서브밋 이벤트를 넣어줘야한다
+     & js로 서브밋 기능을 넣어준게 아닐까?
+    -->
+
+    <form id="frm2" action="https://www.google.com/search">
+        <input type="text" name="q" id="q">
+        <input type="button" value="구글검색" id="btn_google">
+    </form>
+    <script>
+        // 1) 문서객체
+        var frm2 = document.getElementById('frm2');          // 서브밋이 될 폼 태그
+        var q = document.getElementById('q');                   // 검색어 파라미터
+        var btnGoogle = document.getElementById('btn_google'); // 서브밋이벤트를 부여할 버튼
+
+        // 2) 2) 서브밋 이벤트 : 버튼 클릭 이벤트 + 서브밋
+        btnGoogle.onclick = function(event) {
+            if(q.value == '') {
+                alert('검색어를 입력하시오');
+                // event.preventDefault();  => 자체적으로 서브밋 기능이 없어서 굳이 쓸 필요는없음
+                q.focus();  // focus 타입 : 텍스트창 선택
+                return;
+            }
+            frm2.submit();  // input type="button"은 서브밋 기능이 없기 때문에 직접부여
+        }
+    </script>
+
+    <!-- 연습 : 이름이 2~6자가 아니면 경고메시지를 띄우고 서브밋 방지 -->
+    <form id="frm3" action="/">
+        <label for="name">이름
+            <input type="text" name="name" id="name">
+        </label>
+    <button>조회</button>
+    </form>
+    <script>
+        // 문서객체
+        var frm3 = document.getElementById('frm3');
+        var n  = document.getElementById('name');
+
+        // 이벤트 : 이름이 2~6자가 아닌경우 경고메시지, 서브밋방지
+        frm3.onsubmit = function(event) {
+            if(value.length < 2 || value.length > 6) {
+                alert('이름을 확인하세요');
+                event.preventDefault();
+                return;
+            }
+        }
+    </script>
+    
+    <hr>
+
+    <!-- 3. 전체선택/개별선택
+    - 모두 동의하는 버튼과 개별 버튼을 구분
+    
+    -->
+    <form id="frm4"></form>
+    <label for="check_all" class="lbl_check_all">
+        <input type="checkbox" id="check_all">
+        <span>모두 동의합니다</span>
+    </label>
+    <label for="service">
+        <input type="checkbox" id="service" class="check_one">
+        <span>이용약관 동의합니다</span>
+    </label>
+    <label for="privacy">
+        <input type="checkbox" id="privacy" class="check_one">
+        <span>개인정보 동의합니다</span>
+
+    </label>
+    <label for="location">
+        <input type="checkbox" id="location" class="check_one">
+        <span>위치정보 동의합니다</span>
+
+    </label>
+    <label for="email">
+        <input type="checkbox" id="email" class="check_one">
+        <span>이메일 수신 동의합니다</span>
+    </label>
+    <style>
+        label {
+            display : block;
+            width: 500px;
+        }
+        .lbl_check_all {
+            padding-bottom : 10px;
+            border-bottom : 1px solid gray;
+        }
+    </style>
+    <script>
+        // 1) 문서객체
+        var checkall = document.getElementById('check_all')             // 전체체크박스
+        var checkone = document.getElementsByClassName('check_one');    // 개별체크박스
+
+        // 2) 전체선택 클릭 이벤트(선택시 모든 체크박스 선택)
+        checkall.onclick = function(event) {
+            // (1) for문 이용
+            for(let i = 0; i < checkone.length; i++) {
+                checkone[i].checked = checkall.checked; // checked는 boolean 값을 반환
+            }
+            // (2) if문 이용
+             /*
+            if(checkall.checked == true) {
+                checkone[0].checked = true;
+                checkone[1].checked = true;
+                checkone[2].checked = true;
+                checkone[3].checked = true;
+            } else {
+                checkone[0].checked = false;
+                checkone[1].checked = false;
+                checkone[2].checked = false;
+                checkone[3].checked = false;
+            }
+            */ 
+        }
+        // 3) 개별선택 클릭 이벤트(전부 클릭하면 전체선택)
+        for(let i = 0; i < checkone.length; i++) {  
+            // (1) checkone은 복수(배열)개 있으니 for문으로 감싸줘야한다
+            checkone[i].onclick = function(event) {
+                let checkcount = 0;
+                for(let j = 0; j < checkone.length; j++) {
+                    checkcount += checkone[j].checked;      // => 어떻게 boolean형이 숫자형이 되는데?>
+                }
+                checkall.checked = (checkcount == checkone.length);
+            }
+        }
+        
+
+
+    </script>
+
+    
+</body>
+</html>

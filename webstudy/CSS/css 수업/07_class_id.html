@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .primary {
+            background-color: pink;
+        }
+        .first {
+            text-align: center;
+        }
+
+        .second {
+            font-weight: 900;
+        }
+
+        .third {
+            color: #fff;
+        }
+
+
+        .mono {
+            background-color: aqua;
+        }
+        .lolo {
+            background-color: blue;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <!-- 1. 전역 속성
+         (1) 모든 태그가 가질 수 있는 속성 
+         (2) 주로 css에서 많이 사용
+         (3) 공통스타일을 가진 경우, 같은 class 속성을 지정
+            (하나의 파일에 같은 class 속성이 여러개 존재할 수 있음)
+            
+         (4) 하나의 요소에 여러개의 class 속성 값을 지정할 수 있음
+            (class 속성 값을 공백으로 구분)
+            ex) <i class="fa-solid fa-house fa-5x"></i>
+         (5) 선택자
+            .클래스 
+        -->
+
+
+        <!-- 1) class 속성 -->
+        <div class="primary" first>1구역</div>
+        <div class="mono" second>2구역</div>
+
+        <!--  (4) 하나의 요소에 여러개의 class 속성 값을 지정할 수 있음
+                - class 속성 값을 공백으로 구분
+                - primary와 first, second는 다른 속성값이며, 각각의 css값을 부여할 수 있다
+        -->
+        <div class="primary first">1구역</div>
+        <div class="primary second">2구역</div>
+        <div class="primary third">3구역</div>
+
+        <span class="lolo">3구역</span>
+        <span class="lolo">4구역</span>
+
+        <!-- 2. id 속성 
+             (1) 전역속성
+             (2) 주로 자바스크립트에서 사용
+             (3) 문서 내에서 모든 구성요소는 다른 id값을 가져야함(고유식별)
+             (4) 특정 요소는 하나의 id 속성값만을 가질 수 있음  
+             (5) 선택자
+                #아이디      
+        
+        -->
+
+        <style>
+              #a {
+                color:chartreuse;
+                }
+
+                #b {
+                color:blanchedalmond;
+                }
+        </style>
+
+
+        <p id="a">Nice to meet you!</p>
+        <p id="b">How are you?</p>
+        <p id="c">I'm fine. Thank you.</p>
+        <style>
+            #c {
+                color: lime;
+            }
+        </style>     
+
+         
+
+
+
+
+    
+</body>
+</html>

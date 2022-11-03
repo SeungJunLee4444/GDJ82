@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 3. <property> 간편하게 작성하는법
+	- 방법 : namaspace 탭 - p 체크
+	- 결과 : xmlns:p="http://www.springframework.org/schema/p" 임폴트된다
+	- 효과 : <property> 태그를 <bean>태그의 p: 속성으로 바꿔서 사용할 수 있다
+	  -->
+
+	<bean id="addr" class="com.gdu.app01.xml03.Address" p:jibun="가산동" p:road="디지털로" p:zipCode="123345"/>
+	
+	<bean id="pers" class="com.gdu.app01.xml03.Person" p:age="44" p:name="가나다" p:addr-ref="addr"/>
+	
+
+</beans>

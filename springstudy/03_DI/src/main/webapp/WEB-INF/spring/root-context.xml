@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<!-- # 스프링 컨테이너 : 1장에서 resource 폴더에 담는 곳과 동일  -->
+	<!-- - 역할 : bean을 만들어두는곳  -->	
+	
+	<!-- # 빈 생성  -->
+	<bean id="board1" class="com.gdu.app03.domain.Board">
+		<property name="boardNo" value="1"></property>
+		<property name="title" value="공지1"></property>
+		<property name="createDate" value="2022-10-31"></property>
+	</bean>
+	
+	<bean id="board2" class="com.gdu.app03.domain.Board">
+		<property name="boardNo" value="2"></property>
+		<property name="title" value="공지2"></property>
+		<property name="createDate" value="2022-11-31"></property>
+	</bean> 
+	
+	
+	
+	<!-- # @Inject 사용을 위해 qualifier를 등록한 경우 -->
+	<!-- <bean id="board1" class="com.gdu.app03.domain.Board">
+		<qualifier value="board1"></qualifier>
+		<property name="boardNo" value="1"></property>
+		<property name="title" value="공지1"></property>
+		<property name="createDate" value="2022-10-31"></property>
+	</bean>
+	
+	<bean id="board2" class="com.gdu.app03.domain.Board">
+		<qualifier value="board2"></qualifier>
+		<property name="boardNo" value="2"></property>
+		<property name="title" value="공지2"></property>
+		<property name="createDate" value="2022-11-31"></property>
+	</bean> 
+	 -->
+		
+</beans>

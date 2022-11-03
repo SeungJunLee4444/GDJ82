@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        /* 반응형 웹은 전문가한테 맞기고 개념만 알아둘것, 프로젝트에도 x */
+        /* 1. 반응형 웹
+            - 웹을 이용하는 기기에 따라서 페이지 레이아웃이 곧바로 반응하는 웹
+            - 화면의 크기, 방향 등에 의해서 페이지 레이아웃이 결정됨
+            - 반응형 웹을 위해선 뷰포트 설정이 필요
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            1) 뷰포트 속성
+                (1) width=device-width: 화면넓이 = 장치 넓이
+                (2) initial-scale=1.0 : 기본크기는 100%(1.0배)
+                
+            2) 상대크기 단위 사용
+                (1) %
+                (2) vw : 1~100(너비에 관련된 단위)
+                (3) vh
+            
+            3) 미디어쿼리
+                - 화면의 크기변화를 감지
+                - 선언 : @media
+                - 종류 : screen(화면), speech(낭독기), print(출력물), all(모든 미디어)
+                - 조건 : 대부분의 경우 너비(width)/ 방향(orientation)의 변화를 활용
+                    (1) width 너비조건
+                    - width: 640px           딱 640px인 경우
+                    - min-width: 640px       640px 이상인 경우
+                    - max-width: 640px       640px 이하인 경우
+                    (2) orientation 방향조건
+                    - orientation: portrait  폰 세워서 볼때
+                    - orientation: landscape 폰 눕혀서 볼 때
+        */
+
+        /* 1. 너비에 따른 배경색 변경 */
+        @media screen and (min-width: 999px) {  /* 999 픽셀 이하 */
+            body {
+                background-color: antiquewhite;
+            }
+        @media screen and (max-width: 1000px) {  /* 1000 픽셀 이상 */
+            body {
+                background-color: crimson;
+            }
+
+
+        }
+    }
+    
+    </style>
+
+
+     <!-- 2. 너비에 따른 레이아웃 변경  -->
+
+     <style>
+        @media screen and (max-width:999px) {
+            .wrap {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .wrap > div {
+                width: 400px;
+                height: 400px;
+                border: 1px solid gray;
+            }
+        @media screen and (min-width: 1000px) {
+            .wrap {
+                display: flex;
+            }
+            .wrap > div {
+                width: 200;
+                height: 200px;
+                border: 1px solid gray;
+            }
+        }
+            
+        }
+
+     </style>
+
+   
+
+
+    <!-- 3. 화면의 방향 변경 -->
+    <style>
+    @media screen and (orientation: portrait) {
+        .wrap > div {
+            width: 80%;
+            height: 50px;
+            border: 1px solid gray;
+            
+
+        }
+
+    }
+    @media screen and (orientation: landscape) {
+        .wrap {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .wrap > div {
+            width: 40%;
+            height: 50px;
+            border: 1px solid gray;
+
+        }
+    }
+    </style>
+
+     <div class="wrap">
+        <div class="box1">BOX1</div>
+        <div class="box2">BOX2</div>
+        <div class="box3">BOX3</div>
+        <div class="box4">BOX4</div>
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>창</title>
+</head>
+<body>
+    <script>
+        // [창]
+        // 1) 경고창
+        // alert('경고창');
+
+        //--------------------------------------------------------------------
+
+
+        // // 2) 확인창(확인/취소)
+        // // alert(confirm('2'));
+        // // 경고창 -> 확인창
+        // & confirm은 boolean(true, false)값을 반환한다
+
+        // var a = confirm('확인창');
+        // alert(a);
+        // 결과 : 확인을 누르면 true(이벤트발생), 아니면 false가 나온다
+
+        // & 취소시 이벤트 발생하게 만들기(반대로)
+        if(!confirm('')) {
+            
+        }
+        // => !연산자를 이용해 취소시 이벤트 발생, 확인시 이벤트 x
+        
+        
+        //--------------------------------------------------------------------
+
+        
+        // 3) 검색창
+        var a = prompt('검색창');
+        alert(a);
+        // 결과 : 확인을 누르면 '검색한내용', 취소하면 null이 나온다
+</script>
+    
+</body>
+</html>

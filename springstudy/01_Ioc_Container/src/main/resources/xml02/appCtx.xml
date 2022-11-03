@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="crdi" class="com.gdu.app01.xml02.Engine">
+	<!-- & value 태그는, value 속성으로도 변경 가능하다 -->
+		<property name="fuel" value="가솔린"/>
+		<property name="efficency" value="12.5"/>
+		<property name="cc" value="1998"/>
+	</bean>
+	
+	<bean id="dreamCar" class="com.gdu.app01.xml02.Car">
+		<property name="model" value="소나타"/>
+		<property name="maker" value="현대"/>
+		<property name="engine" ref="crdi"/>	<!-- & 참조타입은 태그도 속성도 ref다  
+												* 참조하는 클래스의 id가 ref의 값이 된다 ****
+		-->
+	</bean>
+</beans>

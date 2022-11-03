@@ -1,0 +1,104 @@
+[14] position 속성
+- html 문서 상에 요소가 배치되는 방식을 결정한다
+- 상대적 위치 조정(top, bottom, left, right)를 사용하여 요소를 특정 위치에 배치
+
+1. 종류
+
+1) static
+- html의 기본 흐름대로 배치 (디폴트값)
+- 상대적 위치 조정 불가능
+
+2) relative
+- html 기본 흐름대로 배치
+- 상대적 위치 조정 가능
+- 옵셋 기준 : 원래 자신의 위치
+ex)
+.box2 {
+            position: relative;
+            border: 1px solid gray;
+            top: 100px; left : 100px;   
+}
+=> 원래 있어야할 위치로부터 위에서 100px, 왼쪽으로 100px 떨어진 곳에 배치
+(방향 유의)
+
+3) absolute
+- html의 기본 흐름을 깨고 배치
+- 상대적 위치 조정 가능
+- 옵셋 기준 : 부모 요소
+* 사용을 위해서는 부모 요소가 꼭 있어야함
+(1) 부모요소가 position static(디폴트값)이면 자식요소에 absolute 적용 불가
+(2) 일반적으로 부모 요소를 position relative로, 자식요소를 position absolute로 둠
+
+* relative는 원래 생성될 위치에 따라 위치 조정
+* absolute는 '부모 요소의 범위 내'에서 위치 조정
+
+ex)
+.wrap {
+            position: relative;
+        }
+=> 부모요소는 relative
+
+        .wrap > div {
+            position: absolute;
+        }
+=> 자식 요소는 absolute
+
+        .spring {
+            top: 10px;
+            left: 10px;
+        }
+        .summer {
+            top: 10px;
+            right: 10px;
+        }
+
+        .fall {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .winter {
+            bottom: 10px;
+            left: 10px;
+        }
+=> 자식 요소의 상대적 위치 조정(부모 요소를 기준으로=부모 요소의 범위 내부에서)
+
+4) fixed
+- html 문서 특정 위치에 고정시키기(항상 보임)
+- 상대적 위치 조정 가능
+- 옵셋 기준 : 웹 화면을 기준(부모 필요x)
+
+ex)
+.box3 {
+            /* fixed는 웹 화면을 기준 */
+            position: fixed;
+            top: 500px; /* 위에서부터 500px 떨어진 자리*/
+            right: 50px; 
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+        }
+=> 웹화면 기준으로 위에서 500px, 오른쪽에서 50px 떨어진 곳에 배치
+
+
+* hover:after,before
+- 선택시, 웹 페이지 상에 해당 요소 앞 또는 뒤에 자식 태그를 생성해줌
+- 앞에 생기면 before, 뒤에 생기면 after
+* 자식 태그 만드는 법
+1) css 내에 content 속성에 입력
+2) html 태그 내에 data-desc: 속성을 사용한 후, css 내에서 attr() 함수 사용
+(attr은 불러온 속성을 실행시키는 함수)
+
+ex)
+<style>
+        .help {
+            color : teal;
+            cursor: help;
+        }
+        .help:hover:after {
+           content: attr(data-desc) /* content: '메롱'; */
+        }
+    </style>
+
+    <p><span class="help" data-desc="메롱">여기</span>를 선택하시오</p>
+

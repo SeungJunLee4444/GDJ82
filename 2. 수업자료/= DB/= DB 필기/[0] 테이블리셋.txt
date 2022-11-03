@@ -1,0 +1,14 @@
+[0] 테이블 리셋
+
+1. 계정 삭제
+DROP USER SCOTT CASCADE;
+
+2. 계정 생성
+CREATE USER SCOTT INDETIFIED BY TIGER;
+
+3. 권한 부여
+(1) 조회, 생성 권한부여
+GRANT CONNECT, RESOURCE TO SCOTT;
+
+(2) 데이터베이스 관리자 권한부여
+GRANT DBA TO SCOTT;
