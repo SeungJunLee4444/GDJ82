@@ -64,6 +64,46 @@ public class NoticeServiceImpl implements NoticeService {
 		// # 목록을 forward 하기 위해서 request에 저장
 		request.setAttribute("notices", notices);
 		
+		// # block 개념 이해하기(ex) 웹툰 아래 바
+		// 1 block 당 3 page가 표시되는 상황
+		// 전체 7페이지가 있는 상황
+						// beginpage / endpage		page
+		// 1 block : 	 1				3			1	2	3
+		// 2 block : 	 4				6			4	5	6
+		// 3 block : 	 7				7			7
+		
+		// * 각 block의 beginpage와 endpage를 알아내기위한 과정 --------------------------------
+		// (1) 전체 page의 개수를 구한다							10페이지
+		// (2) 1개의 block 당 표시할 page의 개수를 임의로 정한다	
+		// (3) 현재 page와 전체 페이지 개수와 1 block당 표시할 page 개수로 beginpage를 구한다
+		// (4) beginpage를 이용해서 end 페이지를 구한다
+		// (5) endpage와 전체 페이지 개수를 비교해서 작은값을 endpage로 확정한다
+		
+		// (1) 전체 페이지 개수 : 나머지가 1~9인 경우(>0) +1
+		int totalPageCnt = totalRecordCnt / recordPerPage;			// 6 = 60 / 10
+		if(totalRecordCnt % recordPerPage > 0) {
+			totalPageCnt++;
+		}
+		// (2) 페이지당 표시 개수 	
+		int pagePerBlock = 3;
+		
+		// (3) 시작페이지와 끝페이지
+		int beginPage = ((page -1) / pagePerBlock) * pagePerBlock +1;
+		int endPage = beginPage + pagePerBlock -1;
+		if(endPage > totalPageCnt) {
+			endPage = totalPageCnt;
+		}
+		
+		// # 페이징 처리에 필요한 정보를 list.jsp에 전달
+		request.setAttribute("page", page);					// * 현재페이지는 jsp에서 파라미터로 전달받음
+		request.setAttribute("beginPage", beginPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("totalPageCnt", totalPageCnt);// * 다음페이지 생성에 필요
+		request.setAttribute("pagePerBlock", pagePerBlock);// * 다음페이지 생성에 필요
+		
+
+		
+		
 		return new ActionForward("/notice/list.jsp", false);
 	}
 

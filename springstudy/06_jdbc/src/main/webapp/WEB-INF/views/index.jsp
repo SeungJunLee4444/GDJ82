@@ -10,7 +10,7 @@
 </head>
 <body>
 	
-	<%--# 전체목록 조회하는 요청 : list --%>
+	
 	<a href="${contextPath}/board/list">게시판</a>
 	
 </body>
