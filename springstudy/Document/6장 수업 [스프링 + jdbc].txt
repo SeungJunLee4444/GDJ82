@@ -3,25 +3,21 @@
 - + mapper을 이용한 test
 
 # 사전준비 ======================================================================================= 
-1) pom.xml 수정 : mvn 사이트에서 코드얻기 -------------
-(1) ojdbc8 							: jdbc를 위한 jar
-(2) springTestContext framework     : 
-(3) lombok							: 롬복
+(1) pom.xml 추가 
+- ojdbc8 : jdbc용 
+- springTestContext framework : 스프링에서 test 사용(junit)
+- lombok : 롬복
 
-- 각 세팅방법은 pom.xml 문서 기재
-
-* spring 버전을 관리하기 쉽게 버전 태그를 변수처리
-
-2) web.xml filter 태그 추가 --------------------------------------------------
+(2) web.xml : filter 태그 추가 --------------------------------------------------
 - 용도 : 인코딩 처리
 - 코드획득경로 : 인터넷 검색(검색어 : 스프링 web.xml 인코딩)으로 바로 확인가능
 
 
-3) STS에 SQL 파일 사용할 수 있게 다운받기 -------------------------------------------------------
+(3) STS에 SQL 파일 사용할 수 있게 다운받기 -------------------------------------------------------
 - 기존에는 SQL 파일을 쓸수없음
 - 방법 : STS의 HTLP탭 - INSTALL NEW SOFTWARE - ORACLE검색 - DATABASE 선택후 설치 - 설치후 accept
 
-4) summermote : 에디터(5장의 datapicker과 같은 개념)
+(4) summermote : 에디터(5장의 datapicker과 같은 개념)
 - 다운로드 및 코드 참고주소 : https://summernote.org/getting-started/#get-summernote
 
 

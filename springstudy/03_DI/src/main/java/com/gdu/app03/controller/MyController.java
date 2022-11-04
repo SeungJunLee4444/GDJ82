@@ -70,7 +70,7 @@ public class MyController {
 	//		- 특징 : 필드가 많으면 사용하지 않는다
 	// 2. 생성자를 이용해 bean 가져오기
 	//		- 방법 : 생성자의 '매개변수'로 bean 가져오기
-	//		- 특징 : @Autowired를 작성할 필요, 써도되고 생략해도 상관없다
+	//		- 특징 : @Autowired는 생략 가능하다
 	// 3. setter메서드를 이용해 bean 가져오기
 	// 		- 정의 : 메서드의 매개변수로 bean을 가져온다
 	//		- @Autowired를 작성해야 한다
