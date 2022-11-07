@@ -76,7 +76,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 				
-		<!-- 8장 추가 : AspectJ -->
+		<!-- # 8장 추가 : AspectJ -->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 		<dependency>
 		    <groupId>org.aspectj</groupId>
@@ -86,15 +86,17 @@
 		</dependency>
 
 		
-		<!-- Logging -->
+		<!-- #  Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<artifactId>slf4j-api</artifactId>	
 			<version>${org.slf4j-version}</version>
 		</dependency>
-		<dependency>
+		
+	<!--  jcl와 slf4j를 연결하는 브릿지 역할 : 안쓰니 주석처리 -->
+	<!-- 	<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
+			<artifactId>jcl-over-slf4j</artifactId>	 
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
@@ -103,8 +105,20 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
+		
+		<!-- # 9장 수정 : logback : log4j보다 10배 더 빠르다 -->
+		<!--  https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
 		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.2.3</version>
+		    <!-- <scope>test</scope> -->
+		</dependency>
+		
+		
+		<!--  # log4j -->
+		<!-- <dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.15</version>
@@ -127,7 +141,7 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 
 		<!-- @Inject -->
 		<dependency>

@@ -8,6 +8,7 @@
 (1) spring jdbc : 스프링 전용 jdbc
 (2) AspectJ Weaver  : 기존의 aop(aspectj) 에 추가
 - 버전 : 1.9.6(asepct 버전과 동일하게)
+(3) logback : 
 
 # 수업목록 --------------------------------------------------------------------------
 (1) 자바빈 : jdbcTemplate, DriverManagerDataSource 자바빈 처리, 위치 :  config 패키지
