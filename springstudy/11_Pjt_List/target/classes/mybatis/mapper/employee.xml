@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.app11.mapper.EmpMapper">
+
+	<!--  # employees와 departments의 조인을 위한 resultMap을 사용한다 -->
+	<resultMap type="DeptDTO" id="DeptMap">
+		<result column="DEPARTMENT_ID" property="departmentId"></result>
+		<result column="DEPARTMENT_NAME" property="departmentName"></result>
+		<result column="MANAGER_ID" property="managerId"></result>
+		<result column="LOCATION_ID" property="locationId"></result>
+	</resultMap>
+	<resultMap type="EmpDTO" id="EmpMap">
+		<result column="EMPLOYEE_ID" property="employeeId"></result>
+		<result column="FIRST_NAME" property="firstName"></result>
+		<result column="LAST_NAME" property="lastName"></result>
+		<result column="EMAIL" property="email"></result>
+		<result column="PHONE_NUMBER" property="phoneNumber"></result>
+		<result column="HIRE_DATE" property="hireDate"></result>
+		<result column="JOB_ID" property="jobId"></result>
+		<result column="COMMISSION_PCT" property="commissionPct"></result>
+		<result column="SALARY" property="salary"></result>
+		<result column="MANAGER_ID" property="managerId"></result>
+		<collection resultMap="DeptMap" property="deptDTO"></collection>
+		<!-- * resultMap = DeptDTO의 id, property = deptDTO(EmpDTO의 필드값 deptDTO) * -->
+	</resultMap>
+
+
+
+ 	<!--  # totalRecord 전체 게시글 수 구하기 -->
+ 	<select id="selectAllEmployeesCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEES
+	</select>
+ 	
+ 	<!--  # 페이지당 게시글 조회 : parameterType 생략-->
+ 	<!--  - 상황 : 입사순으로 정렬(A), ROWNUM을 붙이고(B), 11-20가져오기(임의)-->
+ 	
+ 	<select id="selectEmployeesByPage" resultMap="EmpMap">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		          FROM (SELECT E.*, D.DEPARTMENT_NAME, D.LOCATION_ID
+		                  FROM DEPARTMENTS D INNER JOIN EMPLOYEES E
+		                    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
+		                  ORDER BY HIRE_DATE DESC) A) B
+		 WHERE B.RN BETWEEN #{param1} AND #{param2}
+	</select>
+		 
+		 <!-- * typealias로 인해 EmpDTO로 줄여서 씀-->
+ 	
+	 	<!-- * 매개변수로 전달받은 파라미터 순서를 알고서 #{param1}, #{param2}.. 로 이용할 수 있다
+	 		 #{param1} = int begin,  #{param2} = int end
+	 	-->
+	 	<!-- * 이 시점에서 DeptDTO 정보는 출력되지않았다
+	 		- 이유 : 칼럼 DEPARTMENT_ID와 DeptDTO는 연관될 수 없다
+	 	-->
+	 	<!-- * 조인 : EMPLOYEES의 모든 칼럼과 DEPARTMENT의 
+	 	-->
+ 		
+
+
+ 
+ 	
+ 		
+ 		
+ 		
+</mapper>

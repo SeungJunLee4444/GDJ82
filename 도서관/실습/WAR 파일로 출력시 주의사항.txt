@@ -1,0 +1,2 @@
+export시 java source 체크란을 꼭 체크해줘야한다
+그래야 java 파일도 같이 war파일에 담겨짐

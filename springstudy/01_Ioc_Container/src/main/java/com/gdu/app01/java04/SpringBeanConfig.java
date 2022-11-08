@@ -11,6 +11,6 @@ import org.springframework.context.annotation.ImportResource;
 public class SpringBeanConfig {
 	
 
-	.
+	
 
 }

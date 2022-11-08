@@ -56,9 +56,10 @@ public class Person {
 		
 		// map (key + value)
 		// * key와 value를 합치면 entry
-		for(Map.Entry<String, String> entry : friends.entrySet())
+		for(Map.Entry<String, String> entry : friends.entrySet()) {
 			System.out.println(entry.getKey() + ":" + entry.getValue());
 		
+	}
 	}
 
 

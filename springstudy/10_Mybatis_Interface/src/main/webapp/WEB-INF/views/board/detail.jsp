@@ -61,7 +61,7 @@
 	<%-- # 상세보기화면 --%>
 	<%-- - 설명 : board_no를 파라미터로 전달해서 board dto를 받아온다 --%>
 	<ul>
-		<li>글번호 : ${board.board_no}</li>
+		<li>글번호 : ${board.boardNo}</li>
 		<li>제목   : ${board.title}</li>
 		<li>작성자 : ${board.writer}</li>
 		<li>작성일 : ${board.createDate}</li>

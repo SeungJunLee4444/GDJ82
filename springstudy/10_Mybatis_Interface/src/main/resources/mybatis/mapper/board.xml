@@ -8,6 +8,7 @@
 		=> mapper(repository)의 인터페이스 위치로 변경
 		
 	* mapper을 직접 부를수 없으니, 중간에 인터페이스를 껴준 형태
+      dbconfig - boardmapper(인터페이스) - board.xml(mapper)
  -->
 <mapper namespace="com.gdu.app10.mapper.BoardMapper">
 
