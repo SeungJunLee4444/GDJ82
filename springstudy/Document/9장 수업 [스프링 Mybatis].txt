@@ -1,0 +1,28 @@
+[9장 수업]
+# 수업 목적 : spring과 mybatis
+
+# 사전준비 -------------------
+1) pom.xml에 JAR 파일 추가
+(1) mybatis				: 마이바티스 
+(2) spring용 mybatis    : 스프링용 마이바티스
+(3) hikaricp 			: 스프링 부트에서 사용되는 커넥션 풀
+
+
+2) 자바
+(1) databast config 수정 
+(2) jsp에서 mybatis 폴더 가져오기
+
+# 수업내용
+1. DBConfig 수정 : hikari 커넥션풀, db property 참조처리, sqlsessionTemplate 를 자바빈으로 생성
+
+2. mybatis 폴더 추가
+- 경로 : src/main/resources/(여기)
+1) 
+
+2)
+
+3.
+
+4.
+
+5.

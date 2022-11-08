@@ -36,6 +36,8 @@ public class RequestLoggingAspect {
 	@Around("com.gdu.app08.aop.RequestLoggingAspect.setPointCut()")  // setPointCut() 메소드에 설정된 포인트컷에서 동작하는 어드바이스
 	public Object executeLogging(ProceedingJoinPoint joinPoint) throws Throwable {  // @Around는 반드시 ProceedingJoinPoint joinPoint 선언해야 함
 		
+		// * @Around : 메서드 실행 전후의 로그를 콘솔에 보여준다
+		
 		// HttpServletRequest를 사용하는 방법
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		

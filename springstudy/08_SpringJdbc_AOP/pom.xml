@@ -16,6 +16,27 @@
 	
 	<dependencies>
 	
+		<!-- 8장추가 : AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+		
+		<!--  # 8장 추가 : aspect weaver -->
+		<!--  - 용도 : 기존의aop(aspectj)에 추가  -->
+		<!--  - 주소 : https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<!--  - 버전 : 1.9.6버전(aspect과 동일하게) -->
+		
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${org.aspectj-version}</version>
+		    <scope>runtime</scope>
+		</dependency>
+
+		
 		<!--  # 8장 추가 : 스프링jdbc -->
 		<!--  - 용도 : 스프링 전용 jdbc  -->
 		<!--  - 주소 : https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
@@ -26,7 +47,6 @@
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>${org.springframework-version}</version>	<!--  & 버전 변수화 하기 -->
 		</dependency>
-
 		
 			
 		<!-- # 6장 추가 : JDBC를 위한 ojdbc8 -->
