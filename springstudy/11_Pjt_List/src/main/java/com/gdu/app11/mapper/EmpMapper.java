@@ -1,6 +1,7 @@
 package com.gdu.app11.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,9 +16,14 @@ public interface EmpMapper {
 	// # totalRecord 전체 게시글 수 
 	public int selectAllEmployeesCount();
 	
-	// # 페이지당 게시글 조회
-	public List<EmpDTO> selectEmployeesByPage(int begin, int end);
+	// # 페이지당 게시글 
+	public List<EmpDTO> selectEmployeesByPage(Map<String, Object> map);
+	
+	// # 검색
+	public int selectFindEmployeesCount(Map<String, Object> map);
 
+	// # 직원조회
+	public List<EmpDTO> selectFindEmployees(Map<String, Object> map);
 
 	
 }

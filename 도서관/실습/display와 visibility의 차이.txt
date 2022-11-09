@@ -1,0 +1,7 @@
+공통점 : 둘다 특정 영역을 안보이게 할 수 있다
+display : none
+visibility : hidden
+
+차이점 : 
+(1) 둘의 속성값이 다르다
+(2) visibility는 영역을 차지한채 안보이며, display는 영역을 차지하지않는다

@@ -1,0 +1,3 @@
+|| : 쿼리문에서는 문자열의 연결을 의미
+ex)  WHERE LAST_NAME LIKE '%' || #{query} || '%'
+query 파라미터의 값이 포함되는 경우(조건)

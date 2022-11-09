@@ -85,10 +85,6 @@ public class DBConfig {
 		return new SqlSessionTemplate(factory());
 	}
 	
-	
-	
-	
-	
 	// # transactionmanager
 	
 	@Bean

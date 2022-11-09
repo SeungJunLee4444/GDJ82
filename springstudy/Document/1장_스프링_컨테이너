@@ -24,7 +24,7 @@ https://mvnrepository.com/
 
 # 스프링 컨테이너 ---------------------------------------------------------------------------
 - bean 생성법 : 둘다 자바 영역의 클래스를 xml, 또는 java 컨테이너에서 bean으로 생성하는 방법
-1. Application Context
+1. Application Context (root-context.xml)
 - 생성 : xml 문서에 <bean> 생성
 - 호출 : ClassPathXmlApplicationContext(경로) / GenericXmlApplicationContext(경로)
 2. SpringBeanConfig
@@ -60,10 +60,12 @@ https://mvnrepository.com/
 
 # map.entry 간편 for문
 - list, set은 일반 for문, 간편 for문으로 값을 얻을 수 있다
-- map은 map.entry를 사용해서 key와 value값을 둘다 얻을 수 있다
+- map은 map.entry를 사용해서 key와 value값을 별도로 얻을 수 있다
 
 ex) for(Map.Entry<String, String> entry : friends.entrySet()) {
 			System.out.println(entry.getKey() + ":" + entry.getValue());
+			
+
 
 
 
