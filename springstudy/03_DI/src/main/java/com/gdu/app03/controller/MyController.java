@@ -79,7 +79,7 @@ public class MyController {
 	
 	
 	
-	// # 실습 #######################################################################################################################
+	// # 실습 ===================================================================
 	
 	
 	// 1) xml방식으로 저장된 자바빈 @Autowired로 가져오기============================================================================/
@@ -133,7 +133,7 @@ public class MyController {
 		this.b2 = board2;
 	}
 	
-	@GetMapping("board/detail")		// * 이거없으면 초기화면도 실행안된다?
+	@GetMapping("board/detail")	
 	public void board() {
 		System.out.println(b1.getBoardNo());
 		System.out.println(b1.getTitle());
@@ -143,7 +143,7 @@ public class MyController {
 		System.out.println(b2.getCreateDate());
 	}
 	
-	// & /베이스패키지/ 오류 : mapping문제로 인해 발생하는게 아닐까?-----------------------------------------------?
+	
 	
 	
 	
