@@ -10,34 +10,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gdu.app04.domain.Board;
 
-// # 대표 mapping : board로 시작하는 모든 요청을 이 컨트롤러에서 처리(views의 jsp 폴더명)
+// # 중간맵핑
 @RequestMapping("board")
 
-// # 컨트롤러 에너테이션
+// # 컨트롤러 
 @Controller
 public class MyController2 {
 	
+	// [[[ 리다이렉트 + 요청영역에 속성저장 3가지
 	
-	/* 
-	 * & 포워드와 리다이렉트 차이------------------------------------------------&
-	  * 포워드는 jsp, 리다이렉트는 맵핑이다(용도가 다르다)------------*
-	  (1) 포워드  
-	  - return "board/detail";
-	  - 설명 : board 폴더 아래 detail.jsp로 forward 하시오
+
 	  
-	  (2) 리다이렉트
-	  - return "redirect:/board/detail";
-	  - 해석 : urlmapping값이 /board/detail인 새로운 요청으로 리다이렉트 하시오
-	  * 새로운 요청을 위한 mapping 주소를 요청(리다이렉트의 뒤에 있는건 jsp가 아니다)
-	   
+	 // * 리다이렉트의 값을 유지시켜 보내줄수 있는 객체가 스프링에는 있다
 	  
-	  * 리다이렉트의 값을 유지시켜 보내줄수 있는 객체가 스프링에는 있다
-	  ---------------------------------------------------------------------------&
-	 */
-	
-	
-	// # <a href="${contextPath}/board/detail?title=공지사항&hit=10">전송</a> 요청
-	// - 방법 : request로 받기
+	// 1. 리다이렉트 + request  -------------------------------------------------
 	@GetMapping("detail1")
 	public String detail1(HttpServletRequest request) {
 		
@@ -47,33 +33,31 @@ public class MyController2 {
 		request.setAttribute("title", title);
 		request.setAttribute("hit", hit);
 		
-		// return "redirect:/board/detail2";	// 해석 : redirect방식 이동, board/detail2 새로운 맵핑 요청
-		
-		// * 파라미터를 전송하려면 다시 붙여야한다
+		// * 리다이렉트 특징 : 파라미터를 붙여서 새로운 맵핑 요청
 		 return "redirect:/board/detail2?title=" + title + "&hit=" + hit; 
 	}
 	
 	
-	// # 리다이렉트 이동 -------------------------------------------------------------------------
-	// * 리다이렉트 이동이기 떄문에 파라미터값은 이동하지않는다
 	
-	// # @RequestParam을 생략한 방식(controller1 3번쨰 참고)
-	// - 방법 : 변수로 받기
+	// 2. 포워드 +  @RequestParam을 생략한 방식  ----------------------------------
+	// - 설명 : detail1 요청의 반환으로 실행되는 detail2 맵핑요청
 	@GetMapping("detail2") // <= 위에서 반환된 값
-		public String detail2(String title, int hit, Model model) {	// <= 리다이렉트로 파라미터를 다시 전달하면 파라미터를 매개변수로 받는다(hit는 10이니까 int로 받아도 상관없다)
+		public String detail2(String title, int hit, Model model) {
+		// * 리다이렉트 방식으로 전달받은 title과 hit를 매개변수로 받았다
+		
+		
 			model.addAttribute("title", title);
 			model.addAttribute("hit", hit);
+		// * jsp이동은 포워드방식이기 때문에 model을 이용해 속성으로 저장하였다
 			return "board/detail";
 		}
 	
 	
-	// # 리다이렉트의 새로운 기능 ----------------------------------------------------------------
-	// - 설명 : 스프링에서 리다이렉트는 파라미터 전달없이도 값을 전달할 수 있다 *
-	// - 방법 : RedirectAttributes의 속성 사용
+	// 3. RedirectAttributes 객체를 이용한 리다이렉트의 파라미터 전송  + 클래스 객체 사용 ---- *
+	// - 클래스 객체 방법 : title과 hit를 필드값으로 지닌 클래스의 객체를 매개변수로 받는법
+	// - RedirectAttributes : 반환시 해당 객체에 속성저장을 하면 리다이렉트라도 파라미터 전송이 가능하다
 	
-	// - jsp : <a href="${contextPath}/board/detail3?title=공지사항&hit=10">전송</a> 요청
-	// - 방법 : 객체로 받기
-	// * 객체로 받기 조건 : title과 hit를 필드값으로 지닌 클래스가 존재해야한다
+
 	@GetMapping("detail3")
 		public String detail3(Board board
 							, RedirectAttributes redirectAttributes) {
@@ -84,11 +68,12 @@ public class MyController2 {
 		// => redirect:/board/detail4" => detail4 맵핑 요청
 	}
 	
+	// # 단순이동 : detail.jsp로
 	@GetMapping("detail4")
 		public String detail4() {
 		return "board/detail";
 	}
-	// => detail.jsp로 포워드 이동
+	
 	
 	/* 
 	 * 속성전달방식

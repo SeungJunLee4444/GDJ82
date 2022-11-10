@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<%-- # 상세화면 : 전달된 속성 title과 hit 확인 --%>
+	<%-- # 상세화면 : 전달받은 ${board}로 속성 title과 hit 확인 --%>
 
 	<h1>회원 상세보기</h1>
 	<div>아이디   : ${title}, ${board.title}</div>

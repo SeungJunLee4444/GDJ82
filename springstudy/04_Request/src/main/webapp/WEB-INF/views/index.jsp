@@ -26,7 +26,7 @@
 	--%>
 	<h5>a태그</h5>
 	<div>
-		<a href="${contextPath}/member/detail1?id=admin&pw=1234">전송</a>
+		<a href="${contextPath}/member/detail1">전송</a>
 	</div>
 	
 	<hr>
@@ -45,9 +45,9 @@
 			// # 전달하는 파라미터가 없을 경우
 			// location.href='${contextPath}/member/detail2'; 
 			// # 어노테이션 생략 후 파라미터가 있는경우
-			// location.href='${contextPath}/member/detail3?id=admin&pw=1234';
+			location.href='${contextPath}/member/detail3?id=admin&pw=1234';
 			// # 어노테이션 생략 후 파라미터가 없는경우
-			location.href='${contextPath}/member/detail3';
+			//location.href='${contextPath}/member/detail3';
 		});
 	</script>	
 	
