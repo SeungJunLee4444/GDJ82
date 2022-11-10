@@ -1,0 +1,9 @@
+# 일반 ready
+$(document).ready(function(){
+alert('hello');
+});
+
+# 익명함수 ready
+$(function(){
+    alert('hello');
+});

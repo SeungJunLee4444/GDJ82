@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyController2 {
 	
 	
-	/* 
-	 * & 포워드와 리다이렉트 차이------------------------------------------------&
-	  * 포워드는 jsp, 리다이렉트는 맵핑이다(용도가 다르다)------------*
-	  (1) 포워드  
-	  - return "board/detail";
-	  - 설명 : board 폴더 아래 detail.jsp로 forward 하시오
-	  
-	  (2) 리다이렉트
-	  - return "redirect:/board/detail";
-	  - 해석 : urlmapping값이 /board/detail인 새로운 요청으로 리다이렉트 하시오
-	  ---------------------------------------------------------------------------&
-	 */
+	// # 포워드, 리다이렉트의 반환값 차이
+	// (1) 포워드 
+	// - 용도 : jsp 반환, 해당 jsp로 이동
+	// - 형태 : return "패키지/jsp파일명"
+	// (2) 리다이렉트 : 맵핑 반환, 새로운 요청 url 반환
+	// - 용도 : 맵핑 반환
+	// - 형태 : return "redirect:/맵핑"
+	
+	
+	
+
 	
 	
 	// # <a href="${contextPath}/board/detail?title=공지사항&hit=10">전송</a> 요청

@@ -64,8 +64,15 @@ public class EmpServiceImpl implements EmpService {
 		// # totalRecore : 전체게시글 수 구하는 법 --------------------------------------------> db
 		int totalRecord = empMapper.selectAllEmployeesCount();
 		
+		// # 파라미터 recordPerPage, 전달되지 않으면 recordPerPage=10으로 처리 ----
+		// * 보려는 페이지당 게시글의 수를 필드로 고정시키는 것이 아닌 파라미터로 전달하는것
+		Optional<String> opt2 = Optional.ofNullable(request.getParameter("recordPerPage"));
+		int recordPerPage = Integer.parseInt(opt2.orElse("10"));
+		
+		
+		
 		// # pageUtil 계산하기(page와 totalRecord를 전달하면 begin, end, recordPerPage를 가져온다)
-		pageUtil.setPageUtil(page, totalRecord);
+		pageUtil.setPageUtil(page, recordPerPage ,totalRecord);
 		
 		// # map 만들기(begin과 end를 같이 보내주기 위함)
 		Map<String, Object> map = new HashMap();
@@ -83,7 +90,8 @@ public class EmpServiceImpl implements EmpService {
 		// * gepaging 메서드(임의로 만든) 
 		
 		// & 순번생성 : 시작하는 번호
-		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
+		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());	
+		model.addAttribute("recordPerPage", recordPerPage);
 		// * -1한 값에 * 반복되는 숫자 
 		
 		// 1페이지 107 - 0 = 107
@@ -100,25 +108,126 @@ public class EmpServiceImpl implements EmpService {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
+		String column = request.getParameter("column");
+		String query = request.getParameter("query");
+		String start = request.getParameter("begin");
+		String stop = request.getParameter("query");
+		
 		Map<String, Object> map = new HashMap();
-		map.put("column", request.getParameter("column"));
-		map.put("query", request.getParameter("query"));
-		map.put("start", request.getParameter("start"));
-		map.put("stop", request.getParameter("stop"));
-		map.put("begin", pageUtil.getBegin());
-		map.put("end", pageUtil.getEnd());
+		map.put("column", column);
+		map.put("query", query);	// * query는 employeeid ~ phone_number 조회시 사용
+		map.put("start", start);	// * start, stop은 hire_date와 salary 조회시 사용
+		map.put("stop", stop);
 		map.put("page", page);
+		
+		// # 파라미터 recordPerPage, 전달되지 않으면 recordPerPage=10으로 처리 ----
+		// * 보려는 페이지당 게시글의 수를 필드로 고정시키는 것이 아닌 파라미터로 전달하는것
+		Optional<String> opt2 = Optional.ofNullable(request.getParameter("recordPerPage"));
+		int recordPerPage = Integer.parseInt(opt2.orElse("10"));
 		
 		int totalRecord = empMapper.selectFindEmployeesCount(map); // ---------------------------> db
 		
-		pageUtil.setPageUtil(page, totalRecord);
+		pageUtil.setPageUtil(page, recordPerPage, totalRecord);
+		
+		map.put("begin", pageUtil.getBegin());
+		map.put("end", pageUtil.getEnd());
 		
 		List<EmpDTO> employees = empMapper.selectFindEmployees(map); // -------------------------> db
 		
 		model.addAttribute("employees", employees);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/search"));
+		
+		// # 검색후 페이지 이동시 검색한 내용을 가지고 이동할 수 있도록 처리
+		// - 
+		String path = null;
+		switch(column) {
+		case "EMPLOYEE_ID" :
+		case "E.DEPARTMENT_ID" :
+		case "LAST_NAME" :
+		case "FIRST_NAME" :
+		case "PHONE_NUMBER" :
+			path = request.getContextPath() + "/emp/search?column=" + column + "&query=" + query;
+			break;
+		case "HIRE_DATE" :
+		case "SALARY" :
+			path = request.getContextPath() + "/emp/search?column=" + column + "&start=" + start + "&stop=" + stop;
+			break;
+		}
+		
+		model.addAttribute("paging", pageUtil.getPaging(path));
 	}
+	
+	
+	// # 이메일, 성, 이름 검색 자동완성 : ajax로 처리
+		@Override
+		public Map<String, Object> findAutoCompleteList(HttpServletRequest request) {
+			
+			String target = request.getParameter("target");
+			String param = request.getParameter("param");
+			
+			// map : param, target 저장
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("target", target);
+			map.put("param", param);
+			
+			// db 접근
+			List<EmpDTO> list = empMapper.selectAutoCompleteList(map);
+			
+			
+			Map<String, Object> result = new HashMap<String, Object>();
+			if(list.size() == 0) {	// * list 배열의 길이가 0 = 값이 없으면
+				result.put("status", 400);
+				result.put("list", null);
+				//System.out.println("400");	
+			} else {
+				result.put("status", 200);
+				result.put("list", list);
+				//System.out.println("200");
+				
+			}
+			
+			switch(target) {
+			case "FIRST_NAME": result.put("target", "firstName"); break;
+			case "LAST_NAME": result.put("target", "lastName"); break;
+			case "EMAIL": result.put("target", "email"); break;
+			}
+			
+			
+			return result; //  * ajax의 resData에 json 형식으로 저장된다
+			
+			
+			/* 
+			 result = {
+			 	"status" : 200,
+			 	"list" : [
+			 	
+			 	]
+			 	"target" : switch문에서 나온 3가지 칼럼 중 하나
+			 } 
+			  
+			  
+			 */
+			
+			
+			
+			/* 
+			 * jackson으로 인해 json으로 자동변환된 조회 결과 + json에서 속성값 꺼내는 방법
+			  Map<> result가 jackson에 의해서 아래 json으로 자동 변경된다
+			  result = {
+			  	"status" : 200,						=> 꺼내는 방법 : result.status	/ result["status"]
+			  	"list" : [
+			  			{
+			  				"Email" : email@~,		// 쿼리문에서 이메일만 가지고 왔기 때문에 email만 저장되있다
+			  				"EmployeeId" : null,
+			  				"FirstName" : null,
+			  				"LastName" : null,      => 꺼내는 방법 : result.list[0].email
+			  			}
+			  	]
+			  }
+			  
+			  
+			 */
+		}
 	
 	
 		

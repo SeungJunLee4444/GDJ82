@@ -13,7 +13,7 @@ public class PageUtil {
 	private int totalRecord; 		// 전체 레코드 개수(db에서 구해옴)
 	private int begin;				// 각 페이지 시작번호(recordPerPage와 page로 계산가능)
 	private int end;				// 각 페이지 끝번호(begin과 recordPerPage로 계산가능)
-	private int recordPerPage = 10;	// 페이지별 레코드 개수(임의로 정함)
+	private int recordPerPage;	    // + 파라미터로 받아왔음
 	
 	// * begin, end를 구하기 위해 필요한 정보 : page, recordPerPage, totalRecord
 	
@@ -24,10 +24,11 @@ public class PageUtil {
 	private int endPage;			// 블록의 끝 페이지 번호(계산한다)
 	
 	
-public void setPageUtil(int page, int totalRecord) {
+public void setPageUtil(int page, int recordPerPage, int totalRecord) {
 		
 		// page, totalRecord 필드 저장
 		this.page = page;
+		this.recordPerPage = recordPerPage;
 		this.totalRecord = totalRecord;
 		
 		// begin, end 계산
@@ -53,23 +54,39 @@ public void setPageUtil(int page, int totalRecord) {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		// # 전달받은 path에 ?가 있는지 확인하고, ?가 존재하면 ?path를 &path로 변경해줘야한다 -------------------------------
+		// - 이유 : ?가 2개가 존재하기 때문
+		
+		// & path에 파라미터가 없는 경우 : /emp/list     		=> /emp/list?page=1 (페이지 앞에 ?를 사용)
+		// & path에 파라미터가 있는 경우 : /emp/list?column=emp => /emp/list?column=emp&query=150&page=1 (페이지 앞에 & 사용)
+		
+		// & contains("?") : 특정 문자가 포함되있는지 확인해주는 메서드
+		if(path.contains("?")) {
+			path += "&";
+		} else {
+			path += "?";
+		}
+		
+		
+		
+		// # 페이지 이동을 위한 블록 생성 ------------------------------------------------------ 
 		sb.append("<div class=\"paging\">");
 		
 		// 이전블록 : 1block이 아니면 이전블록이 있다
 		if(beginPage != 1) {
-			sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + (beginPage-1) + "\">◀</a>");
+			sb.append("<a class=\"lnk\" href=\"" + path + "page=" + (beginPage-1) + "\">◀</a>");
 		} else {
 			sb.append("<span class=\"hidden\">◀</span>");
 		}
 		
-		// 페이지번호 : 현재 페이지는 링크가 없다
+		// 페이지번호 : 현재 페이지는 링크가 없어야 한다
 		int endPage = beginPage + pagePerBlock - 1;
-		for(int p = beginPage; p <= endPage; p++) {
+		for(int p = beginPage; p <= endPage; p++) {	// <- 페이지가 5개만 나오게 되는 이유(계산시 5페이지만 나오게 만들었음 애초에)
 			if(p <= totalPage) {
 				if(p == page) {
 					sb.append("<span class=\"now_page\">" + p + "</span>");
 				} else {
-					sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + p + "\">" + p + "</a>");
+					sb.append("<a class=\"lnk\" href=\"" + path + "page=" + p + "\">" + p + "</a>");
 				}				
 			} else {
 				sb.append("<span class=\"hidden\">" + p + "</span>");
@@ -79,7 +96,7 @@ public void setPageUtil(int page, int totalRecord) {
 		
 		// 다음블록 : 마지막 블록이 아니면 다음블록이 있다
 		if(endPage < totalPage) {
-			sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + (endPage+1) + "\">▶</a>");
+			sb.append("<a class=\"lnk\" href=\"" + path + "page=" + (endPage+1) + "\">▶</a>");
 		} else {
 			sb.append("<span class=\"hidden\">▶</span>");
 		}

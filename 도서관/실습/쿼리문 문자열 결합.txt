@@ -1,0 +1,3 @@
+ WHERE EMAIL LIKE CONCAT(#{param}, '%')
+= 
+WHERE EMAIL LIKE #{param} || '%'

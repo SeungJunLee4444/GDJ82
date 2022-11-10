@@ -126,6 +126,19 @@ td {
 	
 	$(document).ready(function() {
 		
+		
+		$(function() {	// * ready와 동일
+			if(${recordPerPage} != '') {
+				$('#recordPerPage').val(${recordPerPage});	// * 받아온 recordPerPage를 recordPerPage에 저장
+			} else {
+				$('#recordPerPage').val(10);
+			}
+			
+			$('#recordPerPage').change(function() {	// * change :  select 목록을 바꿀때 발생하는 이벤트
+				location.href="${contextPath}/emp/list?recordPerPage=" + $(this).val();
+			});
+		});
+		
 		// # area1, area2 표시 
 		// 초기상태 : area1, area2 둘다 숨김
 		$('#area1, #area2').css('display', 'none');
@@ -145,10 +158,53 @@ td {
 			}
 		});
 		
+		// # 검색시 선택한게 없으면 서브밋 방지
+		$('#frm_search').submit(function(event) {
+			if($('#column').val() == '') {
+				event.preventDefault();
+				return;
+			}
+		});
+		
 		
 		$('#btn_all').click(function() {
 			location.href = '${contextPath}/emp/list';
 		});
+		
+		// # 자동완성 
+		// keyup 이벤트 : 한글자 쓸때마다 이벤트가 발생
+		
+		$('#param').keyup(function() {
+			
+			// & 초기화
+			$('#auto_complete').empty();
+			
+			if($(this).val() == ''){
+				return;
+			}
+			
+			// & AJAX : 
+			$.ajax({
+				// 요청
+				type: 'get',
+				url: '${contextPath}/emp/autoComplete',
+				data: 'target=' + $('#target').val() + '&param=' + $(this).val(),
+				// 응답
+				dataType : 'json',
+				success : function(resData) {
+					if(resData.status == 200) {
+						$.each(resData.list, function(i, emp) {	// & datalist 안에 내용 추가하기 : option 태그 필요
+							// console.log(emp.email);
+							$('#auto_complete')
+							.append($('<option>').val(emp[resData.target]));
+						});
+					}
+				}
+				
+			});
+			
+		});
+		
 	});
 
 
@@ -186,10 +242,31 @@ td {
 					<input type="text" id="stop" name="stop">
 				</span>
 				<span id="area3">
-					<input type="submit" value="검색">
+					<input type="submit" value="검색" id="search">
 					<input type="button" value="전체사원 조회" id="btn_all">
 				</span>
 			</form>
+		</div>
+		
+		<%-- # 이메일 자동완성 목록 만들기 : form이 아닌 'ajax'로 통신처리 --%>
+		<div>
+			<select name="target" id="target">
+				<option value="FIRST_NAME">이름</option>
+				<option value="LAST_NAME">성</option>
+				<option value="EMAIL">이메일</option>
+			</select>
+			<input type="text" id="param" name="param" list="auto_complete">
+			<datalist id="auto_complete"></datalist>
+		</div>
+		
+		<%-- # select로 페이지당 게시글 목록수 조절하기 --%>
+		<div>
+			<select id="recordPerPage">
+				<option value="">선택</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+			</select>
 		</div>
 		
 		<hr>

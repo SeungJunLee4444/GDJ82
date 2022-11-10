@@ -7,7 +7,7 @@
 	<name>11_Pjt_List</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
-			<properties>
+	<properties>
 		<java-version>11</java-version>
 		<org.springframework-version>5.3.3</org.springframework-version>	<!--* ${org.springframework-version} 가 참고하는곳   -->
 		<org.aspectj-version>1.9.6</org.aspectj-version>
@@ -114,6 +114,9 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.12.1</version>
 		</dependency>
+		
+
+	
 		
 	
 		<!-- Spring : xml 수정 후에는 반드시 maven-update project-->

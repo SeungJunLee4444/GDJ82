@@ -1,0 +1,13 @@
+ * jackson으로 인해 json으로 자동변환된 조회 결과 + json에서 속성값 꺼내는 방법
+		 Map<> result가 jackson에 의해서 아래 json으로 자동 변경된다
+	  result = {
+			 "status" : 200,						=> 꺼내는 방법 : result.status	/ result["status"]
+			"list" : [
+			  {
+			  "Email" : email@~,		// 쿼리문에서 이메일만 가지고 왔기 때문에 email만 저장되있다
+			  "EmployeeId" : null,
+			  "FirstName" : null,
+			  "LastName" : null,      => 꺼내는 방법 : result.list[0].email
+			  }
+		]
+}

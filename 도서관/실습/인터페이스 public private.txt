@@ -1,0 +1,2 @@
+인터페이스는 private가 없다
+인터페이스 는 public과 abstract를 생략할 수 있다(알아서 적용)

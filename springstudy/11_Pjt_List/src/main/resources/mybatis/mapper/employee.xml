@@ -65,9 +65,9 @@
 	 	   query는 area1의 파라미터-->
 	 <select id="selectFindEmployeesCount" parameterType="Map" resultType="int">
 	 	SELECT COUNT(*)
-	 	 FROM EMPLOYEES
+	 	 FROM EMPLOYEES E
 	 	 <where>
-		 	 <if test="column == 'EMPLOYEE_ID' or column == 'DEPARTMENT_ID'"> ${column} = #{query}</if>
+		 	 <if test="column == 'EMPLOYEE_ID' or column == 'E.DEPARTMENT_ID'"> ${column} = #{query}</if>	<!--  * 검색 개수에 맞게 블록이 나오도록 만들때 주의 -->
 		 	 <if test="column == 'LAST_NAME' or column == 'FIRST_NAME' or column == 'PHONE_NUMBER'"> ${column} LIKE '%' || #{query} || '%'</if>
 		 	 <if test="column == 'HIRE_DATE'">  ${column} BETWEEN TO_DATE(#{begin}, 'YYYY-MM-DD') AND TO_DATE(#{end}, 'YYYY-MM-DD')</if>
 		     <if test="column == 'SALARY'">  ${column} BETWEEN #{begin} AND #{end}</if>
@@ -108,7 +108,6 @@
 	  - 이유 : ROWNUM이 조회될 SELECT문보다, ORDER BY문이 늦게 작동하기 떄문에, 정렬된 ROWNUM이 ORDER BY로 인해 뒤죽박죽으로 영향받기 때문
 	  - 참고주소 : https://cbw1030.tistory.com/253
 	  - 방법 : 먼저 ORDER BY로 정렬된 테이블을 FORM 내부의 가상테이블로 둔 다음에 ROWNUM을 구해야한다
-	  
 	    -->
 	    
 	    <!--  * E.DEPARTMENT_ID인 이유 
@@ -116,6 +115,16 @@
 	    - EMPLOYEE 테이블 하나만 조회하는 경우는 상관없지만, 두개의 테이블을 조회하는 경우에는 명확히 해줘야한다
 	    
 	     -->
+	     
+	   <!--  # 이메일, 성, 이름 자동완성  -->
+	   <!--  * DISTINCT : 중복제거  -->
+	   <select id="selectAutoCompleteList" parameterType="Map" resultType="EmpDTO">
+			SELECT DISTINCT ${target}
+			  FROM EMPLOYEES
+			 WHERE ${target} LIKE CONCAT(#{param}, '%')
+		</select>
+	
+	<!--  * ${target} : 쿼리문이라 ''를 붙여선 안됨 -->
 	 	
  		
 

@@ -24,6 +24,9 @@ public interface EmpMapper {
 
 	// # 직원조회
 	public List<EmpDTO> selectFindEmployees(Map<String, Object> map);
+	
+	// # 이메일, 성, 이름 자동완성
+	public List<EmpDTO> selectAutoCompleteList(Map<String, Object> map);
 
 	
 }
