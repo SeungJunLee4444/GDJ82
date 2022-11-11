@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.app12.domain.BbsDTO;
@@ -88,11 +89,71 @@ public class BbsServiceImpl implements BbsService {
 		return result;
 	}
 
-	
+	// [[[ 답글삽입 서비스
+	@Transactional
+	/* 트랜잭션
+	  @Transactional : 트랜잭션을 처리하는 에너테이션
+	  - 용도 : INSERT, UPDATE, DELETE 2개 이상이 호출되는 서비스에 추가된다 
+	 */
 	@Override
 	public int addReply(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		// # 파라미터 : 작성자, 제목, ip (삽입시 필요한건 실제로 이 3가지)
+		String writer = request.getParameter("writer");
+		String title = request.getParameter("title");
+		String ip = request.getRemoteAddr();
+		
+		// # 원글의 정보 : DEPTH, GROUP_NO, GROUP_ORDER 3가지 필요
+		// - 방법 : (1) 원글의 번호만 받아와서 DB로 조회 / (2) 3가지를 list.jsp에서 파라미터로 가져오기
+		
+		// (2)번 사용
+		int depth = Integer.parseInt(request.getParameter("depth"));
+		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
+		int groupOrder = Integer.parseInt(request.getParameter("groupOrder"));
+		
+		// # 원글 DTO : updatePreviousReply에 전달할 용도
+		BbsDTO bbs = new BbsDTO();
+		bbs.setDepth(depth);
+		bbs.setGroupNo(groupNo);
+		bbs.setGroupOrder(groupOrder);
+		
+		// # db로 원글 dto 전송 : 원글의 3가지 정보 update
+		bbsMapper.updatePreviousReply(bbs);
+		
+		
+		// # 답글 dto 생성 : writer, title, ip, depth, groupno, grouporder 6가지 필요
+		
+		BbsDTO reply = new BbsDTO();
+		reply.setWriter(writer);
+		reply.setTitle(title);
+		reply.setIp(ip);
+		reply.setDepth(depth + 1);				// depth   : 답글은 원글의 depth + 1
+		reply.setGroupNo(groupNo);				// groupNo : 답글과 원글 일치
+		reply.setGroupOrder(groupOrder + 1);	// groupOrder : 답글은 원글 groupOrder + 1
+		
+		// # db로 답글 dto 전송 : 답글 insert
+		return bbsMapper.insertReply(reply);
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	// [[[ 삭제 서비스

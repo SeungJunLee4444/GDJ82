@@ -1,0 +1,7 @@
+# input type="text"의 required 속성
+해당 속성이 존재하면,  텍스트 내에 value값이 존재해야한다
+빈값발생을 방지하는 역할
+boolean 속성 명시안하면 false, 명시하면 true
+
+* required 속성이 존재하는 텍스트를 빈값으로 서브밋할 경우
+텍스트창에 작은 경고창이 뜬다

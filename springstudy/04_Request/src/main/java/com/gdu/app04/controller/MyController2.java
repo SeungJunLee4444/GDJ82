@@ -74,6 +74,10 @@ public class MyController2 {
 		return "board/detail";
 	}
 	
+	// # 속성전달방식
+	// 포워드	  : request, model.addAttribute()
+	// 리다이렉트 : 직접 파라미터작성, RedirectAttributes.addFlashAttribute
+	
 	
 	/* 
 	 * 속성전달방식

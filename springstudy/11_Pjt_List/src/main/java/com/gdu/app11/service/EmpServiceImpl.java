@@ -134,7 +134,7 @@ public class EmpServiceImpl implements EmpService {
 		
 		List<EmpDTO> employees = empMapper.selectFindEmployees(map); // -------------------------> db
 		
-		model.addAttribute("employees", employees);
+		model.addAttribute("employees", employees);	// jsp 상에서 {employees}로 호출가능
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
 		
 		// # 검색후 페이지 이동시 검색한 내용을 가지고 이동할 수 있도록 처리

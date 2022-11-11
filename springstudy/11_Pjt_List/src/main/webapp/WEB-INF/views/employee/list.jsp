@@ -293,7 +293,7 @@ td {
 					<tr>
 						<c:forEach items="${employees}" var="emp" varStatus="vs">	<%-- * 인덱스를 쓰고싶으면 varStatus 사용 --%>
 							<tr>
-								<td>${beginNo - vs.index}</td>
+								<td>${beginNo - vs.index}</td>	<%-- * 시작페이지 beginNo를 속성으로 전달받음, 반복되는 인덱스만큼 빼주기, vs.index : 반복문의 인덱스값(0,1,2...) --%>
 								<td>${emp.employeeId}</td>
 								<td>${emp.firstName} ${emp.lastName}</td>
 								<td>${emp.email}</td>

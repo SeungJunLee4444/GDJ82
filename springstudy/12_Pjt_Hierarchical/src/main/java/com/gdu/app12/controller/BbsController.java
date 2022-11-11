@@ -7,11 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.app12.service.BbsService;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 // # Controller : 컨테이너, @controller은 @component의 일종
 @Controller
@@ -49,6 +46,15 @@ public class BbsController {
 		bbsService.addBbs(request);
 		return "redirect:/bbs/list";
 	}
+	
+	// [[[ 답글 삽입 서비스
+	@PostMapping("/bbs/reply/add")
+	public String replyAdd(HttpServletRequest request) {
+		bbsService.addReply(request);
+		return "redirect:/bbs/list";
+	}
+	
+	
 	
 	// [[[ 삭제 서비스
 	@PostMapping("/bbs/remove")

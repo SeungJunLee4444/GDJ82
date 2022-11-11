@@ -74,7 +74,7 @@ public void setPageUtil(int page, int recordPerPage, int totalRecord) {	// + rec
 		
 		// 이전블록 : 1block이 아니면 이전블록이 있다
 		if(beginPage != 1) {
-			sb.append("<a class=\"lnk\" href=\"" + path + "page=" + (beginPage-1) + "\">◀</a>");
+			sb.append("<a class=\"lnk2\" href=\"" + path + "page=" + (beginPage-1) + "\">◀</a>");
 		} else {
 			sb.append("<span class=\"hidden\">◀</span>");
 		}
@@ -86,7 +86,7 @@ public void setPageUtil(int page, int recordPerPage, int totalRecord) {	// + rec
 				if(p == page) {
 					sb.append("<span class=\"now_page\">" + p + "</span>");
 				} else {
-					sb.append("<a class=\"lnk\" href=\"" + path + "page=" + p + "\">" + p + "</a>");
+					sb.append("<a class=\"lnk1\" href=\"" + path + "page=" + p + "\">" + p + "</a>");
 				}				
 			} else {
 				sb.append("<span class=\"hidden\">" + p + "</span>");
@@ -96,7 +96,7 @@ public void setPageUtil(int page, int recordPerPage, int totalRecord) {	// + rec
 		
 		// 다음블록 : 마지막 블록이 아니면 다음블록이 있다
 		if(endPage < totalPage) {
-			sb.append("<a class=\"lnk\" href=\"" + path + "page=" + (endPage+1) + "\">▶</a>");
+			sb.append("<a class=\"lnk2\" href=\"" + path + "page=" + (endPage+1) + "\">▶</a>");
 		} else {
 			sb.append("<span class=\"hidden\">▶</span>");
 		}
