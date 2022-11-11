@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import com.gdu.app12.domain.BbsDTO;
 import com.gdu.app12.mapper.BbsMapper;
 import com.gdu.app12.util.PageUtil;
+import com.gdu.app12.util.SecurityUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -25,13 +26,20 @@ import lombok.AllArgsConstructor;
 @Service
 public class BbsServiceImpl implements BbsService {
 
-	
+	// # 생성자로 @bean을 가져온다(복수)
 	private BbsMapper bbsMapper;
 	private PageUtil pageUtil;
+	private SecurityUtil securityUtil;
 	
 	// [[[ 게시글 조회 서비스
 	@Override
 	public void findAllBbsList(HttpServletRequest request, Model model) {
+		
+		
+		// # 인증코드 확인 ()안의 내용은 문자의 길이
+		// System.out.println(securityUtil.getAuthCode(4));	
+		// System.out.println(securityUtil.getAuthCode(6));
+		
 		
 		// # 파라미터 : 페이지 처리를 위한 page 파라미터
 		Optional<String> opt1 = Optional.ofNullable(request.getParameter("page"));
@@ -72,8 +80,8 @@ public class BbsServiceImpl implements BbsService {
 	public int addBbs(HttpServletRequest request) {
 		
 		// # 파라미터
-		String writer = request.getParameter("writer");
-		String title = request.getParameter("title");
+		String writer =securityUtil.sha256(request.getParameter("writer")); 
+		String title = securityUtil.preventXSS(request.getParameter("title"));	// ( * securityutil을 이용해 스크립트 처리 방지)
 		String ip = request.getRemoteAddr();
 		
 		// # dto에 저장
@@ -100,7 +108,7 @@ public class BbsServiceImpl implements BbsService {
 		
 		// # 파라미터 : 작성자, 제목, ip (삽입시 필요한건 실제로 이 3가지)
 		String writer = request.getParameter("writer");
-		String title = request.getParameter("title");
+		String title = securityUtil.preventXSS(request.getParameter("title"));	// ( * securityutil을 이용해 스크립트 처리 방지)
 		String ip = request.getRemoteAddr();
 		
 		// # 원글의 정보 : DEPTH, GROUP_NO, GROUP_ORDER 3가지 필요

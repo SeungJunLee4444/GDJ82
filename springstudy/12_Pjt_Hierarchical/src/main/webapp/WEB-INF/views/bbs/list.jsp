@@ -229,7 +229,7 @@ table {
 										$(this).parent().submit();
 									}
 								});
-								<</script>
+								</script>
 							</td>
 						</tr>
 						<%-- # 댓글창처럼 구현하기 --%>
