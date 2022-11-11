@@ -1,0 +1,42 @@
+수동 배포 시
+ 1. CATALINA_HOME\conf\server.xml에서 Connector port=9090 변경
+    (최초 1회만, 오라클인 경우에만)
+ 2. CATALINA_HOME\webapps에 galaxy.war 가져다두기
+    (실제로는 FileZilla 같은 FTP 프로그램을 이용해서 작업)
+ 3. CATALINA_HOME\bin에서 startup.bat 실행하기
+    리눅스의 경우 루트(/) 아래 tomcat의 경로를 확인하고 startup.sh 파일을 실행해야 함
+    예시) 루트(/) 아래 tomcat 디렉터리가 있는 경우
+    /
+    ㄴtomcat
+    입력할 명령
+    $ /tomcat/bin/startup.sh
+ 4. 톰캣이 구동하면서 CATALINA_HOME\webapps\galaxy 디렉터리를 생성하니 확인할 것
+ 5. 주소창에 http://localhost:9090/galaxy 입력하면 배포 결과를 확인할 수 있음
+------------------------------------------------------------------------------------------
+재배포 시
+ ※ 제일 중요한 건 우선 tomcat을 끄라는 점!
+ 1. CATALINA_HOME\bin에서 shutdown.bat 실행하기
+    리눅스의 경우 루트(/) 아래 tomcat의 경로를 확인하고 shutdown.sh 파일을 실행해야 함
+    예시) 루트(/) 아래 tomcat 디렉터리가 있는 경우
+    /
+    ㄴtomcat
+    입력할 명령
+    $ /tomcat/bin/shutdown.sh
+ 2. CATALINA_HOME\webapps에 있는 galaxy.war을 수정한 war로 교체
+    (실제로는 FileZilla 같은 FTP 프로그램을 이용해서 작업)
+ 3. CATALINA_HOME\bin에서 startup.bat 실행하기
+    리눅스의 경우 루트(/) 아래 tomcat의 경로를 확인하고 startup.sh 파일을 실행해야 함
+    예시) 루트(/) 아래 tomcat 디렉터리가 있는 경우
+    /
+    ㄴtomcat
+    입력할 명령
+    $ /tomcat/bin/startup.sh
+ 4. 톰캣이 구동하면서 CATALINA_HOME\webapps\galaxy 디렉터리를 생성하니 확인할 것
+ 5. 주소창에 http://localhost:9090/galaxy 입력하면 배포 결과를 확인할 수 있음
+------------------------------------------------------------------------------------------
+CATALINA_HOME\webapps\ROOT 디렉터리
+ 1. 주소창에 http://localhost:9090/ 입력하면 실행되는 디렉터리
+ 2. 연습
+    기존 ROOT 디렉터리를 지우고,
+    galaxy.war를 ROOT.war로 이름 변경한 뒤 webapps 디렉터리에 가져다 두고 톰캣 구동한 뒤
+    주소창에 http://localhost:9090/ 입력하면 배포 결과를 확인할 수 있음(컨텍스트 패스가 주소에 나타나지 않음)

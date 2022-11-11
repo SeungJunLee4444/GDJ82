@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/> 
 <!DOCTYPE html>
 <html>
@@ -214,7 +215,7 @@ table {
 								</script>
 							</td>
 							<td>${bbs.ip}</td>
-							<td>${bbs.createDate}</td>
+							<td><fmt:formatDate value="${bbs.createDate}" pattern="yy/MM/dd HH:mm:ss" /></td>	<%-- * fmt를 이용해 출력된 현재시간의 형식 변화 --%>
 							<td>
 								<%-- # 게시글 삭제 --%>
 								<form data-aaa="${bbs.bbsNo}" class="frm_remove" method="post" action="${contextPath}/bbs/remove">
