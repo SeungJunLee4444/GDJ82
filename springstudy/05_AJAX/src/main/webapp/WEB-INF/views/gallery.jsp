@@ -23,13 +23,15 @@
 	<script>
 	
 	// # 이미지 10개 출력하기 : 자바스크립트의 for문을 이용해서 해결가능
+	
 	// * 현재 이미지들 : animal1.jpg animap2.jpg....
 	// * 만약 이미지가 aaa.jpg, bbb.jpg 이런식이면 배열해서 파일이름을 전부 저장해서 사용해야한다
 	
 		for(let n = 1; n <= 10; n++) {
 			$('<div>')
 			.append($('<img>')
-				.attr('src', '${contextPath}/image/display?path=' + encodeURIComponent('C:\\GDJ\\images') + '&filename=animal'+ n +'.jpg')		<%-- & encodeURIcomponent : 인코딩을 위한 자바스크립트 함수, URI로 데이터를 전달하기 위해서 문자열을 인코딩 --%>
+					// # 데이터가 저장되기 위한 paht(경로), 파일이름를 요청 ---- *
+				.attr('src', '${contextPath}/image/display?path=' + encodeURIComponent('C:\\GDJ82\\images') + '&filename=animal'+ n +'.jpg')		<%-- & encodeURIcomponent : 인코딩을 위한 자바스크립트 함수, URI로 데이터를 전달하기 위해서 문자열을 인코딩 --%>
 				.attr('width', '200px'))
 			.appendTo('#galleries');
 		}	

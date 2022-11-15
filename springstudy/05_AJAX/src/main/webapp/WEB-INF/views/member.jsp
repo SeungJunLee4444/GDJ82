@@ -20,6 +20,10 @@
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script>
 
+
+
+	// [[[ ajax 통신 : ajax는 페이지의 전환없이 통신이 가능한 방식이다
+
 	$(document).ready(function() {
 		
 		$('#btn1').click(function() {
@@ -36,6 +40,7 @@
 		});
 	});
 	
+	// [[[ 1. 성공시 text응답을 받는 ajax처리
 	function fn_ajax1() {
 		
 		$('#result').empty();	// # 초기화작업
@@ -60,6 +65,7 @@
 		
 	}
 		
+	// [[[ 2. 성공시 text응답을 받는 ajax처리
 	function fn_ajax2() {
 		
 		$('#result').empty();
@@ -85,6 +91,8 @@
 		});	
 	}
 		
+	
+	// [[[ 3. 성공시 json응답을 받는 ajax처리
 	function fn_ajax3() {
 		
 		$('#result').empty();
@@ -107,7 +115,7 @@
 			});
 		}
 	
-	// # 제이슨 데이터를 서버로 보내기 
+	// [[[ 4. json 데이터로 요청하기 ---- *	
 	// - 방법 : JSON.Stringify() : 자바스크립트를 json으로 변환시켜주는 함수를 이용
 	// - 조건 : json 데이터를 보낼떄는 post방식을 써야한다
 	function fn_ajax4() {

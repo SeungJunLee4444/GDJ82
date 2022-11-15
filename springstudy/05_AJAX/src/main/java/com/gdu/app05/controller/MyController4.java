@@ -16,16 +16,17 @@ import com.gdu.app05.service.ContactService;
 @Controller
 public class MyController4 {
 	
-	// # jsp 이동(포워드) : a태그, form태그는 기본적으로 getmapping이다 => getmapping사용 *
+	// # jsp 이동(포워드)
 	@GetMapping("contact")
 	public String contact() {
 		return "contact";
 	}
 	
-	// # 파라미터 처리 : 두 요청의 차이는 파라미터 처리방법의 차이일 뿐이다(결과값은 같음)
+	// # 빈 가져오기
 	@Autowired
 	ContactService contactService;
 	
+	// # 서비스 : post 요청
 	@ResponseBody
 	@PostMapping(value="contact/detail1"
 	           , produces=MediaType.APPLICATION_JSON_VALUE)

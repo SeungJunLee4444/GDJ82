@@ -27,7 +27,8 @@
 		fn_ajax3();
 		
 	});
-		
+	
+	// # 
 	function fn_ajax1() {
 		
 		$('#btn1').click(function() {
@@ -42,25 +43,23 @@
 				
 				// # 응답
 					dataType : 'json',
-					success : function(resData) {
-						$('<ul>')									// & ul 태그 생성
-						.append($('<li>').text(resData.title))		// & li 태그 생성
+					success : function(resData) {					// * 전달받은 본문(board.title, content), httpstatus(응답코드)가 resData에 저장
+						$('<ul>')									
+						.append($('<li>').text(resData.title))		
 						.append($('<li>').text(resData.content))
-						.appendTo('#result');					// * append to : 선택한 요소(자식)을 (부모) 요소 마지막에 넣는다
+						.appendTo('#result');						// * append to : 선택한 요소(자식)을 (부모) 요소 마지막에 넣는다
 					},
 					error : function(jqXHR) {
-						$('#result').text(jqXHR.status);			// & status : 200,300,400번 오류경고숫자	// responseText : 오류구문
-					}												// * 200은 통신은 문제없으나 받아온 데이터가 없을때 발생한다?
+						$('#result').text(jqXHR.status);			// * 전달받은 board(null)과, httpstatus(응답코드) jqXHR에 저장
+					}												// & status : 200,300,400번 오류경고숫자	// responseText : 오류구문
 					
 					// * append()와 appendTo의 차이 ----------------------------------------------
 					// (1) append	: 선택한 요소의 마지막에 새로운 요소(태그) 또는 컨텐츠를 추가
 					// (2) appendTo : 선택한 요소를 to(요소)의 마지막에 추가한다 
-				
 			});
-			
 		});
-		
 	}
+	
 	
 	function fn_ajax2() {
 		

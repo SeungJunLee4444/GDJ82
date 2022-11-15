@@ -12,17 +12,17 @@ import com.gdu.app05.service.MovieService;
 public class MyController3 {
 
 	
-	// # jsp 이동 : movie.jsp로
+	// # movie.jsp 이동
 	@GetMapping("movie") 
 	public String welcome() {
 		return "movie";
 	}
 	
-	// # 서비스
+	// # 빈 꺼내오기
 	@Autowired
 	MovieService movieService;
 	
-	// # 객체사용 파라미터 처리
+	// # @RequestParam로 파라미터 전달
 	@ResponseBody
 	@GetMapping("movie/boxOfficeList")
 	public String boxOfficeList(@RequestParam String targetDt) {	// @RequestParam의 value는 생략가능

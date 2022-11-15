@@ -2,14 +2,81 @@
 
 <<프로젝트 5 : 목록>>  ==========================================
 
+# mycontroller1 : ajax통신 + json데이터로 응답받기, json데이터로 요청하기(*)
+# mycontroller2 : ajax통신 + json데이터로 응답받기, json데이터로 요청하기(*)
+# mycontroller3 : ajax통신 + api 요청과 출력
+# mycontroller4 : ajax통신 + json으로 요청하기(*)
+# mycontroller5 : ajax통신 + 이미지 출력하기
+
+
+
+
+<<프로젝트 5 : 개념>> ==========================================
+
+[[[ ajax 요청,응답 에너테이션
+(1) @RequestBody	 : ajax 요청메시지에 사용, xml/json 기반 메시지를 요청할 때 사용
+(2) @ResponseBody : ajax 응답메시지에 사용, 응답메시지 타입을 결정하는 mediaType 사용가능
+
+
+
+[[[ 컨트롤러 : json 응답처리
+@ResponseBody
+@GetMapping(value="board/detail1" , produces=MediaType.APPLICATION_JSON_VALUE)
+(1) @ResponseBody 에너테이션 사용 (2) produces 속성으로 json타입 지정
+
+
+
+[[[ 컨트롤러 : ajax 응답 데이터 타입 지정
+(1) 컨트롤러에서 produces 속성으로 타입 지정
+(2) 서비스에서 header 영역에 응답 데이터 타입을 저장하고, ResponseEntity에 담아서 반환
+
+		# ResponseEntity 의 종류
+		ResponseEntity(상태코드)
+		ResponseEntity(본문, 상태코드)
+		ResponseEntity(본문, 컨텐츠타입, 상태코드)	: 컨텐츠 타입은 HttpHeader 영역을 이용해 저장한다
+		* header을 이용해 ajax 응답의 컨텐츠를 지정할 수 있다]
+
+
+
+[[[ ResponseEntity : ajax 응답 전용객체
+- 매개변수 : HttpHeaders header, HttpStatus status
+- 형태 : new ResponseEntity<T>(HttpHeaders header(본문내용), HttpStatus status(응답코드))
+(1) body : 실제 응답할 데이터
+(2) header : 응답 헤더 <= body(본문)를 담는다
+(3) status : 응답코드
+
+
+
+[[[ ajax 요청 : json 데이터를 서버로 요청할 때
+(1) post 방식으로 요청해야한다, @postmapping
+(2) data : 파라미터가 존재하지않으며, json.stringfy({})를 이용해 json 형식의 데이터 전달(contact.jsp 참고)
+(3) contenttype 사용 : 'application/json'을 써줘야한다
+
+
+
+[[[ ajax 응답 : 이미지 파일을 응답하고 싶을 경우
+(1) 응답을 위한 ResponseEntity의 타입은 byte[]다
+* 이후의 내용은 mycontroller5, gallery 서비스 참고
+
+
+[[[ 비즈니스 로직 요청하는법 : 이제 4가지
+(1) form 태그
+(2) a태그
+(3) location.href
+(4) image 태그 : 이미지 파일 요청할 때
+
 
 =================================================================
-<<프로젝트 5 : 개념>>
+<<프로젝트 5 : 기타>>
+# 반환이 void일 경우 mapping을 jsp로 인식한다(mycontroller5참고)
 
 
 
 =================================================================
-<<프로젝트 5 : 추가>>
+<<프로젝트 5 : jar 추가>>
+
+[[[ jackson :  컨트롤러에서 반환된 객체를 json 타입의 데이터로 ajax 에 넘겨준다
+ex) member 객체를 {"id" : 아이디, "pw" : 패스워드} 형태의 json 데이터로 바꿔서 전달 
 
 
 

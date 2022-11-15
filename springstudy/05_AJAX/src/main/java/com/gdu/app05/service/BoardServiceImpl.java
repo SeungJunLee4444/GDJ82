@@ -14,13 +14,13 @@ public class BoardServiceImpl implements BoardService {
 
 	// # board 서비스
 	
-	// * ResponseEntity : 스프링의 ajax 응답 전용 객체 --------------------------*
-	// - 형태 : new ResponseEntity<T>(HttpHeaders header, HttpStatus status)
-	// - 구성 
-	// (1) T body : 실제 응답할 데이터
-	// (2) HttpHeaders header : 응답헤더
-	// - 기능 : 요청과 응답에 부가적인 정보 저장 가능
-	// (3) HttpStatus status : 응답코드(200,300,400..)
+	// * ResponseEntity : ajax응답 전용객체
+	// - 매개변수 : HttpHeaders header, HttpStatus status
+	// - 형태 : new ResponseEntity<T>(HttpHeaders header(본문내용), HttpStatus status(응답코드))
+	//	(1) body : 실제 응답할 데이터
+	//	(2) header : 응답 헤더
+	//	(3) status : 응답코드
+	
 	
 	// 1) request로 받아오기 ----------------------------------------------------
 	
@@ -32,17 +32,19 @@ public class BoardServiceImpl implements BoardService {
 		
 		Board board = null;
 		
+		// # 실패, 성공응답
 		ResponseEntity<Board> entity = null;
 		if(title.isEmpty()) {
-			entity = new ResponseEntity<Board>(board, HttpStatus.INTERNAL_SERVER_ERROR);	// INTERNAL_SERVER_ERROR : 500번, 자바코드 오류		=> ajax의 error에서 처리
+			entity = new ResponseEntity<Board>(board, HttpStatus.INTERNAL_SERVER_ERROR);	// 실패 : INTERNAL_SERVER_ERROR : 500번, 자바코드 오류		=> ajax의 error에서 처리
 		} else {
-			board = new Board(title, content);	// * 오류 : 전달할 board가 없으니 당연히 응답을 못하지--*
-			entity = new ResponseEntity<Board>(board, HttpStatus.OK);	// 성공 : board가 entity에 저장되서 응답할 데이터로 전송된다			/	HttpStatus.OK => ajax의 success에서 처리
+			board = new Board(title, content);	
+			entity = new ResponseEntity<Board>(board, HttpStatus.OK);						// 성공 : board가 entity에 저장되서 응답할 데이터로 전송된다			/	HttpStatus.OK => ajax의 success에서 처리
 		}
 		return entity;
 	}
 
-	// 2) 변수 하나씩 받아오기 ----------------------------------------------------
+	
+	// # 서비스2 : @RequestParam로 파라미터 전달 + 헤더 영역에 ajax 응답데이터 타입 저장 + ResponseEntity 반환
 	@Override
 	public ResponseEntity<Board> execute2(String title, String content) {
 		
@@ -58,12 +60,11 @@ public class BoardServiceImpl implements BoardService {
 		} else {
 			entity = new ResponseEntity<Board>(new Board(title, content), header, HttpStatus.OK);  
 		}
-		
 		return entity;	// * 오류 : 반환을했어야지--*
-	
 	}
 
-	// 3) 게사판 통째로 받아오기 ----------------------------------------------------
+	
+	// # 서비스3 : 클래스객체로 파라미터 전달 + 헤더 영역에 ajax 응답데이터 타입 저장 + ResponseEntity 반환
 	@Override
 	public ResponseEntity<Board> execute3(Board board) {
 		ResponseEntity<Board> entity = null;
