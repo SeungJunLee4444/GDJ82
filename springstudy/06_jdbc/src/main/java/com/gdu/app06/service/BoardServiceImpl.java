@@ -10,13 +10,6 @@ import com.gdu.app06.repository.BoardDAO;
 
 // # @Service : 서비스가 사용하는 @component
 
-//# BoardDAO : @repository로 컨테이너에 자바빈으로 등록
-//& @Service
-//- 기능 : DAO에 추가하는 @Service
-//- 작동원리 : servelt-context.xml에 등록된 <context:component-scan> 태그에 의해서 bean으로 검색
-//- 이점 : root-context.xml 또는 @configuration에 @bean으로 등록되지 않아도 컨테이너에 만들어진다
-
-
 @Service
 public class BoardServiceImpl implements BoardService {
 

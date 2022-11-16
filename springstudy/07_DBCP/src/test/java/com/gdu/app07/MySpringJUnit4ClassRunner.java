@@ -19,10 +19,13 @@ public class MySpringJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 
 	private void jndi() {
 
-		// # 
+		// # 작성의도
 		// JNDI 방식으로 "java:comp/env/jdbc/oracle11g" 이름의 Resource를 호출하면,
 		// 톰캣이 확인하는 context.xml을 참조하는 대신
 		// 여기서 만든 BasicDataSource를 사용하시오.
+		
+		// # jndi는 dbcp 커넥션 정보를 자바가 아닌 was 톰캣 영역에 설정하는것을 말하며,
+		// 여기서는 was 톰캣영역인 context.xml이 아닌 아래의 코드를 참조하도록 만들었다
 		
 		// ^ spring에 meta-inf가 없음
 		

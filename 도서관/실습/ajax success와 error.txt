@@ -1,0 +1,2 @@
+// # success, error로 응답 보내는법
+// => 자바에서 try에서 응답을 만들면 success로, catch에서 만들면 error로 전달된다		

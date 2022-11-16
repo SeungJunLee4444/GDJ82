@@ -10,7 +10,7 @@
 </head>
 <body>
 	
-	
+	<%-- #  --%>
 	<a href="${contextPath}/board/list">게시판</a>
 	
 </body>

@@ -4,17 +4,3 @@
 * : 중요
 + : 프로젝트별 새롭게 추가된 내용
  
-
-
-
-# 컨테이너에서 bean을 꺼내쓸 수 있는 방법 ---------------------------------------------------------------------------
-1) @autowired 어노테이션 사용
-	ex) 
-	@autowired
-	private BoardBAO dao;
-2) getbean() 메서드 사용 : 1장 참고
-	ex)
-	AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(BoardAppContext.class);
-	private BoardDAO dao;
-	
-	

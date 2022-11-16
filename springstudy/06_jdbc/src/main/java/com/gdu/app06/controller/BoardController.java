@@ -13,19 +13,19 @@ import com.gdu.app06.service.BoardService;
 @Controller
 public class BoardController{
 	
-	// # controller는 service를 사용한다 -------------------------
 	
-	// # 컨테이너에 생성된 bean 중에서 boardservice 타입의 bean 가져오기(boardservice와 boardserviceimpl은 상속관계)
+	
+	// # 서비스 빈
 	@Autowired	
 	private BoardService boardService;
 	
-	// # 웰컴페이지 -----------------
+	// # 웰컴페이지 
 	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
 	
-	// # 전체조회 ====================================================
+	// # 전체조회 
 	
 	@GetMapping("board/list")
 	public String list(Model model) {	
@@ -34,7 +34,7 @@ public class BoardController{
 		return "board/list";					// * board의 detail.jsp로 이동한다
 	}
 	
-	// 상세보기 ==============================================================================================================
+	// 상세보기 
 	@GetMapping("board/detail")
 	public String detail(@RequestParam(value="board_no", required = false, defaultValue = "0") int board_no , Model model) {
 		

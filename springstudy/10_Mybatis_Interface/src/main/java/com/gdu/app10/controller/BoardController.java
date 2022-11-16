@@ -15,7 +15,7 @@ import com.gdu.app10.service.BoardService;
 
 public class BoardController{
 	
-	// #
+	// # 서비스 빈 가져오기
 	@Autowired
 	private BoardService boardService;
 
