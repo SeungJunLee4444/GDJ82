@@ -2,6 +2,7 @@ package com.gdu.app13.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -13,6 +14,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -294,6 +296,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		
+		
+		
 		// [[ 요청
 		// # 파라미터 3개
 		String url = request.getParameter("url");
@@ -315,6 +319,12 @@ public class UserServiceImpl implements UserService {
 		// [[ 로그인처리 : 로그 기록 남기기 + session 저장
 		// # id, pw가 일치하는 회원이 있다 : 로그인 기록 남기기 + session에 loginUser 저장
 		if(loginUser != null) {
+			
+			
+			
+			// # 로그인 유지 처리 : 로그인 성공헀을 때 실행 -> keeplogin()메서드로
+			keepLogin(request, response);
+			
 			
 			// # 로그인 기록 남기기
 			int updateResult = userMapper.updateAccessLog(id);
@@ -353,5 +363,210 @@ public class UserServiceImpl implements UserService {
 				}
 				
 			}
+	
+	// [[ 로그인 유지 : 브라우저를 종료해도 로그인이 유지된다 
+	@Override
+	public void keepLogin(HttpServletRequest request, HttpServletResponse response) {
+		
+		// # 로그인 유지를 체크한 경우
+		// (1) session_id를 쿠키에 저장해둔다 (쿠키명 : keepLogin)\
+		// (2) session_id를 db에 저장해둔다 (SESSION_ID 칼럼에 session_id를 저장, SESSION_LIMIT_DATE 칼럼에 15(임의)일 후 날짜를 보관)
+		
+		// # 로그인 유지를 체크 안한 경우 		
+		// - 쿠키 또는 DB에 저장된 정보를 하나 삭제한다 (쿠키가 편함)
+		
+		
+		
+		// # 파라미터
+		String id = request.getParameter("id");
+		String sessionId = request.getSession().getId();
+		String keepLogin = request.getParameter("keepLogin");
+		// * checkbox : 체크가 되있으면 null이 아님,  아니면, null
+		
+		// [ 로그인 유지(checkbox)를 체크한 경우
+		if(keepLogin != null) {
+			
+			Cookie cookie = new Cookie("keepLogin", sessionId);
+			// * request.getSession().getId() : 세션의 id값 (쿠키에 있던 sessionid)
+			cookie.setMaxAge(60 * 60 * 24 * 15); // 15일
+			cookie.setPath(request.getContextPath());
+			response.addCookie(cookie);
+			
+			// sessionId db에 저장
+			UserDTO user = UserDTO.builder()
+						.id(id)
+						.sessionId(sessionId)
+						.sessionLimitDate(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))	// 현재스탬프 + 15일에 해당하는 타임스탬프
+						.build();
+			
+			userMapper.updateSessionInfo(user);
+		
+			
+			
+			
+			
+			
+		// [ 로그인 유지(checkbox)를 체크안한경우 	
+		} else {
+			
+			Cookie cookie = new Cookie("keepLogin", "");
+			
+			cookie.setMaxAge(0); // 쿠키 유지시간이 0이면 삭제를 의미
+			cookie.setPath(request.getContextPath());
+			response.addCookie(cookie);
+			
+		}
+	}
+	
+	// # 로그아웃
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 로그아웃 처리 : session 초기화
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginUser") != null) {
+			session.invalidate();
+		} 
+	
+		// 로그인 유지 풀기 : 쿠키 초기화
+		// * 쿠키는 하나만 골라서 가져오는게 없어서 전부 배열형태로 죄다 가져와야한다
+		Cookie[] cookieList = request.getCookies();
+		if(cookieList == null) {
+			return;
+		}
+		Cookie cookie = null;
+		for(int i = 0; i < cookieList.length; i++) {
+			if(cookieList[i].getName().equals("keepLogin")) {
+			}		cookie = new Cookie("keepLogin", "");
+					cookie.setMaxAge(0); // 쿠키 유지시간이 0이면 삭제를 의미
+					cookie.setPath(request.getContextPath());
+					response.addCookie(cookie);
+					break;
+			}
+	}
+	
+	// # 인터셉터 
+	@Override
+	public UserDTO getUserBySessionId(Map<String, Object> map) {
+		return userMapper.selectUserByMap(map);
+	}
+	
+	
+	
+	// # 비밀번호 재확인
+	@Override
+	public Map<String, Object> confirmPassword(HttpServletRequest request) {
+		
+		// # 파라미터 : pw
+		String pw = securityUtil.sha256(request.getParameter("pw"));
+		
+		// # id : 로그인을 했기 때문에 session에 저장되 있음
+		HttpSession session = request.getSession();
+		String id = ((UserDTO)session.getAttribute("loginUser")).getId();
+		
+		// 조회 조건으로 사용되는 map
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pw", pw);
+		
+		// id, pw가 일치하는 회원 조회
+		UserDTO user = userMapper.selectUserByMap(map);
+		
+		// 결과 반환
+		Map<String, Object> result = new HashMap<>();
+		result.put("isUser", user != null);	// * user이 null이 아니라면 true가 값으로 저장
+		return result;
+	
+		
+		
+	}
+	
+	// # 비밀번호 변경
+	@Override
+	public void modifyPassword(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String pw = securityUtil.sha256(request.getParameter("pw"));
+		
+		
+		// 회원번호 : session
+		HttpSession session = request.getSession();
+		UserDTO loginUser = ((UserDTO)session.getAttribute("loginUser"));
+		
+		
+		// 동일한 비밀번호로 변경 금지
+		if(pw.equals(loginUser.getPw())) {
+			try {
+						response.setContentType("text/html; charset=UTF-8");
+						PrintWriter out = response.getWriter();
+						
+						// # 실패응답
+						out.println("<script>");
+						out.println("alert('동일한 비밀번호 변경은 안됩니다.');");
+						out.println("history.go(-1)");
+						out.println("</script>");
+						out.close();
+						
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					
+				}
+		
+		// 사용자 번호
+		int userNo = loginUser.getUserNo();
+		
+		// db로 보낼 userdto
+		UserDTO user = UserDTO.builder()
+				.userNo(userNo)
+				.pw(pw)
+				.build();
+		
+		// db로 보내기
+		int result = userMapper.updateUserPassword(user);
+		
+		// 응답
+		try {
+			
+			
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+		
+				// # 로그인된 session 초기화 
+				session.invalidate();
+			if(result > 0) {
+				
+				
+				// * 세션에 저장된 loginUser 업데이트
+				loginUser.setPw(pw);
+				
+				// # 성공응답
+				out.println("<script>");
+				out.println("alert('비밀번호가 수정되었습니다');");
+				out.println("location.href = '" + request.getContextPath() + "';" );
+				out.println("</script>");
+			} else {
+				// # 삭제실패
+				out.println("<script>");
+				out.println("alert('비밀번호가 수정되지 않았습니다');");
+
+				out.println("history.go(-1);" );
+				out.println("</script>");
+		
+			out.close();
+	
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	
+	
+	
 }
 			

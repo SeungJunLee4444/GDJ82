@@ -6,18 +6,25 @@
 
 <mapper namespace="com.gdu.app13.mapper.UserMapper">
 
-	<!--  # id, pw, email 입력점검 통합 -->
+	<!--  # id, pw, email 입력점검 통합 + 로그인 유지를 이용한 로그인 + 마이페이지 가기전 비번확인 -->
 	<select id="selectUserByMap" parameterType="Map" resultType="UserDTO">
 		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE
-  		<if test="id != null">
-   			 ID like #{id}
-  		</if>
-  		<if test="pw != null">
-   			 AND PW like #{pw}
-  		</if>
-  		<if test="email != null">
-   			 AND EMAIL like #{email}
-  		</if>
+		  FROM USERS
+		<where>
+	  		<if test="id != null">
+	   			 ID like #{id}
+	  		</if>
+	  		<if test="pw != null">
+	   			 AND PW like #{pw}
+	  		</if>
+	  		<if test="email != null">
+	   			 AND EMAIL like #{email}
+	  		</if>
+	  		<if test="sessionId != null">
+	  			AND SESSION_ID = #{sessionId}
+	  			AND SESSION_LIMIT_DATE > SYSDATE	<!--  * 세션 유지시간이 남았는지? -->
+	  		</if>
+  		</where>
   	
 	</select>
 	<!--  * where 태그 : and, or무시, if태그 : 조건
@@ -105,6 +112,26 @@
 		 WHERE ID = #{id}
 		   AND PW = #{pw}
 	</select>
+	
+	<!--  # 로그인 유지 : SESSION_ID, SESSION_LIMIT_DATE 업데이트 -->
+	<update id="updateSessionInfo" parameterType="UserDTO">
+		UPDATE USERS
+			SET SESSION_ID = #{sessionId}
+			, SESSION_LIMIT_DATE = #{sessionLimitDate}
+		WHERE ID = #{id}
+	</update>
+	
+
+	
+	<!--  # 비밀번호 변경 : 변경된 비밀번호와 비밀번호 수정 날짜 -->
+	<update id="updateUserPassword" parameterType="UserDto">
+		UPDATE USERS
+			SET PW = #{pw}, PW_MODIFY_DATE = SYSDATE
+		WHERE USER_NO = #{userNo}
+	
+	</update>
+	
+	
 	
 	
 	

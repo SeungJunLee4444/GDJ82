@@ -29,6 +29,7 @@ public class DataBaseConfig {
 	
 	// # SpringJdbc 처리를 위한 DriverManagerDataSource와 JdbcTemplate을 Bean으로 등록한다 ---- +
 	
+	// [[[ jdbc 처리
 	// # DriverManagerDataSource
 	@Bean
 	public DriverManagerDataSource dataSource() {
@@ -48,10 +49,11 @@ public class DataBaseConfig {
 	// * JdbcTemplate는 dataSource()가 필요하다
 	
 	
-	// # 트랜잭션 처리를 위한 transactionManager를 bean으로 등록한다 ---- +
+	// [[[ 트랜잭션
+	// # transactionManager를 bean으로 등록
 	@Bean
 	public TransactionManager transactionManager() {
-		return new DataSourceTransactionManager(dataSource());
+		return new DataSourceTransactionManager(dataSource());	// -jdbc의 datasource()
 	}
 	// * TransactionManager는 인터페이스라 DataSourceTransactionManager 구현체를 사용한다
 	// * 트랜잭션에는 dataSource 정보가 필요하다
@@ -61,10 +63,13 @@ public class DataBaseConfig {
 	@Bean
 	public TransactionInterceptor transactionInterceptor() {
 		
-		// & 모든 exception이 발생하면 rollback를 수행하시오
+		// * TransactionInterceptor : 트랜잭션을 사용하는 경우를 임의로 설정할 수 있다 ---?
+		
+		// 상황 :  모든 exception이 발생하면 rollback를 수행하시오
+		// * @transactional이 생략된 이유 : 모든 예외가 발생시 트랜잭션이 자동으로 이루어졌기 때문 ---- *
 		RuleBasedTransactionAttribute attribute = new RuleBasedTransactionAttribute();
 		attribute.setName("*");
-		attribute.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
+		attribute.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));	// exception 예외 발생시 rollback수행
 		MatchAlwaysTransactionAttributeSource source = new MatchAlwaysTransactionAttributeSource();
 		source.setTransactionAttribute(attribute);
 		
@@ -92,6 +97,8 @@ public class DataBaseConfig {
 		 */
 		AspectJExpressionPointcut pointCut = new AspectJExpressionPointcut();
 		pointCut.setExpression("execution(* com.gdu.app08.service.*Impl.*Transaction(..))");
+		
+		
 		
 		return new DefaultPointcutAdvisor(pointCut, transactionInterceptor());
 		

@@ -1,0 +1,4 @@
+# 타임스탬프
+- long 타입의 date를 전달해 달라는건 timestamp값을 의미한다
+- timestamp는 밀리초(1000분의 1초)
+- System.currentTimeMillis() : 현재시간의 타임스탬프

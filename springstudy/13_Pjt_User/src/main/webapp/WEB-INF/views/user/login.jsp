@@ -8,6 +8,62 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<%-- # cdn : jquery cookie --%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	
+	$(function() {
+		
+		// [[[ 아이디 저장
+		fn_login();
+		fn_displayRememberId();
+		
+		
+		
+		
+	});
+	
+	// [[ 아이디 저장1
+	function fn_login() {
+		$('#frm_login').submit(function(event) {
+			
+			// # id, pw가 빈문자열일 경우 서브밋 중지
+			if($('#id').val() == '' || $('#pw').val() == '')  {
+				event.preventDefault();
+				return;
+			}
+			
+			// # 
+			if($('#rememberId').is(':checked')) {
+				$.cookie('rememberId', $('#id').val());	
+				// * $.cookie : 제이쿼리 쿠키 라이브러리로 인해 사용된다
+				// 해석 : rememberId라는 이름으로 사용자가 입력한 id값을 저장하겠다
+			} else {
+				$.cookie('rememberId', '');
+			}
+			
+			
+		});
+	}
+	
+	// [[ 아이디 저장2
+	// # 저장된 아이디를 다음에 로그인할때 화면에 표시
+	function fn_displayRememberId() {
+		
+		let rememberId = $.cookie('rememberId');
+		// 1) 쿠키에 저장된 아이디가 없으면, 아이디칸은 빈값, 아이디 저장 체크박스는 체크안됨
+		if(rememberId == '') {
+			$('#id').val('');
+			$('#rememberId').prop('checked', false)
+		} else {
+		// 2) 쿠키에 저장된 아이디가 있으면, 아이디칸은 저장된 아이디값, 아이디 저장 체크박스는 체크됨
+			$('#id').val(rememberId);
+			$('#rememberId').prop('checked', true)
+			
+		}
+	}
+
+</script>
 </head>
 <body>
 
@@ -48,8 +104,8 @@
 		</form>
 			
 		<div>
-			<a href="${contextPath}/member/findId">아이디 찾기</a> | 
-			<a href="${contextPath}/member/findPw">비밀번호 찾기</a>
+			<a href="${contextPath}/user/findId">아이디 찾기</a> | 
+			<a href="${contextPath}/user/findPw">비밀번호 찾기</a>
 		</div>
 	
 	</div>

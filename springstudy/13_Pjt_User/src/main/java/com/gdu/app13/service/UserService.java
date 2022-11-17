@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gdu.app13.domain.UserDTO;
+
 public interface UserService {
 	
 	// # 회원가입 점검(아이디, 이메일)
@@ -24,6 +26,18 @@ public interface UserService {
 	// # 로그인
 	public void login(HttpServletRequest request, HttpServletResponse response);
 	
+	// # 로그인 유지
+	public void keepLogin(HttpServletRequest request, HttpServletResponse response);
 	
+	// # 로그아웃
+	public void logout(HttpServletRequest request, HttpServletResponse response);
 	
+	// # 인터셉터 : 초기화면 로그인, keepLoginInterCepter에서 호출
+	public UserDTO getUserBySessionId(Map<String, Object> map);
+	
+	// # 비밀번호 재확인
+	public Map<String, Object> confirmPassword(HttpServletRequest request);
+	
+	// # 비밀번호 변경
+	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
 }

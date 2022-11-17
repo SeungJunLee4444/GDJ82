@@ -33,18 +33,23 @@
 		<%-- [[ 로그아웃 --%>
 		<a href="${contextPath}/user/logout">로그아웃</a>	
 		<div>
-			<a href="${contextPath}/user/mypage">${loginUser.name}</a>님 반갑습니다
+		
+		<%-- [[ 마이페이지 이동 전 비밀번호 체크 --%>
+			<a href="${contextPath}/user/check/form">${loginUser.name}</a>님 반갑습니다
 		</div>
-		<%-- [[ 회원탈퇴 --%>
-		<a id="lnk_retire" href="${contextPath}/user/retire">회원탈퇴</a>
+		<%-- [[ 회원탈퇴 : a태그로 form을 이용한 post 요청하는법--%>
+		<a id="lnk_retire" href="javascript:fn_abc()">회원탈퇴</a>
+		<form id="lnk_retire" action="${contextPath}/user/retire" method="post"></form>
 		<script>
+				function fn_abc() {
 				// # 탈퇴시 여부 확인 : 취소를 누르면 취소이벤트 발생
 				$('#lnk_retire').click(function(event) {
 					if(confirm('탈퇴하시겠습니까?') == false) {
-						event.preventDefault();	// * a링크의 기본이벤트인 href="${contextPath}/user/retire"를 막는것
-						return;
+						$('#lnk_retire').submit();
 					}
-				});
+				});					
+				}
+		
 		</script>
 	</c:if>
 	

@@ -10,14 +10,16 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 @Component  
-// @Aspect : aop 사용을 위한 어노테이션
+// # aop를 사용하려면 아래 두개의 어노테이션이 필요하다
 @Aspect   
+@EnableAspectJAutoProxy
 public class RequestLoggingAspect {
 	
 	

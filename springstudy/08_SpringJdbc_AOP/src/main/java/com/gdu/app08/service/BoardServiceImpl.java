@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.app08.domain.BoardDTO;
 import com.gdu.app08.repository.BoardDAO;
@@ -58,10 +59,12 @@ public class BoardServiceImpl implements BoardService {
 	
 	// # 트랜잭션 : 한 메서드 안에 두개의 비즈니스 로직이 이루어질때 트랜잭션이 작동한다
 	// - 특징 : 둘중 하나만 실패해도 실패로 처리
+	
+	@Transactional
 	@Override
 	public void testTransaction() {
 		// & 성공
-		dao.insertBoard(new BoardDTO(0, "트랙잭션제목", "트랜잭션내용", "트랜잭션작성자", null, null));
+		dao.insertBoard(new BoardDTO(0, "트랙잭션제목2", "트랜잭션내용2", "트랜잭션작성자2", null, null));
 			
 		// & 실패
 		dao.insertBoard(new BoardDTO());	// => nullpointerexception이 떨어질 것으로 예상

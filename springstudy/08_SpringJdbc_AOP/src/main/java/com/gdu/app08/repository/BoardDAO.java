@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import com.gdu.app08.domain.BoardDTO;
 
-// # BoardDAO : 컨테이너에 저장, 싱글턴 처리
-@Repository 	// * @component는 servlet-context.xml에 빈이 저장된다
+
+@Repository 	
 public class BoardDAO {
 	
 	
