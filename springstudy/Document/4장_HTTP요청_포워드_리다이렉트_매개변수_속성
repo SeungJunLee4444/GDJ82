@@ -12,11 +12,16 @@
 - a 태그    	: get방식만 가능
 - location.href : get 방식만 가능
 - form 태그 	: get,post 방식 둘다가능
+- ajax          : get,post 방식 둘다 가능
+- img
 
 
 [[[ 요청영역에 속성 저장하는법 3가지 : mycontroller1 참고  ------------------------------
 (1) HttpServletRequest request 객체 사용하는법				-> 그냥 이걸 쓰면된다 ---- *
 (2) @RequestParam 
+(1) value 속성 : 파라미터명
+(2) required 속성 : 필수여부, true/false
+(3) defaultValue : 전달된 값이 없을경우 디폴트값
 (3) 파라미터를 필드값으로 지닌 클래스객체
 * 2,3 번 방법은 제약이 있다 ex) session 사용시
 

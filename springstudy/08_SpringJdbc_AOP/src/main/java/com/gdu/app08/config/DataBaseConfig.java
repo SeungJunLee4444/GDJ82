@@ -50,23 +50,22 @@ public class DataBaseConfig {
 	
 	
 	// [[[ 트랜잭션
-	// # transactionManager를 bean으로 등록
+	// # transactionManager : 트랜잭션을 관리하는 인터페이스
+	// - 조건 : db정보가 필요
 	@Bean
 	public TransactionManager transactionManager() {
-		return new DataSourceTransactionManager(dataSource());	// -jdbc의 datasource()
+		return new DataSourceTransactionManager(dataSource());	
 	}
-	// * TransactionManager는 인터페이스라 DataSourceTransactionManager 구현체를 사용한다
-	// * 트랜잭션에는 dataSource 정보가 필요하다
 	
 	
-	// # 트랜잭션 인터셉터를 bean으로 등록 ---- +
+	// # 트랜잭션 인터셉터 : @transactional을 직접 사용하는 대신, 인터셉터를 이용해 트랜잭션이 실행될 범위를 설정해
+	// 자동으로 실행시킨다
 	@Bean
 	public TransactionInterceptor transactionInterceptor() {
 		
-		// * TransactionInterceptor : 트랜잭션을 사용하는 경우를 임의로 설정할 수 있다 ---?
 		
-		// 상황 :  모든 exception이 발생하면 rollback를 수행하시오
-		// * @transactional이 생략된 이유 : 모든 예외가 발생시 트랜잭션이 자동으로 이루어졌기 때문 ---- *
+		
+		// * 연습상황 :  모든 exception이 발생하면 rollback를 수행하시오
 		RuleBasedTransactionAttribute attribute = new RuleBasedTransactionAttribute();
 		attribute.setName("*");
 		attribute.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));	// exception 예외 발생시 rollback수행

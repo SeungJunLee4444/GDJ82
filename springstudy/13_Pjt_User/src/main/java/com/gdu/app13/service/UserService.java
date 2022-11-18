@@ -1,10 +1,12 @@
 package com.gdu.app13.service;
 
+import java.net.http.HttpResponse;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gdu.app13.domain.SleepUserDTO;
 import com.gdu.app13.domain.UserDTO;
 
 public interface UserService {
@@ -40,4 +42,16 @@ public interface UserService {
 	
 	// # 비밀번호 변경
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
+	
+	// # 휴먼계정 처리
+	public void sleepUserHandle();
+	
+	// # 로그인 이전에 휴먼계정인지 확인
+	public SleepUserDTO getSleepUserById(String id);
+	
+	// # 휴먼계정 다시 일반계정으로 만들기
+	public void restoreUser(HttpServletRequest request, HttpServletResponse response);
+		
+	
+	// # 휴먼계정 삭제
 }

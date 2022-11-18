@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.app13.service.UserService;
 
+import oracle.jdbc.proxy.annotation.Post;
+
 @Controller
 public class UserController {
 
@@ -126,6 +128,18 @@ public class UserController {
 	@PostMapping("/user/modify/pw")
 	public void requiredLogin_modifyPw(HttpServletRequest request, HttpServletResponse response) {
 		userService.modifyPassword(request, response);
+	}
+	
+	// # 휴먼계정 복원해야 한다는 경고창 띄우기
+	@GetMapping("/user/sleep/display")
+	public String sleepDisplay() {
+		return "user/sleep";
+	}
+	
+	// # 휴먼계정 일반계정 복원
+	@PostMapping("/user/restore")
+	public void restore(HttpServletRequest request, HttpServletResponse response) {
+		userService.restoreUser(request, response);
 	}
 	
 	

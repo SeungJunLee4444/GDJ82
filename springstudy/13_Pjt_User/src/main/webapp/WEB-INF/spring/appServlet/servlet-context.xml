@@ -30,15 +30,22 @@
 	
 	
 	<interceptors>
+		<!-- KeepLoginInterceptor : bean 태그로 컨테이너에 등록 -->
 		<interceptor>
 			<mapping path="/**" />
 			<beans:ref bean="keepLoginInterceptor" />
 		</interceptor>
+		<!-- PreventLoginInterceptor : @Component로 컨테이너에 등록 -->
 		<interceptor>
 			<mapping path="/user/login/form"/>
 			<mapping path="/user/join/write"/>
 			<mapping path="/user/agree"/>
 			<beans:bean class="com.gdu.app13.interceptor.PreventLoginInterceptor" />
+		</interceptor>
+		<!-- SleepUserCheckingInterceptor : @Component로 컨테이너에 등록 -->
+		<interceptor>
+			<mapping path="/user/login"/>
+			<beans:bean class="com.gdu.app13.interceptor.SleepUserCheckingInterceptor" />
 		</interceptor>
 	</interceptors>
 	

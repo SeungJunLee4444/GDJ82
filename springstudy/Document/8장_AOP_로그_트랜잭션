@@ -12,25 +12,29 @@
 <<프로젝트 8 : 수업정리>>
 
 [[[ 트랜잭션
-- 필요한경우 : 하나의 서비스에서 2개 이상의 INSERT/UPDATE/DELETE가 호출되는 경우에 필요합니다.
+- 필요한경우 : 하나의 서비스에서 2개 이상의 INSERT/UPDATE/DELETE가 호출되는 경우에 필요하다
 
-# 트랜잭션의 에너테이션
-# @EnableAspectJAutoProxy : aop가 있어야 트랜잭션 처리가 가능해진다
-# @EnableTransactionManagement : 사용시 해당 클래스에, 트랜잭션매니저를 생성 허용, 트랜잭션 사용을 허용하는 에너테이션, @Transactional 을 찾아서 실행시키는 역할
-# @Transactional : 트랜잭션이 필요한 메서드 위에 사용한다
+# 사용조건
+1. @EnableAspectJAutoProxy : transactionmanager를 사용하게 해주는 에너테이션
 
-@transactional이 생략된 이유 : 모든 예외가 발생시 트랜잭션이 자동으로 이루어졌기 때문, TransactionInterceptor에서 트랜잭션에 사용되는 경우를 임의로 설정하였다
-# TransactionInterceptor : 트랜잭션을 사용하는 경우를 임의로 설정할 수 있다
+2. transactionmanager : 트랜잭션을 관리하는 인터페이스
+- 트랜잭션 사용에 필수적으로 존재
+- 조건 : db정보가 필요
 
-# transactionmanager 인터페이스
-- DataSourceTransactionManager 구현체를 사용
-- datasource 정보가 필요
+3. 트랜잭션 사용
+1) @transactional 에너테이션으로 직접 사용
+- 기능 : 필요로하는 서비스 메서드에 직접 에너테이션을 추가하여 트랜잭션을 실시하는데 사용한다
 
-# TransactionInterceptor 클래스 
-- 상황 : exception 예외 발생시 롤백 수행
+2) 인터셉터로 자동 사용
+3.2 TransactionInterceptor 클래스 / advisor 인터페이스
+- 기능 : 인터셉터 기능을 이용해 트랜잭션이 실행될 조건을 임의로 만들 수 있다
+- advisor을 통해서 인터셉터로 설정된 기능의 대상 범위를 정할 수 있다
+* advisor을 사용할때 pointcut으로 대상을 설정한다
 
-# Advice 등록 : Advisor 인터페이스 사용
-- @pointcut을 사용하는곳
+
+- 조건 transactionManager가 필요
+* 이때 @transactional은 생략 가능하다
+
 
 * 포인트컷 표현식
 / * 포인트컷 표현식
@@ -46,6 +50,8 @@
 		   	 	(1) .. : 모든 매개변수
 		   	 	(2) *  : 1개의 모든 매개변수
 */
+
+
 
 [[[ AOP
 # 개념 
@@ -69,28 +75,11 @@
 
 
 
-****
-선언적 트랜잭션
-(1) @transactional 어노테이션 사용 
-(2) aop 설정으로 트랜잭션 선언 , mamanger을 특정한 영역(컨테이너)에 생성하여 사용
-
-
-
-
-
-
 # @AllargsConstructor 생성자 에너테이션 : @autowired를 대체할 수 있다
 - 용도 : 필드값에 일일히 @autowired를 사용해줘야 하는 것과 달리
 @AllargsConstructor는 복수의 필드값을 한번만 사용해서 처리한다 
 - 참고 : 8장 컨트롤러 
 
-
-
-
-# @RequestParam 2번째 파라미터 전달방법
-(1) value 속성 : 파라미터명
-(2) required 속성 : 필수여부, true/false
-(3) defaultValue : 전달된 값이 없을경우 디폴트값
 
 
 # 스프링 전용 jdbc 
