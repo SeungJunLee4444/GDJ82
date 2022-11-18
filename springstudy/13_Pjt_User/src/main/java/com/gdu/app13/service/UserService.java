@@ -52,6 +52,10 @@ public interface UserService {
 	// # 휴먼계정 다시 일반계정으로 만들기
 	public void restoreUser(HttpServletRequest request, HttpServletResponse response);
 		
+	// # 네이버 로그인 API : session이 필요해서 request 전달
+	public String getNaverLoginApiURL(HttpServletRequest request);
 	
-	// # 휴먼계정 삭제
+	// # 네이버 로그인 동의화면 이동
+	public UserDTO getNaverLoginTokenNProfile(HttpServletRequest request);
+
 }

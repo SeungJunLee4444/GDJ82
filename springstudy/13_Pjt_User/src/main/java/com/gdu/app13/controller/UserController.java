@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.app13.service.UserService;
 
-import oracle.jdbc.proxy.annotation.Post;
-
 @Controller
 public class UserController {
 
@@ -75,6 +73,9 @@ public class UserController {
 	@GetMapping("/user/login/form")
 	public String loginForm(HttpServletRequest request, Model model) {
 		
+		// # 네이버 로그인 : login.jsp 요청시 네이버 로그인 a태그의 경로인 apiURL을 속성에 저장
+		model.addAttribute("apiURL", userService.getNaverLoginApiURL(request));
+		
 		// * 요청 헤더 referer : 이전 페이지의 주소가 저장
 		model.addAttribute("url", request.getHeader("referer"));	// * 로그인후 되돌아갈 주소 한 페이지 이전의 url
 		return "user/login";										// * 포워드 방식이라 
@@ -86,7 +87,14 @@ public class UserController {
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		userService.login(request, response);
 	}
-
+	
+	// 네이버 로그인 동의화면 요청
+	@GetMapping("/user/naver/login")
+	public String naverLogin(HttpServletRequest request) {
+		userService.getNaverLoginTokenNProfile(request);
+		return "redirect:/";
+		
+	}
 	
 	// # 로그아웃 : session 초기화, 자동로그인도 해제된다
 	@GetMapping("/user/logout")
@@ -98,7 +106,7 @@ public class UserController {
 	// & 로그인 저장, 로그인 유지를 위해서는 request, response를 넣어둬야한다
 	
 	
-	// # 회원탈퇴 : 탈퇴는 로그인 해야 하 ㄹ수 있음
+	// # 회원탈퇴 : 탈퇴는 로그인 해야 할수 있음
 	@PostMapping("/user/retire")
 	public void Retire(HttpServletRequest request, HttpServletResponse response) {
 		userService.retire(request, response);
@@ -141,6 +149,8 @@ public class UserController {
 	public void restore(HttpServletRequest request, HttpServletResponse response) {
 		userService.restoreUser(request, response);
 	}
+	
+	
 	
 	
 	

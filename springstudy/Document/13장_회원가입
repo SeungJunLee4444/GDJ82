@@ -17,6 +17,7 @@
 # 로그인시 스케줄링 확인(인터셉터) : controller의 login수행시 인터셉터 개입 
 # 휴먼회원이 아이디/비밀번호로 다시 로그인하면 정상회원으로 등록
 # 11개월 차에 안내메일 전송하기
+# 네이버 로그인 연동 : login.jsp 참고, 네이버 로그인 api 사용
 
 <<프로젝트 13 : 정리>>	-------------------------------------------------------------									=> 수업목록과 정리는 남기기
 [[[ 스프링 스케줄러
@@ -84,6 +85,32 @@ true를 반환하면 그다음 요청 실시, false를 반환하면 요청 실�
 13장 servlet
 
 
+[[[ 네이버 로그인 api
+- api 요청주소 : https://developers.naver.com/apps/#/myapps/8DMw73fQdkYHHygxtkVX/config
+- 로그인 api 개발 가이드 : https://developers.naver.com/docs/login/devguide/devguide.md#%EB%84%A4%EC%9D%B4%EB%B2%84%20%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B0%9C%EB%B0%9C%EA%B0%80%EC%9D%B4%EB%93%9C
+
+# 로그인 처리 
+naverlogin.jsp
+
+# 콜백 url : 
+
+# 과정
+1. 로그인 api 명세
+(1) 로그인화면에서 네이버 로그인 클릭
+(response_type, cliend_id, redirect_uri, state 전송)
+-> 
+(2) 네이버 로그인 동의화면(제공정보 선택)
+이전화면에서 보낸 redirect_uri 주소로 code, state 값을 전송
+redirect_uri가 /user/naver/login 이므로 
+관련 매핑을 컨트롤러에 만들고, code, state 처리하는 서비스 구현
+- 결과 : access_token 값을 발급, 제이슨 데이터 형태
+
+
+2. 회원 프로필 조회 api 명세
+* 네이버 로그인 api 처리를 통해 access_token값을 발급받아 처리
+- 결과 : 사용자의 프로필 정보 획득
+
+
 
 
 <%-- * session에 저장된 pw와 입력한 pw가 비교 안되는 이유
@@ -93,11 +120,6 @@ true를 반환하면 그다음 요청 실시, false를 반환하면 요청 실�
 
 <<프로젝트 13 : 수업보조>>    -------------------------------------------------------
 
-
-# 웹에서 쿠키 내역 확인하는법
-- 방법 : f12 - 상단의 application - 좌측의 cookie
-
-# JSESSIONID : 세션 아이디, 기본적으로 쿠키에 저장되있음, 브라우저 영역(session)에서 유지
 
 
 

@@ -16,6 +16,18 @@
 	</properties>
 
 	<dependencies>
+	
+		<!--  13장 추가 : json -->
+		<!--  네이버 api 응답 데이터 처리를 위해 사용-->
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20220924</version>
+		</dependency>
+				
+	
+	
 
 		<!-- 회원가입 13장 추가 : 암호화/복호화 -->
 		<dependency>
