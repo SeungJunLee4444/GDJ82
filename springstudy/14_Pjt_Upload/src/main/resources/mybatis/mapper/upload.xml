@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.app14.mapper.UploadMapper">
+
+	<!--  # 목록 -->
+
+	<select id="selectUploadList" resultType="UploadDTO">
+		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, (SELECT COUNT(*) FROM ATTACH A WHERE U.UPLOAD_NO = A.UPLOAD_NO) AS ATTACH_CNT
+		  FROM UPLOAD U
+	</select>
+	
+	<!--  * 첨부개수 계산쿼리: 조인으로 해결 -->
+
+	<!--  # 삽입 : 업로드 테이블, 첨부 테이블 양쪽에 삽입해야함 -->
+	<!--  삽입 1: 업로드 테이블 -->
+	<!--  *  uploadDTO와 동일한 uploadNo PK를 가져와서 attachDTO의 FK에 넣어줘야한다
+		     이를 위해 먼저 시퀀스 값을 조회한다 -->
+	<!--  * selectKey 속성들
+		  - keyProperty : id처럼 이름짓는 속성 -->
+	<!--  - BEFORE : INSERT 이전에 -->
+	<!--  - 결과 : uploadNo가 UploadDTO로 들어가게 되며, insert문에서는 ${uploadNo}를 사용하게된다-->
+	
+	<insert id="insertUpload" parameterType="UploadDTO">
+		<selectKey keyProperty="uploadNo" resultType="int" order="BEFORE">
+			SELECT UPLOAD_SEQ.NEXTVAL
+				FROM DUAL
+		</selectKey>
+		INSERT INTO UPLOAD
+			(UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE)
+		VALUES
+			(#{uploadNo}, #{title}, #{content}, SYSTIMESTAMP, SYSTIMESTAMP)
+	</insert>
+	
+	
+	
+	<!--  삽입 2: 첨부테이블 -->
+	<insert id="insertAttach" parameterType="AttachDTO">
+		INSERT INTO ATTACH
+			(ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO)
+		VALUES
+			(ATTACH_SEQ.NEXTVAL, #{path}, #{origin}, #{filesystem}, 0, #{uploadNo})
+	</insert>
+	
+</mapper>

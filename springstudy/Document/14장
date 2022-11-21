@@ -1,0 +1,98 @@
+<<< 14장 : 업로드, 다운로드 게시판  >>>
+
+<<수업목록>> 
+
+# sql : 다중 첨부 업로드 게시판, 게시글 하나에 첨부가 여러개 가능
+# 타임스탬프 사용 : sql, dto, mapper. myfileutil 참고
+
+
+
+
+
+
+<<jar>>
+# 파일 첨부를 위한 jar 2개 : commons-io, commons-fileupload
+# 썸네일 : net.coobird
+- 기능 : 파일의 메모리상 사이즈 자체를 줄여서 게시글에서 첨부파일을 간략히 볼 수 있음
+
+
+
+
+<<정리>>
+
+[[ 테이블 칼럼
+* 다중 첨부 게시글 테이블을 2개로 분리해야한다
+1. 첨부파일 테이블 2. 업로드(게시글) 테이블
+2. input
+- 형태 : <input type="file" id="files" name="files" multiple>
+- 조건 : input의 type을 file로, multiple 속성 부여
+
+[[ 게시글 추가 : 다중파일 첨부
+# jsp
+1. 폼의 형태 : <form action="${contextPath}/upload/add" method="post" enctype="multipart/form/data">
+- 조건 
+(1) post 방식
+(2) enctype="multipart/form/data" 사용
+
+2. input
+- 형태 : <input type="file" id="files" name="files" multiple>
+- 조건 : input의 type을 file로, multiple 속성 부여
+
+# 컨트롤러
+- MultipartHttpServletRequest를 이용해 첨부파일 전달, 일반 request를 사용할 수 없음
+
+
+
+# 서비스 impl
+1. 게시글에 저장
+& uploadDTO와 동일한 uploadNo PK를 가져와서 attachDTO의 FK에 넣어줘야한다
+- 방법 : mapper에서 해당 쿼리문에 <selectKey> 태그 사용
+- 형태 : <selectKey keyProperty="id" resultType="int" order="BEFORE">
+(1) keyProperty : id와 동일한 역할 속성
+(2) order="Before" 쿼리문 태그보다 먼저 실행
+
+2. 첨부테이블에 저장
+1) MultipartFile를 이용해 첨부된 파일 전부 저장
+
+
+[[ 파일첨부에 필요한 config
+
+
+
+
+
+
+
+
+[[ 목록
+1. 
+2. list(dto)로 반환 
+3. 
+4. 
+
+
+
+<<메모>>  
+
+# SQL 외래키 옵션
+(1) ON DELETE CASCASDE : PK가 없어지면 FK에 있는 내용도 없어짐
+(2) SET NULL : PK가 없어지면 FK의 내용이 NULL로 변화
+
+# input의 required : 필수체크
+
+# 정규식에서 마침표 인식
+* 정규식에서는 [] 안에 들어가는건 무조건 문자로 인식
+- 정규식에서 .(마침표) 인식 : \. 또는 [.]
+
+# Matcher.quoteReplacement(File.separator) : 이거안쓰면 구분자 처리가 안되는 경우가 있어서 쓴거임 그냥
+
+# arraylist 첫번째 요소 얻는법
+- 잘못된 방법 : files[0]
+- 올바른 방법 : files.get(0)
+
+
+
+
+
+
+
