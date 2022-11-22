@@ -20,26 +20,28 @@ public class MyFileUtil {
 	// # 확장자 만들기
 	// - 기능 : 파라미터로 전달된 filename의 확장자만 살려서 UUID.확장자 방식으로 반환
 	// - 이유 : unique 처리
-	public String getFilename(String fileName) {
+	public String getFilename(String filename) {
 		
 		
 		// 1. 확장자 예외 처리 : 
 		String extension = null;
-		if(fileName.endsWith("tar.gz")) {
+		if(filename.endsWith("tar.gz")) {
+			
 			extension = "tar.gz";
-		
+
 		} else {
 			
 			// 2. 확장자 처리
 			// * split 메서드 : 문자열을 나눠 배열로 반환
-			String[] arr = fileName.split("[.]");	// * 정규식에서 .(마침표) 인식 : \. 또는 [.]
+			String[] arr = filename.split("\\.");	// * 정규식에서 .(마침표) 인식 : \. 또는 [.]
 			
+			// # 확장자
 			extension = arr[arr.length - 1];
 		
 		}
 		
 		// 3. uuid 확장자 : -(하이푼) 제거
-		return UUID.randomUUID().toString().replaceAll("[-]", "") + "." + extension;
+		return UUID.randomUUID().toString().replaceAll("\\-", "") + "." + extension;
 
 	}
 	
@@ -52,7 +54,7 @@ public class MyFileUtil {
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		String sep = Matcher.quoteReplacement(File.separator);
-		return "storage" + sep + year + makeZero(month) + sep + makeZero(day);
+		return "storage" + sep + year + sep + makeZero(month) + sep + makeZero(day);
 	}
 	
 	// # 어제 경로

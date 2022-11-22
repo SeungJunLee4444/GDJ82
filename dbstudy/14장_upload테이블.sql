@@ -34,6 +34,9 @@ ALTER TABLE ATTACH
         FOREIGN KEY(UPLOAD_NO) REFERENCES UPLOAD(UPLOAD_NO)
             ON DELETE CASCADE;  -- 업로드 내역을 삭제하면 첨부 내역이 함께 삭제되는 옵션
    
+   
+   
+
 
 -- 시퀀스
 DROP SEQUENCE UPLOAD_SEQ;
