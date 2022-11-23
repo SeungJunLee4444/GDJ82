@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.app14.mapper.UploadMapper">
+
+	<!--  # 목록 -->
+
+	<select id="selectUploadList" resultType="UploadDTO">
+		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, (SELECT COUNT(*) FROM ATTACH A WHERE U.UPLOAD_NO = A.UPLOAD_NO) AS ATTACH_CNT
+		  FROM UPLOAD U
+	</select>
+	
+	<!--  * 첨부개수 계산쿼리: 조인으로 해결 -->
+
+	<!--  # 삽입 : 업로드 테이블, 첨부 테이블 양쪽에 삽입해야함 -->
+	<!--  삽입 1: 업로드 테이블 -->
+	<!--  *  uploadDTO와 동일한 uploadNo PK를 가져와서 attachDTO의 FK에 넣어줘야한다
+		     이를 위해 먼저 시퀀스 값을 조회한다 -->
+	<!--  * selectKey 속성들
+		  - keyProperty : id처럼 이름짓는 속성 -->
+	<!--  - BEFORE : INSERT 이전에 -->
+	<!--  - 결과 : uploadNo가 UploadDTO로 들어가게 되며, insert문에서는 ${uploadNo}를 사용하게된다-->
+	
+	<insert id="insertUpload" parameterType="UploadDTO">
+		<selectKey keyProperty="uploadNo" resultType="int" order="BEFORE">
+			SELECT UPLOAD_SEQ.NEXTVAL
+				FROM DUAL
+		</selectKey>
+		INSERT INTO UPLOAD
+			(UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE)
+		VALUES
+			(#{uploadNo}, #{title}, #{content}, SYSTIMESTAMP, SYSTIMESTAMP)
+	</insert>
+	<!--  * (#{uploadNo} = keyproperty -->
+	
+	
+	
+	<!--  삽입 2: 첨부테이블 -->
+	<insert id="insertAttach" parameterType="AttachDTO">
+		INSERT INTO ATTACH
+			(ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO)
+		VALUES
+			(ATTACH_SEQ.NEXTVAL, #{path}, #{origin}, #{filesystem}, 0, #{uploadNo})
+	</insert>
+	
+	<!--  # 상세보기 -->
+	<!--  1. upload 2 -->
+	<select id="selectUploadByNo" parameterType="int" resultType="UploadDTO">
+		SELECT UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE
+		  FROM UPLOAD
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</select>
+	
+	<!--  2. attach : 다중 첨부니 list로 반환해야한다  -->
+	<!--  * 여기서 int : 위의 upload와 동일한 uploadNo -->
+	<select id="selectAttachList" parameterType="int" resultType="AttachDTO">
+		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
+		  FROM ATTACH
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</select>
+	
+	
+	<!--  # 첨부파일 다운로드 -->
+	<!--  1. 다운로드 수 증가 -->
+	<update id="updateDownloadCnt" parameterType="int">
+		UPDATE ATTACH
+			SET DOWNLOAD_CNT = DOWNLOAD_CNT + 1
+			WHERE ATTACH_NO = #{attachNo}
+	</update>
+	
+	<!--  2. 해당 첨부파일 조회 -->
+	<select id="selectAttachByNo" parameterType="int" resultType="AttachDTO">
+		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
+		 FROM ATTACH
+		WHERE ATTACH_NO = #{attachNo}
+	</select>
+	
+	<!--  # 삭제 -->
+	<!--  1. 첨부삭제 -->
+	<delete id="deleteAttachByAttachNo" parameterType="int">
+		DELETE FROM ATTACH
+		WHERE ATTACH_NO = #{attachNo}
+	</delete>
+	
+	<!--  2. 업로드 게시글 삭제 -->
+
+	<!--  # 수정 -->
+	
+	
+	
+	
+	
+	
+</mapper>
