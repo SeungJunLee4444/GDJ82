@@ -2,11 +2,11 @@
 
 <<프로젝트 13 : 수업목록>> -------------------------------------------------------------
 
-#
+
 # 로그인과 로그아웃 : serviceimpl login, logout 참고
 # 아이디 저장기능 : login.jsp 영역에서 처리
 # 로그인 유지기능 : serviceimpl keeplogin 에서 처리
-# 쿠키 저장하는법 : serviceimpl keeplogin 참고
+# 쿠키 저장하는법 : serviceiFmpl keeplogin 참고
 # 인터셉터 		  : controller 참고
 # servlet-context.xml에 자바빈 작성하는법 : application context방식 
 # 비밀번호 재확인 : check.jsp 참고
