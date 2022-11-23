@@ -1,0 +1,98 @@
+<<< 15장: 블로그, 댓글 페이징 처리  >>>
+
+<<수업목록>> 
+# 게시판 페이징 처리 : pageUtil 참고
+# 복수의 @autowired 처리방법 : blogserviceimpl 필드  참고
+# Model에 request, response를 저장해 서비스로 전달하기 : 컨트롤러, 서비스 list 요청 참고
+# jsp에 서머노트 사용하기 : write.jsp 참고
+# jsp:include로 레이아웃 만들기 : layout 폴더의 header.jsp 참고
+# 회원만, 또는 관리자만 게시글 작성할 수 있게 만들기 : 하단 참고
+# 자바스크립트에서 컨텍스트 패스 만들기 : write.jsp 참고
+
+
+
+
+
+
+
+
+<<추가>>
+moment-with-locales.js : 날짜 시간을 스크립트에서 꺼낼 수 있는 라이브러리
+summernote-lite : 웹 에디터 게시판(글 작성시 사용되는 편집기)
++ lang/summernote-ko-KR.min.js : 한국어버전
+
+
+# 댓글로 페이징 처리(ajax)
+
+
+
+
+<<실습>>
+# 리퀘스트에 모델 담기 : getBlogList, 목록 서비스 참고
+
+# 페이징 처리
+1. 게시글목록 변수
+page : 페이지 번호										 매개변수
+totalRecord : 전체 게시글 수 							 매개변수
+recordPerPage : 한 페이지당 게시글 수, 임의로 정함		 10(임의)
+
+2. 하단 블록 변수
+totalPage : 총 페이지수 								 totalRecord / recordPerPage
+pagePerBlock : 블록에 표시할 페이지의 개수, 임의로 정함  5(임의)
+
+1. 가상칼럼을 사용하는 이유
+- 실제 칼럼의 번호를 사용할 경우, 해당 칼럼의 값을 삭제하면 문제가 발생
+- 이유 : 시퀸스는 삭제해도 번호가 사라지지않는다
+- 해답 : 따라서 가상칼럼을 사용해야 하며 쿼리문에 rownum 함수를 사용한다
+
+
+
+
+# 회원만, 또는 관리자만 게시글 작성할 수 있게 만들기
+<div>
+		<%-- * 회원만 작성할 수 있게 만들기 --%>
+		<h1>블로그 목록(전체 : ${totalRecord} 개)</h1>
+		<c:if test="${loginUser} != null">
+			<input type="button" value="블로그 작성하기" onclick="${contextPath}/blog/write"> 
+		</c:if>
+		
+		<%-- * 관리자만 작성할 수 있게 만들기 
+		<c:if test="${loginUser} == admin">
+			<input type="button" value="블로그 작성하기" onclick="${contextPath}/blog/write"> 
+		</c:if>
+		--%>
+	
+	</div>
+
+
+
+
+<<도서관>>
+# ROW_NUMBER() 함수	-- DB
+ROW_NUMBER() : 가상번호 칼럼 붙여주는 함수
+ROW_NUMBER() OVER(ORDER BY BLOG_NO DESC) : 정렬과 함께 사용될 수 있다
+
+
+# contextPath를 반한하는 자바스크립트 함수 : 별도로 js파일을 만들어 contextpath 변수를 사용할 수 없을때 사용
+- 방법 : 
+- location의 값
+* Location {
+	href: 'http://localhost:9090/app15/blog/write',
+	origin: 'http://localhost:9090', 
+	host: 'localhost:9090',
+	
+	protocol: 'http:', 
+	ancestorOrigins: DOMStringList, 
+	 …}
+
+* location.href.indexOf(a) : href에서 a가 시작되는 값의 인덱스
+* 자바스크립트의 인덱스는 0부터 시작한다
+
+#  indexOf 자바스크립트 함수
+(1) a.indexOf(문자열) : a에서 문자열이 시작되는 인덱스값
+(2) a.indexOf(문자열, 위치) : a에서 특정문자열을 찾아, 해당 문자열이 첫번째로 나타나는 위치 index를 리턴
+이때 위치는 찾기 시작할 위치를 말한다
+
+# substring 함수 
+substring(a,b) : a에서 b인덱스값 사이의 문자열을 반환(a포함 b미포함)
+

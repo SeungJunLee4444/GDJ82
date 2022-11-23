@@ -61,7 +61,7 @@ public class EmpServiceImpl implements EmpService {
 		  	6			51			60	>	54	=> 마지막 경우만 if처리
 		*/
 		
-		// # totalRecore : 전체게시글 수 구하는 법 --------------------------------------------> db
+		// # totalRecord : 전체게시글 수 구하는 법 --------------------------------------------> db
 		int totalRecord = empMapper.selectAllEmployeesCount();
 		
 		// # 파라미터 recordPerPage, 전달되지 않으면 recordPerPage=10으로 처리 ----

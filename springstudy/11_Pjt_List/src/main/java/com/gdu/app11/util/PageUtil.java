@@ -8,6 +8,8 @@ import lombok.Getter;
 @Getter
 public class PageUtil {
 	
+	// # 검색기능 포함되있는 버전
+	
 	// # 게시글 목록에 필요한 필드
 	private int page;				// 현재 페이지(파라미터로 받아온다)
 	private int totalRecord; 		// 전체 레코드 개수(db에서 구해옴)
