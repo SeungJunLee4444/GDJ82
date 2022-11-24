@@ -44,7 +44,7 @@
 					<c:forEach items="${blogList}" var="blog" varStatus="vs">	<%-- * 인덱스를 사용하려면 무조건 varStatus를 사용해야한다 --%>
 						<tr>
 							<td>${beginNo - vs.index}</td>	<%-- * beginNo와 var 인덱스를 이용해 번호 생성 --%>
-							<td>${blog.title}</td>
+							<td><a href="${contextPath}/blog/increase/Hit?blogNo=${blog.blogNo}">${blog.title}</a></td>
 							<td>${blog.hit}</td>
 							<td>${blog.createDate}</td>
 						</tr>

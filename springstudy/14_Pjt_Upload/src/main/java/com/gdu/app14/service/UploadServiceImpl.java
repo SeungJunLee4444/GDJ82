@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,9 +109,11 @@ public class UploadServiceImpl implements UploadService {
 					// & 원래이름 : origin
 					String origin = multipartFile.getOriginalFilename();
 					origin = origin.substring(origin.lastIndexOf("\\") + 1); // * 인터넷 익스플로러는 origin에 전체 경로가 붙음
+					// 설명 : http://파일명.확장자 => 파일명.확장자
 			
 					// & 저장할 이름 : filename
 					String filesystem = myFileUtil.getFilename(origin);
+					// => 파일명
 					
 					System.out.println(filesystem);
 					
@@ -118,7 +121,7 @@ public class UploadServiceImpl implements UploadService {
 					String path = myFileUtil.getTodayPath();
 					
 					// & 저장할 경로 만들기
-					File dir = new File(path);
+					File dir = new File(path);						// * 파일이 저장되는 경로 : 별도의 지정이 없으면 sts 폴더를 루트로 폴더, 파일이 생성된다
 					if(dir.exists() == false) {
 						dir.mkdirs();
 					}
@@ -139,6 +142,8 @@ public class UploadServiceImpl implements UploadService {
 					// # db에 attachDTO 저장
 					attachResult += uploadMapper.insertAttach(attach);
 					
+					
+					
 					// * 반복문에 의해, 첨부파일이 3개면 attachResult는 3이 나온다 ----*
 						
 					// * 생성경로 : sts
@@ -147,6 +152,8 @@ public class UploadServiceImpl implements UploadService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			// ******   결과 : 첨부한 파일을 db에도 기록 + 파일로도 생성
 			
 		}
 			// 3. 응답 
@@ -454,11 +461,17 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public void removeAttachByAttachNo(int attachNo) {
 		
-		// 삭제할 Attach 정보 가져오기
-		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
+		
+		// * 왜 조회랑 삭제가 같이 있냐?
+		// - 답 : 조회는 파일 삭제에 사용, 삭제문은 db에 저장된 정보 삭제에 사용
+		// (1) 삭제 : db에 저장된 첨부파일 정보 삭제
+		// (2) 조회 : 조회받은 attach를 이용해 file의 경로, 파일명을 찾아 파일을 삭제
 		
 		// DB에서 Attach 정보 삭제
 		int result = uploadMapper.deleteAttach(attachNo);
+		
+		// 삭제할 Attach 정보 가져오기
+		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
 		
 		// 첨부 파일 삭제
 		if(result > 0) {
@@ -492,7 +505,7 @@ public class UploadServiceImpl implements UploadService {
 		// DB에서 Upload 정보 삭제
 		int result = uploadMapper.deleteUpload(uploadNo);
 		
-		// 첨부 파일 삭제
+		// 첨부 파일 삭제 : 첨부파일 삭제는 별도의 쿼리문 없이 파일을 직접 생성 후 
 		if(result > 0) {
 			if(attachList != null && attachList.isEmpty() == false) {
 				// 순회하면서 하나씩 삭제

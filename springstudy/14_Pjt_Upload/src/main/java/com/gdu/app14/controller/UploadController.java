@@ -50,6 +50,7 @@ public class UploadController {
 	}
 	
 	// # service : 게시글 추가
+	// * MultipartHttpServletRequest : 이미지 첨부가 가능한 request
 	@PostMapping("/upload/add")
 	public void add(MultipartHttpServletRequest multipartHttpRequest, HttpServletResponse response) {
 		uploadService.save(multipartHttpRequest, response);

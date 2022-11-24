@@ -1,4 +1,4 @@
-package com.gdu.app14.util;
+package com.gdu.app15.util;
 
 import java.io.File;
 import java.util.Calendar;
@@ -20,6 +20,9 @@ public class MyFileUtil {
 	// # 확장자 만들기
 	// - 기능 : 파라미터로 전달된 filename의 확장자만 살려서 UUID.확장자 방식으로 반환
 	// - 이유 : unique 처리
+	// * UUID처리를 통해 동일한 이름의 파일 중복을 막고 랜덤으로 생성되는 파일명을 생성한다
+	// (1) origin : 원래파일명   (2) filesystem : uuid로 만들어진 랜덤 파일명
+	// * 
 	public String getFilename(String filename) {
 		
 		
@@ -35,13 +38,14 @@ public class MyFileUtil {
 			// * split 메서드 : 문자열을 나눠 배열로 반환
 			String[] arr = filename.split("\\.");	// * 정규식에서 .(마침표) 인식 : \. 또는 [.]
 			
-			// # 확장자
+			// # 확장자 : 확장자는 배열의 가장 마지막에 있는 값
 			extension = arr[arr.length - 1];
 		
 		}
 		
 		// 3. uuid 확장자 : -(하이푼) 제거
 		return UUID.randomUUID().toString().replaceAll("\\-", "") + "." + extension;
+		// * 랜덤으로 생성된 uuid 문자열(하이푼- 제거) + . + 확장자
 
 	}
 	
@@ -58,7 +62,7 @@ public class MyFileUtil {
 	}
 	
 	// # 어제 경로
-	public String getYesterdayPath() {
+	public String getYesterdayPass() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DATE, -1);							// * 오늘 하루 전
 		int year = calendar.get(Calendar.YEAR);

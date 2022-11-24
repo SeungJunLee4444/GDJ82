@@ -43,7 +43,7 @@
 
 		getContextPath();
 		
-		// # 웹 에디터 -------------------------------------------------------
+		// # js : summernote 편집기 사용 스크립트
 		$('#content').summernote({
 			width : 800,
 			height : 400,
@@ -57,7 +57,41 @@
 			    ['para', ['ul', 'ol', 'paragraph']],
 			    ['height', ['height']],
 			    ['insert', ['link', 'picture', 'video']]
-			]
+			],
+			// # js : summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨
+			callbacks: {
+				onImageUpload : function(files){	// * files : 이미지가 저장되있음
+
+					
+					// 1. 이미지를 ajax로  서버로 보낼때 가상 form 데이터를 사용
+					var formData = new FormData();
+					formData.append('file', files[0]);	// * 파라미터 file, summernote 편집기에 추가된 이미지가 files[0]
+				
+					
+					// 2. 이미지를 hdd(하드)에 저장하고 경로를 받아오는 ajax
+					$.ajax({
+						type : 'post',
+						url : getContextPath() + '/blog/uploadImage',
+						data : formData,
+						contentType : false,					// ajax 이미지 첨부용으로 작성
+						processData : false,					// ajax 이미지 첨부용으로 작성
+						
+						dataType : 'json',						// * 하드디스크에 저장된 이미지의 경로를 json으로 받아오겠다
+						success : function(resData) {	
+							$('#content').summernote('insertImage', resData.src);	// * serviceimpl의 src에서 가져옴
+							/* 
+								src = ${contextPath}/load/image/aaa.jpg 값이 넘어온 경우
+								summernote는
+								<img src="${contextPath}/load/image/aaa.jpg"> 태그를 만든다
+								
+								* 스프링에서 정적 자원 표시하는 방법
+								- 답 : servlet-context.xml에 표시되있음
+							*/
+						}
+					
+					});	// ajax
+				}	// onImageUpload
+			}	// callbacks
 			
 		});
 		

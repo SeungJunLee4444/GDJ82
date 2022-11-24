@@ -9,11 +9,14 @@
 # 회원만, 또는 관리자만 게시글 작성할 수 있게 만들기 : 하단 참고
 # 자바스크립트에서 컨텍스트 패스 만들기 : write.jsp 참고
 
-
-
-
-
-
+# 게시글작성자의 ip처리 : serviceimpl insert 참고
+# 응답 최종형 : serviceimpl insert 참고
+# 조회수 처리 HIT 사용 : 상세보기 서비스 전체 참고
+# DB 용량 줄이는법 이미지를 하드디스크에 저장, 경로를 적어서 관리
+# 파일업로드시 DB가 아닌 하드에 저장하는법 : write.jsp js스크립트 summernote 참고
+* developer를 보면 
+# 정적자원의 관리 : servlet-context.xml 참고
+# taglib fmt(값에 형식패턴 부여하기) : detail.jsp 참고
 
 
 <<추가>>
@@ -95,4 +98,10 @@ ROW_NUMBER() OVER(ORDER BY BLOG_NO DESC) : 정렬과 함께 사용될 수 있다
 
 # substring 함수 
 substring(a,b) : a에서 b인덱스값 사이의 문자열을 반환(a포함 b미포함)
+
+
+# ${contextPath}로 시작되는 경로는 경로가 아닌 맵핑, 요청이다
+-  
+- 참고 : servlet-context.xml
+
 

@@ -23,9 +23,20 @@ public interface UploadMapper {
 	
 	// # 상세 + 다운로드 : 첨부파일 번호를 전달하면 다운로드수를 증가시키는 로직
 	public int updateDownloadCnt(int attachNo);
+	
+	// # 첨부파일 삭제
+	// (1) 첨부파일 조회
 	public AttachDTO selectAttachByNo(int attachNo);
 	
-	// # 삭제
-	public int deleteAttachByAttachNo(int attachNo);
+	// (2) 첨부파일 삭제 
+	public int deleteAttach(int attachNo);
+	
+	// # 게시글 삭제
+	public int deleteUpload(int uploadNo);
+	
+	// # 수정
+	public int updateUpload(UploadDTO upload);
+	public List<AttachDTO> selectAttachListInYesterday();
+
 
 }

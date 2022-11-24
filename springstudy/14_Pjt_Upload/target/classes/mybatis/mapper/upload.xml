@@ -7,7 +7,6 @@
 <mapper namespace="com.gdu.app14.mapper.UploadMapper">
 
 	<!--  # 목록 -->
-
 	<select id="selectUploadList" resultType="UploadDTO">
 		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, (SELECT COUNT(*) FROM ATTACH A WHERE U.UPLOAD_NO = A.UPLOAD_NO) AS ATTACH_CNT
 		  FROM UPLOAD U
@@ -24,6 +23,8 @@
 	<!--  - BEFORE : INSERT 이전에 -->
 	<!--  - 결과 : uploadNo가 UploadDTO로 들어가게 되며, insert문에서는 ${uploadNo}를 사용하게된다-->
 	
+	<!--  # 삽입 : 게시글 + 첨부파일 추가 -->
+	<!--  # (1) 게시글 추가-->
 	<insert id="insertUpload" parameterType="UploadDTO">
 		<selectKey keyProperty="uploadNo" resultType="int" order="BEFORE">
 			SELECT UPLOAD_SEQ.NEXTVAL
@@ -37,14 +38,14 @@
 	<!--  * (#{uploadNo} = keyproperty -->
 	
 	
-	
-	<!--  삽입 2: 첨부테이블 -->
+	<!--  (2) 첨부파일 추가 -->
 	<insert id="insertAttach" parameterType="AttachDTO">
 		INSERT INTO ATTACH
 			(ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO)
 		VALUES
 			(ATTACH_SEQ.NEXTVAL, #{path}, #{origin}, #{filesystem}, 0, #{uploadNo})
 	</insert>
+	
 	
 	<!--  # 상세보기 -->
 	<!--  1. upload 2 -->
@@ -62,32 +63,57 @@
 		 WHERE UPLOAD_NO = #{uploadNo}
 	</select>
 	
-	
 	<!--  # 첨부파일 다운로드 -->
-	<!--  1. 다운로드 수 증가 -->
+	<!--  1. 다운로드 수 증가 : 개별, 전체 전부 공유 -->
 	<update id="updateDownloadCnt" parameterType="int">
 		UPDATE ATTACH
-			SET DOWNLOAD_CNT = DOWNLOAD_CNT + 1
-			WHERE ATTACH_NO = #{attachNo}
+		   SET DOWNLOAD_CNT = DOWNLOAD_CNT + 1
+		 WHERE ATTACH_NO = #{attachNo}
 	</update>
 	
-	<!--  2. 해당 첨부파일 조회 -->
+	
+	<!--  # 삭제 -->
+	
+	<!--  1. 첨부파일 삭제 -->
+	<!--  (1) 해당 첨부파일 조회 -->
 	<select id="selectAttachByNo" parameterType="int" resultType="AttachDTO">
 		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
 		 FROM ATTACH
 		WHERE ATTACH_NO = #{attachNo}
 	</select>
 	
-	<!--  # 삭제 -->
-	<!--  1. 첨부삭제 -->
+	
+	<!--  (2) 첨부파일 삭제 -->
 	<delete id="deleteAttachByAttachNo" parameterType="int">
 		DELETE FROM ATTACH
 		WHERE ATTACH_NO = #{attachNo}
 	</delete>
 	
-	<!--  2. 업로드 게시글 삭제 -->
+	<!-- 2. 게시글 삭제  -->
+	<delete id="deleteUpload" parameterType="int">
+		DELETE
+		  FROM UPLOAD
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</delete>
+	
+	
 
-	<!--  # 수정 -->
+	<!--  # 게시글 수정 -->
+	
+	<update id="updateUpload" parameterType="UploadDTO">
+		UPDATE UPLOAD
+		   SET TITLE = #{title}
+		     , CONTENT = #{content}
+		     , MODIFY_DATE = SYSTIMESTAMP
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</update>
+	
+	<!--  * 스케줄링 : 시간마다 파일 생성 미 -->
+	<select id="selectAttachListInYesterday" resultType="AttachDTO">
+		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
+		  FROM ATTACH
+		 WHERE PATH = CONCAT('storage\\', TO_CHAR(SYSDATE - 1, 'yyyy\\mm\\dd'))
+	</select>
 	
 	
 	
