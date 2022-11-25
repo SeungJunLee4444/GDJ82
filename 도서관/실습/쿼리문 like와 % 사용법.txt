@@ -14,3 +14,8 @@ SELECT * FROM My_Talbe WHERE Nm_Kor LIKE '%김%'
 
 --김으로 끝나는 사원의 사원번호 조회
 SELECT No_Emp FROM My_Talbe WHERE Nm_Kor LIKE '%김'
+
+
+예시
+ WHERE ${column} LIKE '%' || #{searchText} || '%'
+- 해석 : 전달한 칼럼이 검색어와 동일할 때, * 조건 : 검색어에서 앞뒤로 글자수 상관없이

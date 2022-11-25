@@ -89,6 +89,7 @@ public class PageUtil {
 			} else {
 				sb.append("<a href=\"" + path + "?page=" + p + "\">" + p + "</a>");
 			}
+		
 		}
 	
 		// & 다음블록 : 마지막 블록이 아니면 다음블록이 있다
