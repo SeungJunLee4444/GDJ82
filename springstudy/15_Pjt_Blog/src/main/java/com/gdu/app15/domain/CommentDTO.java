@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommentDTO {
 	private int commentNo;
-	private long blogNo;
+	private int blogNo;
 	private String content;
 	private int state;
 	private int depth;

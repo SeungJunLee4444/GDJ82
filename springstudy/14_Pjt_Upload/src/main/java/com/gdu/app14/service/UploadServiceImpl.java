@@ -87,7 +87,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		// # 첨부결과
 		int attachResult;
-		if(files.get(0).getSize() == 0) {	// * 첨부가 없는 경우 files 리스트에 size=0은 파일이 1개를 의미[MultipartFile[field="files", filename=, contentType=application/octet-stream, size=0]]
+		if(files.get(0).getSize() == 0) {	// * 첨부가 없는 경우 files 리스트에 size=0 [MultipartFile[field="files", filename=, contentType=application/octet-stream, size=0]]
 			attachResult = 1;
 		} else {
 			attachResult = 0;
@@ -142,10 +142,8 @@ public class UploadServiceImpl implements UploadService {
 					// # db에 attachDTO 저장
 					attachResult += uploadMapper.insertAttach(attach);
 					
-					
-					
+
 					// * 반복문에 의해, 첨부파일이 3개면 attachResult는 3이 나온다 ----*
-						
 					// * 생성경로 : sts
 				}
 				

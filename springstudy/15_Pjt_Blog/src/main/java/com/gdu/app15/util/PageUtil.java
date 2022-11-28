@@ -13,7 +13,7 @@ public class PageUtil {
 	private int totalRecord; 		// 전체 레코드 개수(db에서 구해옴)
 	private int begin;				// 각 페이지 시작번호(recordPerPage와 page로 계산가능)
 	private int end;				// 각 페이지 끝번호(begin과 recordPerPage로 계산가능)
-	private int recordPerPage = 10;	// 페이지별 레코드 개수(임의로 정함)
+	private int recordPerPage = 3;	// 페이지별 레코드 개수(임의로 정함)
 	
 	// * begin, end를 구하기 위해 필요한 정보 : page, recordPerPage, totalRecord
 	

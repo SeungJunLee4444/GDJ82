@@ -1,4 +1,4 @@
-<<< 15장: 블로그, 댓글 페이징 처리  >>>
+<<< 15장: 블로그, 댓글(ajax)  >>>
 
 <<수업목록>> 
 # 게시판 페이징 처리 : pageUtil 참고
@@ -18,14 +18,19 @@
 # 정적자원의 관리 : servlet-context.xml 참고
 # taglib fmt(값에 형식패턴 부여하기) : detail.jsp 참고
 
+< comment >
+# 블로그(게시글)의 댓글 총 개수
+# 댓글 추가 : 사용자 정보가 들어가야한다
+# 로그인 후 서비스처리 : detail.jsp참고	=> USER 테이블과의 조인
+# 댓글창 열기닫기
+# ajax로 pageUtil의 getpaging처리하기
+# 네이버 블로그 게시글 하단 댓글창처럼 만들기 : detail.jsp 참고
 
 <<추가>>
 moment-with-locales.js : 날짜 시간을 스크립트에서 꺼낼 수 있는 라이브러리
 summernote-lite : 웹 에디터 게시판(글 작성시 사용되는 편집기)
 + lang/summernote-ko-KR.min.js : 한국어버전
 
-
-# 댓글로 페이징 처리(ajax)
 
 
 
