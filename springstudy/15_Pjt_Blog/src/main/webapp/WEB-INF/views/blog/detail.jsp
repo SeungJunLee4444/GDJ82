@@ -129,6 +129,12 @@
 		fn_commentList();
 		// # 페이지 이동
 		fn_changePage();
+		// # service : 댓글 삭제
+		fn_removeComment();
+		// # service : 답글목록 가리기
+		fn_switchRelpyArea();
+		
+		fn_addReply();
 		
 		
 		function fn_commentCount(){
@@ -198,7 +204,13 @@
 							div += '<div style="margin-left: 40px;">';
 						}
 						if(comment.state == 1) {
-							div += '<div>' + comment.content + '</div>';
+							div += '<div>';
+							div += comment.content;
+							// * 작성자만 삭제할수 있도록 if 처리 필요 : 작성자만 삭제, 답글버튼을 볼 수 있어야한다
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';	// # service : 댓글별 삭제
+							// * depth가 0이면 보여주기, 1이면 안보여주기
+							div += '<input type="button" value="답글" class="btn_reply_area">';
+							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
 								div += '<div>삭제된 댓글입니다.</div>';
@@ -209,6 +221,15 @@
 						div += '<div>';
 						moment.locale('ko-KR');
 						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						div += '</div>';
+						div += '<div style="margin-left: 40px;" class="reply_area blind">';
+						div += '<form class="frm_reply">';
+						div += '<input type="hidden" name="blogNo" value="' + comment.blogNo + '">';
+						div += '<input type="hidden" name="groupNo" value="' + comment.commentNo + '">';
+						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해주세요">';
+						// 로그인한 사용자만 볼 수 있도록 if 처리
+						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
+						div += '</form>';
 						div += '</div>';
 						div += '</div>';
 						$('#comment_list').append(div);
@@ -271,6 +292,61 @@
 		// $('.enable_link').click(function() {});		// * 자바스크립트에서 만든 속성(동적요소)은 이벤트를 걸수 없다 ***
 		// 올바른 해결법
 		// - enable_link 를 클릭하면 page파라미터값을 변경하고 list요청 (a링크대신)
+		
+		
+		// # ajax service : 댓글삭제
+		function fn_removeComment() {
+			
+			$(document).on('click', '.btn_comment_remove', function() {
+				
+				if(confirm('삭제된 댓글은 복구할수 없습니다. 삭제할까요?')) {
+					$.ajax({
+						type : 'post',
+						url : '${contextPath}/comment/remove',
+						data : 'commentNo=' + $(this).data('comment_no'),			// * data 속성 사용하는법 : input의 data-데이터명 => data('데이터명')
+						dataType : 'json',
+						success : function(resData) {
+							if(resData.isRemove) {									// * json 데이터 : isRemove를 반환받아야한다
+								alert('댓글이 삭제되었습니다');
+								fn_commentList();
+								fn_commentCount();
+							} 
+						}		
+					});
+				}	
+			});
+		}
+		
+		function fn_switchRelpyArea() {
+			$(document).on('click', 'btn_reply_area', function() {
+				$(this).parent().next().next().toggleClass('blind');				// * toggleClass('') : 속성을 넣었다 뺏다 할 수 있게 만드는 제이쿼리 메서드
+				// * toggleClass할 위치는 f12를 통해 파악하기 쉽다
+			});
+		}
+		
+		// # 댓글추가
+		function fn_addReply() {
+			$(document).on('click', '.btn_reply_add', function() {
+				if($(this).prev().val() == '') {
+					alert('답글 내용을 입력하세요');
+					return;
+				}
+				$.ajax({
+					type : 'post',
+					url: '${contextPath}/comment/reply/add',
+					data : $(this).closest('frm_reply').serialize(), 				 // '$(.frm_reply).Serialize()',
+					dataType : 'json',
+					success : function(resData) {	// resData = {"isAdd", true}
+						if(resData.isAdd) {
+							alert('답글이 등록되었습니다');
+							fn_commentList();	// 댓글목록 갱신
+							fn_commentCount();	// 댓글목록 개수 갱신
+						}
+					}
+				})
+			});
+		}
+		
 	</script>
 	
 

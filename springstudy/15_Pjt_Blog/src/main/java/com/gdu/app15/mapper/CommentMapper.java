@@ -18,5 +18,11 @@ public interface CommentMapper {
 	
 	// # 댓글리스트
 	public List<CommentDTO> selectCommentList(Map<String, Object> map);
+	
+	// # 댓글삭제
+	public int deleteComment(int commentNo);
+	
+	// # 답글추가
+	public int insertReply(CommentDTO reply);
 
 }

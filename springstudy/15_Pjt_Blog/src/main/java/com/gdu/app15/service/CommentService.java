@@ -16,5 +16,11 @@ public interface CommentService {
 	
 	// # 댓글리스트
 	public Map<String, Object> getCommentList(HttpServletRequest request);
+	
+	// # 댓글삭제
+	public Map<String, Object> removeComment(int commentNo);
+	
+	// # 답글추가
+	public Map<String, Object> addReply(CommentDTO reply);
 
 }

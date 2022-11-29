@@ -26,12 +26,27 @@
 	<!--  (2) GROUP_NO, DEPTH : 댓글 정렬 -->
 	<select id="selectCommentList" parameterType="Map" resultType="commentDTO">
 		SELECT A.ROW_NUM, A.COMMENT_NO, A.BLOG_NO, A.CONTENT, A.STATE, A.DEPTH, A.GROUP_NO, A.CREATE_DATE
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, DEPTH ASC) AS ROW_NUM, COMMENT_NO, BLOG_NO, CONTENT, STATE, DEPTH, GROUP_NO, CREATE_DATE
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, DEPTH ASC, CREATE_DATE DESC) AS ROW_NUM, COMMENT_NO, BLOG_NO, CONTENT, STATE, DEPTH, GROUP_NO, CREATE_DATE
 		          FROM COMMENTS
 		         WHERE BLOG_NO = #{blogNo}) A
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 		
 	</select>
+	
+	<!--  # 댓글 삭제 : delete가 아닌 update -->
+	<!--  * 이유: 댓글삭제시 DB에서 데이터를 삭제하지않고 STATE칼럼의 값을 -1로 변경, STATE칼럼의 값이 -1이면 화면에 띄우지 않음 -->
+	<update id="deleteComment" parameterType="int">
+		UPDATE COMMENTS
+			SET STATE = -1;
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
+	<insert id="insertReply" parameterType="CommentDTO">
+		INSERT INTO COMMENTS
+			(COMMENT_NO, BLOG_NO, CONTENT, STATE, DEPTH, GROUP_NO, CREATE_DATE)
+		VALUES
+			(COMMENTS_SEQ.NEXTVAL, #{blogNo}, #{content}, 1, 1, #{groupNo}, SYSDATE)
+	</insert>
 
 
 	

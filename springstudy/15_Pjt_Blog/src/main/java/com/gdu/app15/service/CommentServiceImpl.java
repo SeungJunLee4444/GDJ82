@@ -2,7 +2,6 @@ package com.gdu.app15.service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,6 +66,22 @@ public class CommentServiceImpl implements CommentService {
 		result.put("commentList", commentMapper.selectCommentList(map));
 		// System.out.println(commentMapper.selectCommentList(map));
 		result.put("pageUtil", pageUtil);
+		return result;
+	}
+	
+	// # 댓글 삭제
+	@Override
+	public Map<String, Object> removeComment(int commentNo) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("isRemove", commentMapper.deleteComment(commentNo) == 1);
+		return result;
+	}
+	
+	// # 답글 추가
+	@Override
+		public Map<String, Object> addReply(CommentDTO reply) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("isAdd", commentMapper.insertReply(reply) == 1);	// 결과가 1이면 true
 		return result;
 	}
 	
