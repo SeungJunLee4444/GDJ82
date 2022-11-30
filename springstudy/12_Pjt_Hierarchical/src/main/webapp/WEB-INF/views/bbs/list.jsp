@@ -26,8 +26,6 @@ h1 {
 	padding-top: 30px;
 	margin-bottom: 10px;
 	color : #333333;
-	
-
 }
 
 a {
