@@ -1,0 +1,56 @@
+Spring Boot
+
+1. Spriing Tool Suite
+  1) STS4 사용 (spring-tool-suite-4-4.16.0.RELEASE-e4.25.0-win32.win32.x86_64.self-extracting.jar)
+     - 수업에서 사용하던 이클립스 4.19버전(2021-03월)과 동일한 버전을 사용하려면 Spring Tools 4.10.0 버전 사용
+       (다운로드링크 - https://github.com/spring-projects/sts4/wiki/Previous-Versions)
+  2) 압축 풀기
+    (1) 아이콘이 '커피' 모양인 경우 :더블 클릭
+    (2) 다른 아이콘인 경우 : java -jar spring-tool-suite-4-4.16.0.RELEASE-e4.25.0-win32.win32.x86_64.self-extracting.jar
+  3) SpringToolSuite4.exe 대상으로 lombok 설치
+  4) bootstudy 디렉터리를 workspace로 설정
+  5) [Help] - [Eclipse Marketplace] - "web developer" 검색
+     - "Eclipse Enterprise Java and Web Developer Tools 3.27" 설치
+  6) [Window] - [Preferences]
+    (1) 테마 : General - Appearance
+    (2) 글꼴 : General - Appearance - Colors and Fonts - Basic - Text Font
+    (3) 콘솔 글자수 제한 해제 : Run/Debug - Console - Limit console output
+    (4) UTF-8
+      - General - Workspace - Text file encoding
+      - Web - CSS Files
+      - Web - HTML Files
+      - Web - JSP Files
+
+2. Project
+  1) start.spring.io에서 프로젝트를 만들고 STS4는 해당 프로젝트를 import함
+    Project - Maven Project
+    Language - Java
+    Spring Boot - 2.7.6
+    Project Metadata
+    - Group    - com.gdu
+    - Artifact - app01
+    - Name     - app01
+    Packing    - War
+    Java       - 11
+    Dependencies
+    - Spring Boot DevTools
+    - Lombok
+    - Spring Web : spring-boot-starter, spring-boot-starter-tomcat, jackson, spring-core, spring-mvc
+    - MyBatis Framework
+    - Oracle Driver
+  2) Generate 버튼 눌러서 프로젝트 다운로드(app01.zip)
+  3) app01.zip 압축 풀어서 bootstudy 워크스페이스에 가져다 놓기
+  4) SprintToolSuite4.exe 실행하고 app01 프로젝트 import 하기
+    [Maven] - [Existing Maven Projects]
+
+3. 수업 중 발생한 오류 해결
+  1) Lombok 관련 오류 : https://github.com/projectlombok/lombok/issues/2882
+    -> SpringToolSuite4.ini 파일 열고 아래 내용을 추가
+      --illegal-access=warn
+      --add-opens=java.base/java.lang=ALL-UNNAMED
+  2) 디펜던시 다운로드 오류
+    -> STS4 끄기
+       C:\Users\GDJ54\.m2\repository 디렉터리 지우기
+       STS4 켜기
+       app01 프로젝트 우클릭 - Maven - Update Project
+  

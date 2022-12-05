@@ -1,3 +1,0 @@
-카페 24, 톰캣 jsp 구매
-https://hosting.cafe24.com/?controller=new_product_page&page=language
-추후에 ppt제공
