@@ -1,0 +1,29 @@
+# properties 파일은 #으로 시작하면 주석
+
+# server port, 인코딩, session
+server:
+  port: 9090
+  servlet:
+    encoding: 
+      charset: UTF-8
+      enabled: true
+      force  : true
+    
+    session:
+      timeout: 1800
+  
+# db hikari  
+spring:
+  datasource:
+    hikari:
+      driver-class-name: oracle.jdbc.OracleDriver
+      jdbc-url: jdbc:oracle:thin:@localhost:1521:xe
+      username: scott
+      password: TIGER
+   
+# mybatis   
+mybatis:
+  config-location: mybatis/config/mybatis-config.xml
+  mapper-locations: mybatis/mapper/*.xml
+
+

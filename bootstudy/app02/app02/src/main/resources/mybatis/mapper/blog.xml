@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.app15.mapper.BlogMapper">
+
+	<select id="selectBlogListCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM BLOG
+	</select>
+	
+	<select id="selectBlogListByMap" parameterType="Map" resultType="BlogDTO">
+		SELECT A.ROW_NUM, A.BLOG_NO, A.TITLE, A.CONTENT, A.HIT, A.IP, A.CREATE_DATE, A.MODIFY_DATE
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY BLOG_NO DESC) AS ROW_NUM, BLOG_NO, TITLE, CONTENT, HIT, IP, CREATE_DATE, MODIFY_DATE
+		          FROM BLOG) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<insert id="insertSummernoteImage" parameterType="SummernoteImageDTO">
+		INSERT INTO SUMMERNOTE_IMAGE
+			(BLOG_NO, FILESYSTEM)
+		VALUES
+			(#{blogNo}, #{filesystem})
+	</insert>
+	
+	<insert id="insertBlog" parameterType="BlogDTO">
+		<selectKey keyProperty="blogNo" resultType="int" order="BEFORE">
+			SELECT BLOG_SEQ.NEXTVAL
+			  FROM DUAL
+		</selectKey>
+		INSERT INTO BLOG
+			(BLOG_NO, TITLE, CONTENT, HIT, IP, CREATE_DATE, MODIFY_DATE)
+		VALUES
+			(#{blogNo}, #{title}, #{content}, 0, #{ip}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE BLOG
+		   SET HIT = HIT + 1
+		 WHERE BLOG_NO = #{blogNo}
+	</update>
+	
+	<select id="selectBlogByNo" parameterType="int" resultType="BlogDTO">
+		SELECT BLOG_NO, TITLE, CONTENT, HIT, IP, CREATE_DATE, MODIFY_DATE
+		  FROM BLOG
+		 WHERE BLOG_NO = #{blogNo}
+	</select>
+	
+	<update id="updateBlog" parameterType="BlogDTO">
+		UPDATE BLOG
+		   SET TITLE = #{title}
+		     , CONTENT = #{content}
+		     , MODIFY_DATE = SYSDATE
+		 WHERE BLOG_NO = #{blogNo}
+	</update>
+	
+	<delete id="deleteBlog" parameterType="int">
+		DELETE
+		  FROM BLOG
+		 WHERE BLOG_NO = #{blogNo}
+	</delete>
+	
+	<select id="selectSummernoteImageListInBlog" parameterType="int" resultType="SummernoteImageDTO">
+		SELECT BLOG_NO, FILESYSTEM
+		  FROM SUMMERNOTE_IMAGE
+		 WHERE BLOG_NO = #{blogNo}
+	</select>
+
+	<select id="selectAllSummernoteImageList" resultType="SummernoteImageDTO">
+		SELECT BLOG_NO, FILESYSTEM
+		  FROM SUMMERNOTE_IMAGE
+	</select>
+	
+	<delete id="deleteSummernoteImage" parameterType="String">
+		DELETE
+		  FROM SUMMERNOTE_IMAGE
+		 WHERE FILESYSTEM = #{filesystem}
+	</delete>
+	
+</mapper>
