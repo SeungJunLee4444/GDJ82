@@ -15,36 +15,35 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
 @MapperScan(basePackages = {"com.gdu.app02.mapper"})
-@PropertySource(value = {"classpath:application.properties"})
+@PropertySource(value = {"classpath:application.yml"})
 @EnableTransactionManagement
 @Configuration
 public class DBConfig {
 
-	@Value(value = "${hikari.driver}")
-	private String driver;
+	@Value(value = "${spring.datasource.hikari.driver-class-name}")
+	private String driverClassName;
 	
-	@Value(value="${hikari.url}")
-	private String url;
+	@Value(value="${spring.datasource.hikari.jdbc-url}")
+	private String jdbcUrl;
 	
-	@Value(value="${hikari.username}")
+	@Value(value="${spring.datasource.hikari.username}")
 	private String username;
 	
-	@Value(value="${hikari.password}")
+	@Value(value="${spring.datasource.hikari.password}")
 	private String password;
 	
-	@Value(value="${mapper.locations}")
+	@Value(value="${mybatis.mapper-locations}")
 	private String mapperLocations;
 	
-	@Value(value="${config.location}")
+	@Value(value="${mybatis.config-location}")
 	private String configLocation;
 	
 	@Bean
 	public HikariConfig config() {
 		HikariConfig config = new HikariConfig();
-		config.setDriverClassName(driver);
-		config.setJdbcUrl(url);
+		config.setDriverClassName(driverClassName);
+		config.setJdbcUrl(jdbcUrl);
 		config.setUsername(username);
 		config.setPassword(password);
 		return config;

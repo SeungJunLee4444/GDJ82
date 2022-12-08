@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/header.html::head('목록')}"></head>
 <div>
 	
-	<h1>블로그 목록(전체 ${totalRecord}개)</h1>
+	<h1 th:text="|블로그 목록(전체 ${totalRecord}개)|"></h1>
 	
 	<div>
 		<input type="button" value="블로그 작성하기" id="btn_write">
-		<!-- # html : 자바스크립트 내부에서 thymeleaf의 표현식들 
-		expression 사용을 위해서 th:inline="javascript" 속성을 사용한다 -->
+		<!--/* # html : 자바스크립트 내부에서 thymeleaf의 표현식들 
+		expression 사용을 위해서 th:inline="javascript" 속성을 사용한다 */-->
 		<script th:inline="javascript">
 		
 			$('#btn_wrtie').click(function() {
@@ -36,7 +38,7 @@
 				-->
 
 				<!--  - 타임리프로 수정 -->			
-				<tr th:each="blog,rowStat:${blogList}">	<!-- rowStat : foreach의 varStatus  -->
+				<tr th:each="blog,vs:${blogList}">	<!-- ,vs: : foreach의 varStatus  -->
 					<td>${beginNo - rowStat.index}</td>
 					<td><a th:href="@{/blog/increse/hit(blogNo=${blog.blogNo})}" th:text="${blog.title}"></a></td>
 					

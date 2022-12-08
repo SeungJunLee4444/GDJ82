@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 제이쿼리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+
+	html, body {
+		width : 100%;
+		height : 100%;
+		margin : 0;
+	
+	}
+
+	.wrapper {
+		text-align : center;
+		 width: 100vw;
+        height: 100vh;
+	
+	}
+	
+	.header {
+		position: fixed;
+		height : 100px;
+		background-color: lightgreen;
+		top : 0; right: 0; left: 0;
+	}
+	
+	.container {
+		display : flex;
+		
+	}
+	
+	.left_container {
+		left: 0;
+		position : fixed;
+		background-color : aqua;
+		 min-height : 100%;
+		 width: 200px;
+		 
+	}
+	
+	.right_container {
+		 min-height : 100%;
+		 background-color: lightsalmon;
+		 margin-left : 100px;
+	}
+	
+	.content {
+	height : 300px;
+	
+	}
+	
+
+
+</style>
+</head>
+<body>
+	<!--  
+		##
+			클래스 설명
+			wrapper : 전체 
+			left_container : 왼쪽 목록 레이아웃
+			right_container : 
+			
+		# 
+	
+	 -->
+
+	<div class="wrapper">
+		<div class="header">헤더</div>
+		<div class="container">
+			<div class="left_container"></div>
+			<div class="right_container">몸통
+				<div class="content"></div>
+			</div>
+		</div>
+		
+	
+	</div>
+
+	
+
+
+
+</body>
+</html>

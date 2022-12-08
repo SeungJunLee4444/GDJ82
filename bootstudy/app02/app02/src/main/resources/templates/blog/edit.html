@@ -1,21 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<head th:replace="~{layout/header.html::head('수정')}"></head>
 
-<jsp:include page="../layout/header.jsp">
-	<jsp:param value="블로그수정" name="title"/>
-</jsp:include>
+<script th:inline="javascript">
 
-<script>
-	
-	// contextPath를 반환하는 자바스크립트 함수
-	function getContextPath() {
-		var begin = location.href.indexOf(location.origin) + location.origin.length;
-		var end = location.href.indexOf("/", begin + 1);
-		return location.href.substring(begin, end);
-	}
+
+// contextPath를 반환하는 자바스크립트 함수
+
 	
 	$(document).ready(function(){
 		
@@ -44,7 +36,7 @@
 						// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
 						$.ajax({
 							type: 'post',
-							url: getContextPath() + '/blog/uploadImage',
+							url: '/blog/uploadImage',
 							data: formData,
 							contentType: false,  // ajax 이미지 첨부용
 							processData: false,  // ajax 이미지 첨부용
@@ -98,18 +90,33 @@
 
 	<h1>작성 화면</h1>
 	
-	<form id="frm_edit" action="${contextPath}/blog/modify" method="post">
+	<!--/*
+		# selection variable expression : *{}
+		
+			- 정의 : 객체(blog)와 필드(blogNo)를 분리해서 표시하는 표현식
+			th:object="${객체}"	: form태그에 사용시, 해당 form에서 사용되는 객체는 해당 객체로 지정
+			th:field="*{필드값}"
+			
+			- 구분
+			(1) 일반 input태그일경우 th:field="*{}"
+			(2) textarea 태그일경우 th:text="*{}"
+		
+		
+		
+		*/-->
 	
-		<input type="hidden" name="blogNo" value="${blog.blogNo}">
+	<form id="frm_edit" th:object="${blog}" th:action="@{/blog/modify}" method="post">
+	
+		<input type="hidden" name="blogNo" th:field="*{blogNo}">
 	
 		<div>
 			<label for="title">제목</label>
-			<input type="text" name="title" id="title" value="${blog.title}">
+			<input type="text" name="title" id="title" th:field="*{title}">
 		</div>
 		
 		<div>
 			<label for="content">내용</label>
-			<textarea name="content" id="content">${blog.content}</textarea>				
+			<textarea name="content" id="content" th:text="*{content}"></textarea>				
 		</div>
 		
 		<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->

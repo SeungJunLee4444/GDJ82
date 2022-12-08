@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/header.html::head(|${blog.blogNo}번 게시글|)}"></head>
+
+
 <style>
 	.blind {
 		display: none;
@@ -7,6 +11,10 @@
 </style>
 
 <div>
+
+	<div th:replace="~{layout/head::body_title}"></div>
+
+
 	<!-- -- html : 텍스트처리 -->
 	<h1 th:text="${blog.title}"></h1>
 	
@@ -14,9 +22,8 @@
 		<!-- 
 			== html : th:text내에 복수의 문자열이 존재할 경우의 해결책 3가지
 				
-				(1) 태그를 하나 더 만들어서 분리한다
-				(2) '' 작은따음표로 구분하여 +로 연결해준다
-				(3)	속성값 맨 앞과 뒤에 ||를 사용한다
+				(1) '' 작은따음표로 구분하여 +로 연결해준다
+				(2)	속성값 맨 앞과 뒤에 ||를 사용한다
 
 			=
 		 -->
@@ -59,31 +66,34 @@
 		 -->
 	
 	
+	
+	
 	<div>
 		<span th:text="|조회수 ${#numbers.formatInteger(blog.hit,1,'COMMA')}  |">조회수  pattern="#,##0" /></span>
 	</div>
 	
 	<hr>
 	
-	<div>
-		${blog.content}
-	</div>
+	<div th:utext="${blog.content}"></div>
+	<!-- ${blog.content} -->
+	
 	
 	<div>
 		<form id="frm_btn" method="post">
-			<input type="hidden" name="blogNo" value="${blog.blogNo}">
+			<input type="hidden" name="blogNo" th:value="${blog.blogNo}">
 			<input type="button" value="수정" id="btn_edit_blog">
 			<input type="button" value="삭제" id="btn_remove_blog">
-			<input type="button" value="목록" onclick="location.href='${contextPath}/blog/list'">
+			<input type="button" value="목록" onclick="location.href='/blog/list'">
+			<!-- <input type="button" value="목록" onclick="|location.href='@{/blog/list}'|"> -->
 		</form>
 		<script>
 			$('#btn_edit_blog').click(function(){
-				$('#frm_btn').attr('action', '${contextPath}/blog/edit');
+				$('#frm_btn').attr('action', '/blog/edit');
 				$('#frm_btn').submit();
 			});
 			$('#btn_remove_blog').click(function(){
 				if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')){
-					$('#frm_btn').attr('action', '${contextPath}/blog/remove');
+					$('#frm_btn').attr('action', '/blog/remove');
 					$('#frm_btn').submit();
 				}
 			});
@@ -116,14 +126,14 @@
 					<input type="button" value="작성완료" id="btn_add_comment">
 				</div>
 			</div>
-			<input type="hidden" name="blogNo" value="${blog.blogNo}">
+			<input type="hidden" name="blogNo" th:value="${blog.blogNo}">
 		</form>
 	</div>
 	
 	<!-- 현재 페이지 번호를 저장하고 있는 hidden -->
 	<input type="hidden" id="page" value="1">
 	
-	<script>
+	<script th:inline="javascript">
 	
 		// 함수 호출
 		fn_commentCount();
@@ -139,8 +149,8 @@
 		function fn_commentCount(){
 			$.ajax({
 				type: 'get',
-				url: '${contextPath}/comment/getCount',
-				data: 'blogNo=${blog.blogNo}',
+				url: '/comment/getCount',
+				data: 'blogNo=[[${blog.blogNo}]]',
 				dataType: 'json',
 				success: function(resData){  // resData = {"commentCount": 개수}
 					$('#comment_count').text(resData.commentCount);
@@ -162,7 +172,7 @@
 				}
 				$.ajax({
 					type: 'post',
-					url: '${contextPath}/comment/add',
+					url: '/comment/add',
 					data: $('#frm_add_comment').serialize(),
 					dataType: 'json',
 					success: function(resData){  // resData = {"isAdd", true}
@@ -180,8 +190,8 @@
 		function fn_commentList(){
 			$.ajax({
 				type: 'get',
-				url: '${contextPath}/comment/list',
-				data: 'blogNo=${blog.blogNo}&page=' + $('#page').val(),
+				url: '/comment/list',
+				data: 'blogNo=[[${blog.blogNo}]]&page=' + $('#page').val(),
 				dataType: 'json',
 				success: function(resData){
 					/*
@@ -276,7 +286,7 @@
 				if(confirm('삭제된 댓글은 복구할 수 없습니다. 댓글을 삭제할까요?')){
 					$.ajax({
 						type: 'post',
-						url: '${contextPath}/comment/remove',
+						url: '/comment/remove',
 						data: 'commentNo=' + $(this).data('comment_no'),
 						dataType: 'json',
 						success: function(resData){  // resData = {"isRemove": true}
@@ -305,7 +315,7 @@
 				}
 				$.ajax({
 					type: 'post',
-					url: '${contextPath}/comment/reply/add',
+					url: '/comment/reply/add',
 					data: $(this).closest('.frm_reply').serialize(),  // 이건 안 됩니다 $('.frm_reply').serialize(),
 					dataType: 'json',
 					success: function(resData){  // resData = {"isAdd", true}

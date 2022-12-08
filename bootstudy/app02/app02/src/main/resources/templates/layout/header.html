@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head(title)">
 <meta charset="UTF-8">
-<title>${title}</title>
+<title th:text="${title}"></title>
 <script th:src="@{jquery-3.6.1.min.js}"></script>
 <script th:src="@{/js/moment-with-locales.js}"></script>
 <script src="@{/summernote-0.8.18-dist/summernote-lite.js}"></script>
@@ -11,6 +11,19 @@
 </head>
 <body>
 
-	<div>
-		<h1>Welcome To My BLOG</h1>
-	</div>
+	<!-- /* 
+		==	레이아웃(조각)을 여러 페이지에 참조하게 만들기
+		(1) <head th:fragment="head"> : fragment를 조각이라하며, 조각명을 head라 한다
+		
+		=
+		
+		==	TITLE 처리
+		(1) 각 페이지에서 ()로
+		(2) header로 파라미터값을 전달() 하여 <title>태그에 타임리프 속성 표기방식으로 텍스트 표시
+		=
+	*/ -->
+
+		<div th:fragment="body_title">
+			<h1>Welcome To My BLOG</h1>
+		</div>
+
