@@ -37,17 +37,18 @@
 						- 방법 : ${} 
 				-->
 
-				<!--  - 타임리프로 수정 -->			
+				<!--  - 타임리프로 수정 -->		
 				<tr th:each="blog,vs:${blogList}">	<!-- ,vs: : foreach의 varStatus  -->
-					<td>${beginNo - rowStat.index}</td>
+					<td th:text="${beginNo - vs.index}"></td>
 					<td><a th:href="@{/blog/increse/hit(blogNo=${blog.blogNo})}" th:text="${blog.title}"></a></td>
 					
-					<!--  HTML : th:text 속성 -->
+						<!--  HTML : th:text 속성 -->
 					<!--  1) 태그가 포함되지 않은 경우 : 
 					- th:text="일반 텍스트"  -->
 					<td th:text="${blog.hit}"></td>
 					<td th:text="${blog.createDate}"></td>
-				</tr>
+				</tr>	
+				
 				
 			</tbody>
 			<tfoot>
