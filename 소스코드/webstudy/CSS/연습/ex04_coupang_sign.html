@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .member-wrapper {
+            margin: 0 auto;
+            /* 블록 좌우정렬 */
+            min-width: 290px;
+            max-width: 460px;
+            /* height: 400px; */
+            background-color: red;
+            padding: 0 4.35%;
+        }
+        .member-header {
+            width: 100%;
+            position: relative;
+            background-color: gray;
+        }
+
+        .member-logo {
+            width: 100%;
+            margin : 0 auto;
+            padding-top : 10.27%;
+        }
+
+        .member_logo_link {
+            display: block;
+            width: 43.83%;
+            max-width: 195px;
+            max-height: 46px;
+            padding-top: 10%;
+            /* 크기가 퍼센트 : 홈페이지 크기에 따라 유동적으로 변함
+            최소크기와 최대크기 : 한계는 있어야하기 떄문에 한계점 설정  */
+           
+            margin: 0 auto;
+            /* 부모태그와 상관없이 <header> 태그 기준으로 가로정렬 */
+            /* margin: 0 auto; */
+            
+            /* & 이미지 태그 없이도 a링크로 이미지 있는 링크태그를 만들 수 있다 */
+            background-image: url(https://static.coupangcdn.com/image/static/login/logo-coupang.x2.20201201.png);
+            background-size: cover;
+            background-size: contain;
+            /* background-size: contain; : 배경요소를 벗어나지 않는 한에서 이미지를 최대, 또는 최소로 키운다 */
+         
+        }
+        .member-main {
+            width: 100%
+        }
+
+        .member-join {
+            width: 100%
+
+
+        }
+        .section-title {
+            
+            padding: 20px 0 10px 0;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.29;
+            color: #111;
+            /* 배수높이 : 원래 행높이의 1.29배 */
+        }
+
+        /* & font-size
+            em  : 
+            rem :
+        */
+
+        /* font-weight
+        (1) 숫자
+        (2) bold : 진하게
+        (3) border : 상위 요소보다 진하게
+        (4) lighter : 상위 요소보다 연하게
+        */
+
+        .join-content {
+            width: 100%;
+            margin-bottom : 20px;
+        }
+        .section-body {
+            width: 100%;
+            /* 부모요소와 범위를 동일하게 하기 위함 */
+
+        }
+        .member-field-wrap {
+            width: 100%;
+            /* margin-top: 10px; */
+        }
+
+        .member-input-field {
+            width: 100%;
+            margin-top: 2.9%;
+            /* margin-bottom: 10px; */
+            /* & 임의로 줬음 */
+
+        }
+        .member-input-wrap {
+            width: 100%;
+            display: block;
+            height: 48px;
+            padding: 0;
+            border: 1px solid #CCC;
+            background-color: #fff;
+
+        }
+        .member-input-group {
+            display: block;
+
+            margin: 0;
+        
+        }
+
+        .member-input-group-icon-label {
+            float: left;
+            /* html을 벗어나 맘대로 배치 */
+            min-width: 44px;
+            height: 100%;   
+            /* = 부모member-input-wrap 의 높이 48px */
+            border-right: 1px solid #ccc;
+            background-color: #fafafa;
+
+            position: relative;
+        }
+        .join-sprite {
+            background-image: url(https://img1a.coupangcdn.com/image/static/login/sprite-join.20160902.svg);
+            background-repeat: no-repeat;
+            background-size: 86px 86px;
+            /* 가로 86, 높이 86 */
+
+            position:absolute;
+            /* 사용하려면 부모태그에 position: relative사용 */
+        }
+
+        .join-sprite-email {
+            /* sprite에서 첨부하는 이미지 */
+            position: absolute;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin: -8px 0 0 -10px;
+            padding-left: 19px;
+            background-position-y: -1px -1px;
+        }
+        .member-input {
+            box-sizing: border-box;
+            width: 80%;
+            height : 48px;
+            margin: 0;
+            padding: 16px 0 12px;
+            font-size: 14px;
+            line-height: 20px;
+            text-indent: 12px;
+            border: none;
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="member-wrapper">
+        <header class="member-header">
+            <h1 class="memebr-logo">
+                <a href="http://www.coupang.com" class="member_logo_link">
+                </a>
+            </h1>
+        </header>
+        <div class="member-main">
+            <div class="member-join">
+                <div class="section-title">
+                    회원정보를 입력해주세요
+                </div>
+                <div class="join-content">
+                    <div class="section-body">
+                        <div class="member-field-wrap">
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-email-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-email"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="email" id="join-email-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-email-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-email"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="email" id="join-email-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-email-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-email"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="email" id="join-email-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-email-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-email"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="email" id="join-email-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-email-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-email"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="email" id="join-email-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <footer>
+
+        </footer>
+    </div>
+</body>
+</html>

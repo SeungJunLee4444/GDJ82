@@ -1,0 +1,52 @@
+[톰캣세팅]
+
+1. 이클립스 세팅
+=> 웹 개발용으로 설정할 필요가 있다
+1) 이클립스 workspace gdj/jspstudy
+2) perspective가 javaEE인지 확인
+- 이클립스 오른쪽 상단 아이콘에서 확인가능
+=> 이클립스를 웹개발용으로 다운받았으면 javaEE가 디폴트값으로 적용된다
+3) 기본 preferences 설정
+	1) theme
+	2) textfont
+	3) text file encoding 
+	4) syntax coloring
+4) 웹개발 파일들의 utf-8 인코딩 설정
+	1) web - css files - encoding : iso 10646 / unicode(utf-8)
+	2) web - html files - encoding : iso 10646 / unicode(utf-8)
+	3) web - jsp files - encoding : iso 10646 / unicode(utf-8)
+5) 웹 기본 브라우저 설정
+	window - web browser - chrome 선택
+
+--------------------------------------------------------------------
+
+2. 톰캣 설치
+<기본세팅>
+1) 다운로드
+- 주소 : https://tomcat.apache.org/
+2) 이름변경
+- 폴더명 : tomcat 8.5
+3) 위치이동
+- 위치명 : C드라이브 ProgramFiles 폴더 내
+4) 환경변수 설정
+(1) CATALINA_HOME 환경변수 생성
+(2) PATH에 등록 : %CATALINA_HOME%\bin
+5) 이클립스 server 탭에 등록
+
+<추가기능>
+6) 톰캣 실행과 종료 확인
+- 방법 : 톰캣폴더 bin 폴더 내 start.bat, shutdown.bat
+7) 포트번호 변경
+- 이유 : 오라클의 포트번호 8080과 충돌
+- 해결 : 톰캣폴더 conf 폴더 내 server.xml 파일을 메모장으로 켜서, connect 포트번호를 9090으로 변경
+8) 톰캣 삭제
+(1) server 탭에서 삭제 : 완전 삭제가 아님
+(2) preference - server - runtime enviroment 
+=> 둘다 실행시 완전히 삭제
+
+* 톰캣 9.0 다운로드
+- 주소 : 
+https://tomcat.apache.org/download-90.cgi
+- core의 zip파일 다운
+--------------------------------------------------------------------
+

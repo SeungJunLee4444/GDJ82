@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- # 출판사 -->
+	<bean id="publisher2" class="com.gdu.app01.java03.Publisher">
+		<property name="name" value="국제출판사"></property>
+		<property name="tel" value="02-222-2222"></property>
+	</bean>
+	
+	<!-- # bean -->
+	<bean id="book2" class="com.gdu.app01.java03.Book">
+		<property name="title" value="어린왕자"></property>
+		<property name="author" value="생택쥐베리"></property>
+		<property name="publisher" ref="publisher2"></property>
+	</bean>
+	
+	<!-- 
+		! SpringBeanConfig.java에 등록된 bean을 appctx.xml로 가져오기	=> 어노테이션 컨테이너에 저장된 자바빈들을 xml 컨테이너로 가져오기
+		(1) Namespaces 탭에서 context 옵션을 체크
+		(2) appctx.xml에 < context:annotation-config/> 태그를 추가		=> 자바를 사용하면 어노테이션 방식이다
+		(3) SpringBeanConfig.java를 <bean> 태그에 등록한다
+	 -->
+	 
+	 <context:annotation-config/>
+	 <bean class="com.gdu.app01.java03.SpringBeanConfig"/>
+
+</beans>

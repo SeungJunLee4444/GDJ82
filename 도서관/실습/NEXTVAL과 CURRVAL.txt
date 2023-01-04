@@ -1,2 +1,0 @@
-NEXTVAL : 다음 시퀀스
-CURRVAL : 현재 시퀸스, * NEXTVAL이 쓰이고 난 다음에 사용될 수 있다 

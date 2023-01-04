@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <style>
+        /*
+            벤더 프리픽스(크로스 브라우징) 지원
+            @-webkit-keyframes : 크롬, 사파리
+            @-moz-keyframes    : 파이어폭스
+            @-o-keyframes      : 오페라
+            @-ms-keyframes     : 익스플로러
+        */
+        @keyframes my_animation {
+            /* 애니메이션 시작 : from(0%) */
+            from {
+                background-color: crimson;
+                opacity: 0;  /* 투명(안보임) */
+            }
+            /* 애니메이션 종료 : to(100%) */
+            to {
+                background-color: orange;
+                opacity: 1;  /* 불투명(완전보임) */
+            }
+        }
+        .box1 {
+            width: 100px;
+            height: 100px;
+            /* 애니메이션 속성 */
+            animation-name: my_animation;        /* 실행할 애니메이션 이름 */
+            animation-duration: 3s;              /* 애니메이션 실행 시간(3초) */
+            animation-timing-function: ease;     /* 애니메이션 동작시간배분 */
+            animation-iteration-count: infinite; /* 애니메이션 동작횟수 */
+        }
+    </style>
+    <div class="box1">
+        BOX1
+    </div>
+
+    <hr>
+
+    <style>
+        @keyframes moving_animation {
+            0% {
+                margin-left: 0;
+            }
+            100% {
+                margin-left: 300px;
+            }
+        }
+        .box2 {
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+            /* 애니메이션 속성 */
+            animation-name: moving_animation;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-delay: 1s;             /* 1초 딜레이 후 애니메이션 시작 */
+            animation-direction: alternate;  /* 애니메이션 방향 변경 */
+        }
+    </style>
+    <div class="box2">
+        BOX2
+    </div>
+    
+    <hr>
+
+    <style>
+        /* 1초 동안 7개 색상이 변하는 박스 */
+        @keyframes fancy_box {
+            0% { background-color: red; }
+            15% { background-color: orange; }
+            30% { background-color: yellow; }
+            45% { background-color: green; }
+            60% { background-color: blue; }
+            75% { background-color: navy; }
+            90% { background-color: purple; }
+            100% { background-color: black; }
+        }
+        .box3 {
+            width: 100px;
+            height: 100px;
+            /* 애니메이션 단축 속성 */
+            animation: fancy_box 1s ease-in-out infinite;
+        }
+    </style>
+    <div class="box3">
+        BOX3
+    </div>
+
+</body>
+</html>

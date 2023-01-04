@@ -1,3 +1,0 @@
-# 시간관련 자바 - DB 타입
-DATE 타입 - SYSDATE
-TIMESTAMP 타입 - SYSTIMESTAMP

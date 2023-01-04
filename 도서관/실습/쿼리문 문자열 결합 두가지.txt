@@ -1,6 +1,0 @@
-1. || 사용
-A || B = AB
-2. CONCAT 함수 사용
-CONCAT(A, B) * 2개까지만 가능
-
-CONCAT : 문자열 결합 함수

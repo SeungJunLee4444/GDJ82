@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+</head>
+<body>
+    <script>
+        /* 
+            [BOM]
+            - Browser object Model
+            - 브라우저 객체 모델
+            - 주요 객체
+                1) window  : 자바스크립트 최상위객체, 생략가능
+                    (1) 대화상자
+                        - window.alert()
+                        - window.confirm()
+                        - window.prompt()
+
+                    (2) 타이머 함수
+                        - window.setTimeout()
+                        - window.setInterval()
+                    (3) 창
+                        - window.open(url, name, features)
+                         - window.close()   
+                    & 전부 windows를 생략해서 자주썼다(앞에서)
+
+                        & open(url, name, features)
+                            (1) url     : 주소
+                            (2) name    : 창 이름
+                            (3) features: 창 특징
+                                - width/height : 창의 너비와 높이
+                                - top/bottom/left/right : 창의 위치
+                        & close는 별도의 입력 필요없음
+
+                ------------------------------------------------------------------
+
+
+                2) screen  : 화면객체, 최면의 너비/높이
+                    (1) screen.width    / screen.availWidth
+                    (2) screen.height   / screen.availHeight
+
+                ------------------------------------------------------------------
+
+                3) history : 방문경로 저장객체, 뒤로/앞으로
+                    (1) history.back()      : 뒤로가기          &
+                    (2) history.forward()   : 앞으로가기        & 
+                    (3) history.go(-1)      : 뒤로 한번가기
+                    (4) history.go(2)       : 앞으로 두번 가기
+                ------------------------------------------------------------------
+                4) location: 경로객체, 주소창 조작(url 조작)
+                & 새로운 주소로 이동할 때 사용
+                    (1) history를 남기는 이동(뒤로가기o)
+                        - location.href = '경로';
+                        - location.assign('경로');
+                    (2) history를 안남기는 이동(뒤로가기x, 경로를 바꾸는 개념)
+                        - location.replace('경로')
+                ------------------------------------------------------------------
+
+    
+        */
+    </script>
+
+    <!-- 실습 : screen -->
+    <script>
+        console.log(screen.width, screen.height);           // 1920 1080
+        console.log(screen.availWidth, screen.availHeight); // 1920 1040
+    </script>
+
+    <!-- 실습 : history -->
+    <button id="btn1">뒤로</button>
+    <script>
+        document.getElementById('btn1').onclick = function(event) {
+            history.back();
+        }
+    </script>
+
+    <hr>
+
+    <!-- 실습 : location -->
+    <button id="btn_naver">네이버</button>
+    <button id="btn_google">구글</button>
+    <script>
+        document.getElementById('btn_naver').onclick = function() {
+            location.href = 'https://www.naver.com';
+        }
+        document.getElementById('btn_google').onclick = function(event) {
+            location.replace('https://www.google.com');
+        }
+    </script>
+
+    <!-- 실습 : window로 19_popup.html 열기 -->
+    <button id="btn2">열기</button>
+    <script>
+        document.getElementById('btn2').onclick = function(event) {
+            var features = 'width=640,height=500px,top=100px,left=100px';
+            window.open('18_popup.html', '팝업', features); 
+        }
+    </script>
+    
+</body>
+</html>

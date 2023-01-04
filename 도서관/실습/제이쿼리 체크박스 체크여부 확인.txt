@@ -1,2 +1,0 @@
-# 제이쿼리 체크박스 체크여부 확인
-$('#rememberId').is(':checked'))

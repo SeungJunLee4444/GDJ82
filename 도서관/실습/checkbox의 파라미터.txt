@@ -1,3 +1,0 @@
-# checkbox의 파라미터
-- 답 : 체크하면 파라미터로 전달되면 파라미터값은 null이 아니게 되며, 체크 안하면 null값으로 전달된다
-- 참고 : 스프링 13장 serviceimpl의 keeplogin

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 편지쓰기
+		- 파일명 	: YYYY-MM-DD-작성자.txt	=> 오늘 날짜로 파일 만들기
+		- 파일내용 	: 
+			TO. 배수지
+			사랑해요 배수지
+			아이러브유 배수지
+			From . 민경태
+		Prac03A : 파일 생성
+		Prac03B : 경고창(YYYY-MM-DD-작성자.txt 파일이 생성되었습니다
+	 -->
+	 
+	 <!--
+	 파라미터 전달해야함
+	 (1) name 태그에 위의 파일내용을 담아야함
+	 (2) redirect 방식을 사용할거기 때문에 두번의 요청이 필요
+	 
+	   -->
+	 
+	 <form method="post" action="/01_Servlet/Prac03A">
+	 	<div>
+	 		<input type="text" name="from" placeholder="보내는사람">
+	 	</div>
+	 	<div>
+	 		<input type="text" name="to" placeholder="받는사람">
+	 	</div>
+	 	<div>
+	 		<textarea rows="5" cols="40" name="content"></textarea>
+	 	</div>
+	 	<div>
+	 		<button>편지쓰기</button>
+	 	</div>
+	 	
+	 	
+	 </form>
+</body>
+</html>

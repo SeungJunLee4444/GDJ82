@@ -1,0 +1,35 @@
+주소 : https://mybatis.org/mybatis-3/ko/configuration.html
+
+
+	<!-- db.properties 파일 경로 설정 -->
+	<properties resource="mybatis/config/db.properties"></properties>
+	
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"></setting>
+	</settings>
+	
+	
+	<!-- 도메인의 Free를 그냥 Free라고 부르기 -->
+	<typeAliases>
+		<typeAlias type="domain.Free" alias="Free"/>
+	</typeAliases>
+
+
+	<!-- # mybatis 환경설정  -->
+  <environments default="development">
+   	  <environment id="development">
+	      <transactionManager type="JDBC"/>
+	      <!-- # pooled : dbcp 적용 , unpooled : 일반 jdbc  -->
+	      <dataSource type="POOLED">
+	       <!--- db접속에 필요한 정보 : properties에서 참고 *  -->
+	        <property name="driver" value="${driver}"/>
+	        <property name="url" value="${url}"/>
+	        <property name="username" value="${username}"/>
+	        <property name="password" value="${password}"/>
+	      </dataSource>
+      </environment>
+  </environments>
+  <mappers>
+     <mapper resource="mybatis/mapper/free.xml"/>
+  </mappers>
+</configuration>

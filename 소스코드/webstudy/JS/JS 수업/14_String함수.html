@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String함수</title>
+</head>
+<body>
+    <script>
+        var str = 'javascript';
+
+        // 1. 문자열길이
+        console.log(str.length);                // 10
+
+        // 2. 특정문자 추출(인덱스)
+        console.log(str.charAt(0));               // j, 첫글자
+        console.log(str.charAt(str.length -1))    // t, 마지막글자
+
+        // 3. 특정문자열 추출(인덱스활용)
+        // - substring, substr(시작할 인덱스, 글자개수) 사용
+        
+        console.log(str.substring(0, 4));  // 0 <= 추출문자열 < 4
+        console.log(str.substr(0, 4));     // 인덱스0부터 4글자
+
+        console.log(str.substring(4));     // 4 <= 추출문자열
+        console.log(str.substr(4));        // 인덱스4부터 끝까지
+
+        // 4. 인덱스값 반환
+        // => 해당 문자가 있으면 해당 문자의 인덱스값, 없으면 -1반환
+        console.log(str.indexOf('J'));     // 첫 번째 대문자 J의 인덱스 반환
+        console.log(str.indexOf('j'));     // 첫 번째 소문자 j의 인덱스 반환, 없으면 -1 반환
+
+        // 5. 대소문자 변환
+        console.log(str.toUpperCase)    // 대문자로 변환
+        console.log(str.toLowerCase)    // 소문자로 변환
+        
+        // 6. 좌우 공백 제거
+        // => trimLeft(왼쪽), trimRight(오른쪽), trim(양쪽) 공백제거
+        // & 문자열간 제거하지않는다
+        var str2 = '    Java    Script    ';
+        console.log(str2.trimLeft());      // 왼쪽 모든 공백 제거
+        console.log(str2.trimRight());     // 오른쪽 모든 공백 제거
+        console.log(str2.trim());          // 양쪽 모든 공백 제거
+
+        // 7. 찾아 바꾸기
+        // => replace('a', 'b') : a를 찾아서 b로 바꾼다(첫번째 것만)
+        var str3 = 'java,java';
+        console.log(str3.replace('java', '자바'));  // 자바, java
+
+        // 실습 : replaceAll() 함수 만들기
+        // - 방법
+        //(1) prototype을 이용해 새로운 함수를 string에 추가
+        //(2) 반복문(indexof !=1)를 이용해 모든 문자열을 찾아낼 조건 생성
+        //(3) 해당 조건내에 replace함수 사용 
+
+        // 1) prototype을 이용해 String 함수에 새로운 함수 추가
+    //     String.prototype.replaceAll = function(before, after) {
+    //         var str = this;     // & 여기서 this : 함수를 호출하는 문자열
+    //                             // ex) str.replaceAll의 this는 str
+    //         while(str.indexOf(before) != -1){
+    //         // => 해석 : before(찾으려는 문자열)의 값이 -1, 더이상 없을 떄까지 반복
+    //         str = str.replace(before, after); 
+    //     }  
+    //     return str;
+    // }
+        
+        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+        // & 더욱 유용하게 replaceAll 함수 만들기 
+        // 2) split + join 사용
+        // (1) split : 인수로 입력된 문자열을 전부 찾아서 제거(공간만 남김)
+        // (2) join  : split로 비워진 공간에 인수를 추가
+        String.prototype.replaceAll = function(before, after) {
+            return this.split(before).join(after);
+        }
+
+        var target = 'Java,Java,Java';
+        console.log(target.replaceAll('Java', '자바'));
+        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+        // 8. 시작/ 종료 패턴 검사하기
+        // => boolean값 반환, 맞으면 true, 틀리면 false
+        console.log(str3.startsWith('J'));  
+        console.log(str3.endsWith('J'));
+
+        // 9. 문자열을 분리해 배열로 생성
+        // => split
+        var str4 = 'Java,Oracle,HTML,CSS,JS';
+        var arr = str4.split(',');                 
+        // => 문자열을 ,를 기준으로 나눠 배열요소로 생성
+        
+        console.log(arr);                   // 결과 : (5) ['Java', 'Oracle', 'HTML', 'CSS', 'JS']
+
+        // 10 . 배열요소를 문자열로 변환
+        console.log(arr.join(' '));         // 결과 : Java Oracle HTML CSS JS
+        // => 각 배열요소 사이에 임의의 ''를 넣어 문자열로 변환
+
+    </script>
+    
+</body>
+</html>

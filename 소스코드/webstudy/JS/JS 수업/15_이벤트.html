@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트</title>
+</head>
+<body>
+    <script>
+        /* 
+            [이벤트]
+            1. 이벤트 타입
+            - 이벤트의 종류를 의미
+            - 이벤트 객체.type 으로 확인가능
+            - 종류
+                (1) click       : 클릭
+                (2) dblclick    : 더블클릭
+                ---------------------------------------------
+                (3) load        : 문서를 전부 읽고나서 실행
+                - 용도 : windows.onload function (){
+                    이벤트 함수 본문
+                }
+                => html문서를 전부 읽고 실행시키기 때문에, 코드의 배치 상관없이 무조건적으로
+                함수를 실행시킨다
+                => 만들려는 이벤트 함수를 감싸는 식으로 사용한다
+                ---------------------------------------------
+
+                (4) mouseover   : 마우스를 가져다 댐(hover)
+                (5) mouseout    : 마우스가 영역 밖으로 나감
+                -------------------------------------------------------
+                & keyup과 keydown
+                (6) keydown     :
+                (7) keyup       : 
+                ex) 텍스트 입력시 바로 반응하는것이 keyup,
+                바로 반응하지 않고 별도의 키를 눌러야 반응하는것이 keydown
+                -------------------------------------------------------
+
+                -------------------------------------------------------
+                & focus와 blur
+                (8) focus       : 요소 안을 클릭할 시(ex 텍스트창)
+                (9) blur        : 요소 밖을 클릭할 시(ex 텍스트창)
+                ex) 텍스트창을 선택할때 반응하는것이 focus
+                텍스트창의 바깥을 선택할 때 반응하는것이 blur
+                -------------------------------------------------------
+                (10) submit     : 서브밋시
+
+            2. 이벤트 대상
+            - 이벤트가 동작하는 html 요소를 의미(this?)
+            - 이벤트 객체.target으로 확인가능
+
+            3. 이벤트 리스너()
+            - 이벤트가 발생하면 동작하는 함수
+            - 선언, 익명 함수 모두 가능
+            (이벤트 리스너의 매개변수에는 자동으로 이벤트 객체가 전달된다) => 익명함수가가능한 이유?
+            
+            4. 이벤트 객체(event)
+            - 해당 이벤트를 저장한 객체
+            - 이벤트 발생시 자동으로 생성
+            - 이벤트 발생시 이벤트 리스너에 인수를 자동으로 전달? ㅇㅇ
+            => (& event객체는 생략해도 작동한다)
+
+            5. 이벤트 속성
+            - 이벤트를 등록시키는 속성
+            - 형태 : on + 이벤트타입
+
+            6. 이벤트 모델
+            1) 고전 이벤트모델
+            - 하나의 이벤트가 하나의 이벤트함수만 지닐수있음
+            - 이벤트 등록시 속성 사용(on + 이벤트타입)
+                (1) 선언함수
+                    function fn1() {}
+                    문서객체.onclick = fn1; // 
+                    ------------------------------------------
+                    // & 이벤트함수는 호출시()를 붙이지않는다
+                    // => 이유 : 만약 ()를 붙이면 함수 호출이 되기 떄문에, 이벤트 발생과 상관없이 함수가
+                    작동해버린다
+                    // 일반 함수들은 ()까지 붙임
+                    ------------------------------------------
+
+                (2) 익명함수
+                    문서객체.onclick = function() {}
+
+            2) 표준 이벤트 모델
+            - 하나의 이벤트가 복수의 이벤트함수를 지닐 수 있음
+            - 이벤트 등록 시 이벤트타입 사용(.addEventListener('이벤트타입'), 함수)
+                (1) 선언함수
+                function fn1() {
+
+                }
+                문서객체.addEvendListener('click', fn1);
+                문서객체.addEvendListener('click', fn2);
+                // => 복수의 이벤트 함수를 가질 수 있다
+
+                (2) 익명함수
+                문서객체.addEventListener('click', function() {
+
+                });
+
+            3) 인라인 모델
+            - html 구성요소에 직접 이벤트 '속성'을 추가
+                (1) 선언함수
+                <button onclick="fn1()"></button>
+                function fn1() {}
+                
+                (2) 익명함수(잘안씀)
+                <button onclick="function() {}"></button>
+
+                (3) 간단한 작업은 이벤트 리스너를 생략하고, 본문만 작성 
+                <button onclick="alert('안녕');"></button>
+        */
+    </script>
+
+    <!-- =================================================================================== -->
+    <!-- [실습] -->
+    <!-- 실습 : 고전이벤트 모델 : 복수의 이벤트함수가 등록될 수 없다-->
+    <button id="btn1">클릭</button>
+    <script>
+        function fn1() {
+            alert('Hello');
+        }
+        function fn2() {
+            alert('안녕하세요');
+        }
+
+        //--------------------------------------------------------------------------------
+        // & 고전이벤트와 표준이벤트의 차이 ***
+        // (1) 고전이벤트는 '하나의 이벤트 속성'에 '하나의 이벤트 함수'만 부여 가능하다
+        // (2) 표준이벤트는 '하나의 이벤트 속성'에 '복수의 이벤트 함수'를 부여할 수 있다 
+        
+        // & 복수의 이벤트별로 같은 함수를 쓰거나, 다른 함수를 쓰는건 상관이없다
+        //--------------------------------------------------------------------------------
+
+
+        // & 고전이벤트의 한계
+        // => 복수의 이벤트 함수가 등록될 수 없다
+        // 해결책 : 하나의 함수에 다른 모든 함수들의 호출을 집어넣으면된다
+
+        function fn3() {
+            fn1(); fn2();
+        }
+        document.getElementById('btn1').onclick = fn1;
+        document.getElementById('btn1').onmouseout = fn1;
+
+        // document.getElementById('btn1').onmouseover = function() {
+        // // fn1(); fn2();
+        // fn3();
+        
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+
+    <!-- 실습 : 표준 이벤트 모델 -->
+    <button id="btn2">클릭</button>
+    <script>
+        function fn1() {
+            alert('Hello');
+        }
+        function fn2() {
+            alert('안녕하세요');
+        }
+        
+        document.getElementById('btn2').addEventListener('click', fn1);
+        document.getElementById('btn2').addEventListener('click', fn2);
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+    <!-- 실습 : 인라인 이벤트 모델 -->
+    <button id="btn3" onclick="fn3()" onmouseover="fn3()">클릭</button>
+    <script>
+        function fn1() {
+            alert('Hello');
+        }
+        function fn2() {
+            alert('안녕하세요');
+        }
+        function fn3() {
+            fn1();
+            fn2();
+        }
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+    <button id="btn4">클릭</button>
+    <script>
+        // 7. 이벤트 용어
+        document.getElementById('btn4').onclick =function(event) {
+            // 1) 이벤트 타입 : click
+            console.log(event.type);    // click, 이벤트의 타입(함수)
+            console.log(this.type);     // submit, 대상의 타입(요소)
+            console.log(event.target.type); // = 위와 동일
+
+            // 2) 이벤트 속성 : onclick
+            // 3) 이벤트 대상 : btn4
+                // - 이벤트 대상 호출방법
+                // (1) event.target
+                // (2) this
+                // & event.target = this
+            console.log(this);  // <button id="btn4">클릭</button>
+
+            // 4) 이벤트 리스너 : function(event) {} (함수를 의미)
+            // 5) 이벤트 객체   : event
+
+            // 이벤트 대상 확인
+            console.log(event.target.textContent);  // 클릭
+
+            // 이벤트 대상 변경
+            this.textContent = '눌렀어?';
+            // this.textContent = '눌렀어?눌렀어?';
+            console.log(this.textContent);
+
+            // & 왜 콘솔에 클릭값이 두개?
+            // => 위에 콘솔 대상의 텍스트 확인이 두개있으니까...
+            
+        }
+    </script>
+    <hr>
+    <script>
+        // 실습 : load 이벤트
+        // - window 객체
+        // (1) js의 최상위객체(자바의 object)
+        // (2) 생략가능(대부분생략) 
+        window.onload = function() {
+            document.getElementById('btn5').onclick = function(event) {
+                alert(event.target.textContent)
+            }
+        }
+
+        // & load 이벤트 타입은,
+        // html문서를 전부 읽고 나서 실행시키는 타입으로,
+        // 각 코드의 위치와 상관없이 함수를 무조건 실행시킨다
+    </script>
+    <button id="btn5">클릭</button>
+    
+    <div>
+    <input type="text" id="텍스트1">
+    <script>
+        document.getElementById('텍스트1').onmousedown = function() {
+            this.style['background-color'] = 'red';
+        }
+    </script>
+    </div>
+
+    
+</body>
+</html>

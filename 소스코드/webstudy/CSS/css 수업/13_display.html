@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .box1 > img {
+            width: 320px;
+        }
+        .box1 > img:nth-of-type(3) {    
+            display: none;
+        }
+        /* 두번째 이미지를 지움
+        nth-of-type : 부모의 자식태그중에 동일한 유형의 태그가 반복되는 경우에 사용
+        ex) 테이블의 셀, 또는 이미지태그 등
+        => 그 외에도 쓸 수 있을듯?
+        */
+
+        /* 1. display : none
+            - 해당 사진, 텍스트를 지움
+            - visivility : hidden과 달리, 자리도 차지하지않음
+        */
+
+        /* & visibility : 해당 이미지를 지움, 다만 이미지의 공간은 유지
+           & display : none : 해당 이미지를 지움, 공간도 없앰
+        */
+
+    </style>
+
+    <div class="box1">
+        <img alt="꽃" src="../../images/flower1.jpg"></img>
+        <img alt="꽃" src="../../images/flower2.jpg"></img>
+        <img alt="꽃" src="../../images/flower3.jpg"></img>
+    </div>
+
+
+    <hr>
+
+
+    <style>
+        /* & 속성 선택자
+        => 태그[속성=속성값]   
+        */
+        .box2 > input[type=checkbox] {
+            display: none;
+           
+        }
+        .box2 > label:hover {
+            cursor: e-resize;
+            /* & cursor
+            (1) pointer : 커서로 가리치면 클릭모양으로 변경 
+            (2) move    : 잡고끄는 커서로 변경(십자)
+            (3) help    : 커서 옆에 물음표가 생김
+            (4) wait    : 진행되는중인 커서(원형버퍼링)
+            */
+        }
+        .box2 > input[type=checkbox]:checked + label {
+            font-weight: 900;
+            /* 체크박스를 클릭하면, 라벨의 텍스트를 최대한 두껍게하기 */
+        }
+        
+
+
+    </style>
+
+
+    <div class="box2">
+        <input type="checkbox" id="service">
+        <label for="service">이용약관 동의</label><br>
+        <input type="checkbox" id="privacy">
+        <label for="privacy">개인정보 동의</label><br>
+        <input type="checkbox" id="location">
+        <label for="location">위치기반서비스 이용약관 동의</label><br>
+    </div>
+
+    <hr>
+
+    <!-- display
+    (1) display : none          : 이미지 지우기
+    (2) display : inline        : 블록레벨을 인라인으로바꾸기
+    & 인라인(텍스트레벨)은 width, height, text-align을 사용할 수 없다
+    & border은 둘다 가능
+
+    (3) display : block         : 인라인레벨을 블록레벨로 변경 
+    (4) display : inline-block  : inline과 block의 기능이 둘다 적용된다(내부적으로는 블록, 외부적으로는 인라인)
+        - inline : 가로로 수평하게 블록들을 나열
+        - block : width, height, text-align의 조절
+    - 레이아웃에 유용
+    - input, select, button이 대표적인 해당 태그들이다
+    (5) display : flex
+    -->
+
+    <!-- & 정렬
+    (1) text-align : 텍스트가 든 블록태그의 텍스트를 가운데 정렬
+                    : 부모(구조)태그에 생성하면 자식태그에 상속된다
+    (2) vertical-align : 텍스트를 세로 정렬(인라인, 또는 테이블에서)
+        - text-top 
+        - middle
+        - baseline
+        - textbottom
+
+    (3) margin: 0 auto : 블록요소들의 가로축 가운데 정렬
+    -->
+    
+
+    <style>
+        /* 2. 블록을 인라인으로 바꾸기 */
+        .box3 {
+            display: inline;
+            /* * 인라인레벨에서는 적용되지 않는 css 속성 
+            => 너비, 높이, 가운데정렬 
+            */
+            width: 400px;
+            height: 500px;
+            text-align: center;
+            border: 1px solid gray;
+
+        }
+    </style>
+
+    <div class="box3">
+        BOX3
+    </div>
+
+    <hr>
+
+
+    <style>
+        .box4 {
+            display: block;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            border: 1px solid red;
+        }
+
+
+    </style>
+    <span class="box4">BOX4</span>
+
+    <hr>
+
+    <style>
+        /* 3. 블록과 인라인요소를 모두 사용하기
+        - inline 요소: 동일 블록에 함께 배치
+        - block 요소 : 너비, 높이, 가운데 정렬 적용
+        
+        */
+
+        /* 복수적용 */
+        .box5, .box6 {
+            display : inline-block;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            border: 1px solid red;
+            /*  */
+
+        }
+    </style>
+
+
+    <span class="box5">BOX5</span>
+
+    <span class="box6">BOX6</span>
+
+    
+
+
+</body>
+</html>

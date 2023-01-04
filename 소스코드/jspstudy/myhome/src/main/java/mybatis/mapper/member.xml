@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace="mapper" 의 패키지 경로 : 맵퍼의 이름-->
+<mapper namespace="mybatis.mapper.member">
+ 
+ 	<select id="login" parameterType="Member" resultType="Member">
+ 		SELECT MEMBER_NO, ID, PW, NAME, EMAIL, REGISTED_DATE
+ 			FROM MEMBER
+ 			WHERE ID = #{id} AND PW = #{pw}
+ 	</select>
+ 	
+ 	
+ 	<!-- 2. 추가 : 회원등록 요청쿼리문  -->
+ 	<insert id="insertMember" parameterType="Member">
+ 		INSERT INTO MEMBER
+			(MEMBER_NO, ID, PW, NAME, EMAIL, REGISTED_DATE)
+		VALUES
+			(MEMBER_SEQ.NEXTVAL, #{id}, #{pw}, #{name}, #{email}, TO_CHAR(SYSDATE, 'yyyy-mm-dd'))
+ 			<!-- * dto의 날짜가 date 타입이면 SYSDATE, string 타입이면 TO_CHAR(SYSDATE, 'yyyy-mm-dd') ******-->
+ 	</insert>
+ 	
+ 	<!-- 3. 삭제  -->
+ 	<delete id="deleteMember" parameterType="int">
+ 	DELETE
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}
+ 		
+ 		<!-- * #{memberNo} 는 dat의 매개변수와 연동된다 ****** -->
+ 		
+ 		<!-- & ${} 와 #{}의 차이
+ 		// #를 사용하면 변수값 앞뒤로 ''를 붇여준다, 즉 문자열로 변환된다
+ 		   $는 ''를 안붙이기 때문에 변수값만 들어감, 숫자형에 사용
+ 		   
+ 		// $는 숫자문자 구분하는 용도가 아닌, sql의 칼럼명을 가져올때 사용된다
+ 		// * 칼럼명도 변할 수 있으니 el변수화
+ 			
+ 		
+ 		  -->
+ 		
+ 	</delete>
+   
+ 		
+ 		
+</mapper>

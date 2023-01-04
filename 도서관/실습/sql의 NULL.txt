@@ -1,5 +1,0 @@
-# Null 추가하는법
-1. INSERT에서 VALUE값으로 NULL추가
-2. INSERT에서 VAULE로 빈값(칼럼은 작성)
-
-* NULL은 문자열이 아니니, '' 사용X

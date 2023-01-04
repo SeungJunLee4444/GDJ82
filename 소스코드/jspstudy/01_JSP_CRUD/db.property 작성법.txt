@@ -1,0 +1,4 @@
+- 작성시 .txt 텍스트 파일로 만들 수 있음
+- 작성방법 : 사용하고 있는 db의 driver, url, username, password 정보를 작성해준다
+(해당 목록은 mybatis 홈페이지 문서란 참고)
+* 주의 : configuration에서 properties 경로의 위치와 파일명이 동일해야한다 

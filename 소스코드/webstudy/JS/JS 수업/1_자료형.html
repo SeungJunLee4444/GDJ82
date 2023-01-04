@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1_자료형</title>
+</head>
+<body>
+    <script>
+        // [자료형]
+        /*
+            - JS의 특징
+            (1) HTML의 구성요소를 프로그래밍 처리할 수 있는 언어
+            (2) <script> 태그 내부는 js의 영역
+            (3) <script> 태그는 head, body 태그에서 모두 사용가능
+            (4) 주석 : // 또는 /* * /
+            (5) javascript = ecmascript
+            & 둘다 스크립트 언어며, js는 es를 표준으로 참고해 만들어졌다
+        */
+    </script>    
+
+    <script>
+        /* 
+            1. 기본 자료형
+            // [타입]   : [값, 콘솔에서 확인가능]
+            1) number   : 정수, 실수 
+            2) string   : 문자, 문자열
+            3) boolean  : true, false
+            4) null     : null, 의도적으로 값을 비운상태
+            5) undefined: undefined, 값이 저장된 적이 없는 상태(초기화를 안한 변수)
+            & 초기화는 변수 선언시 값을 입력하는 것을 말한다
+        */
+
+       // & 초기화를 안한 경우(undefined)
+        var a;             
+        console.log(a);     // undefined
+       // & ''값이 공백인경우
+        var a = '';
+        console.log(a);     // 공백
+
+        // var a = null;       
+        // console.log(a);     // null
+        // var a = undefined;
+        // console.log(a);     // undefined
+        // var a = true;
+        // console.log(a);     // true
+        // var a = false;
+        // console.log(a);     // false
+    </script>
+
+
+    <script>
+        /* 
+            2. 변수
+            - 변수의 특징
+            (1) 동적타입(느슨한타입) 
+            - 변수 선언시 변수명만 설정하고, 값을 입력할 때 자료형이 결졍됨
+            - 이미 저장된 변수의 자료형을 바꿔서 다시 저장가능
+            - 변수선언 없이도 변수를 사용할 수 있음(var) 
+
+            3. 변수선언 키워드
+            1) var
+            - 범위(함수레벨?)
+            - 전역변수(코드 내에서 어디서든 변수에 접근가능)
+            - 변수선언                  : 생략가능
+            - 같은 변수명으로 재선언    : 가능
+            - 초기화 생략               : 가능 (var a;, 값 : undefined)
+            - 저장된 값 수정            : 가능
+            2) let(지역변수)    
+            & let은 주로 함수 내에서 사용된다
+            - 범위 : {}
+            - 변수선언 : 생략불가능
+            - 같은 변수명으로 재선언    : 불가능
+            - 초기화 생략               : 가능 (메모리에 변수가 안만들어진상태?)
+            - 저장된 값의 수정          : 가능
+            3) const(상수?)
+            - 범위 : {}
+            - 변수선언 : 생략 불가능
+            - 같은 변수명으로 재선언    : 불가능
+            - 초기화 생략               : 불가능(상수기때문, =자바의 final)
+            - 저장된 값의 수정          : 불가능(상수기때문)
+
+            & 변수의 구분
+            - 전역변수 : 함수밖,안에 영향을 주는 변수
+            - 지역변수 : 함수 안에서만 영향을 주는 변수
+
+            & 변수의 범위구분
+            (1) var : 전역변수기 때문에, 함수안이든 밖이든 선언되면 코드
+            전체에 영향을 준다
+            ex) 함수 내에서 선언해도, 함수 밖에서 호출시 값에 영향을줌
+                + 지역변수와 전역변수의 이름이 같을경우, 지역변수가 우선된다
+            (2) let, const : 지역변수기 때문에 함수 내에서, 함수 밖에서
+            선언된 변수는 서로 영향을 주지않는다
+
+            4. 호이스팅
+            - 코드는 위에서 아래로 읽어지는게 정방향 순서지만,
+            변수의 선언, 함수의 정의는 모든 코드중에서 항상, 우선적으로
+            읽어진다
+            - 호이스팅의 대상 : var, let, const, function, class?
+
+        */
+       // & var과 let을 같은 변수명으로 선언하면?
+        // var b = 0;
+        // 결과 : 키워드가 달라도 변수명이 같으면 let키워드로 인해 오류가발생
+
+
+        // & 같은 변수명 let을 함수 안팎에서 선언하면? 
+        let b = 0;
+        function func1() {
+            let b = 2;
+            // console.log(b);  => & 함수 안은 콘솔이 작동하지않는다
+        }
+        console.log(b); // 0    
+        // 결과 : let은 지역변수기 때문에 함수 내의 2의 값이 영향을 주지않는다
+
+    </script>
+
+    <script>
+        /* 
+            5. js의 출력방식
+            1) 경고창              : alert('')
+            2) 브라우저화면(웹상)  : document.write('')
+            & 생긴게 dom 객체의 document와 비슷하네
+            3) 콘솔창(f12)         : console.log()
+        */
+       // & ()안에 ''작은따음표를 꼭 붙여줘야한다
+        // alert('안녕')
+        // document.write('가나다');
+    </script>
+
+    <script>
+        /* 
+            6. 자료형 변환
+            ------------------------------------
+            & 핵심요약(이것만봐라)
+            - 문자에서 숫자 변환 : Number('0');
+            - 숫자에서 문자 변환 : String(0);
+            ------------------------------------
+
+            1) 문자 -> 숫자변환
+            (1) Number('문자')      : 정수, 실수 변환
+            (2) parseint('문자')    : 정수만 변환       
+            (3) parsefloat('문자')  : 실수만 변환
+            & 그냥 Number만 쓰면 된다
+
+            2) 숫자 -> 문자변환
+            (1) String(숫자)
+        */
+
+        var a = 0;
+        console.log(String(0));     // 0 (문자형)
+
+        var a = '150'
+        var c = Number(a);
+        console.log(c, typeof(c));  // 150 , 'number'
+    </script> 
+  
+
+</body>
+</html>

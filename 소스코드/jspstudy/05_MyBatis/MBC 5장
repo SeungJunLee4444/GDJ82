@@ -1,0 +1,90 @@
+[MVC 5장] 
+
+1. 세팅
+
+1) mybatis 설치
+- 주소 : https://blog.mybatis.org/p/products.html
+- 사전정의 :  JDBC를 통해 데이터베이스에 엑세스하는 작업을 캡슐화하고,
+ 	일반 SQL 쿼리, 저장 프로 시저 및 고급 매핑을 지원하며 모든 JDBC 코드 및 매개 변수의 중복작업을 제거 합니다. 
+	Mybatis에서는 프로그램에 있는 SQL쿼리들을 한 구성파일에 구성하여 프로그램 코드와 SQL을 분리할 수 있는 장점을 가지고 있습니다.
+- 용도 : 기존 자바 JDBC문을 대체, 데이터베이스 연동을 돕는 프레임워크
+- 해당 jar : mybatis-3.5.11.jar
+
+* 모든 jsp의 jar 파일은 web-inf의 lib 폴더 안에 저장하여 사용한다
+
+2) mybatis 세팅
+- 주소 : http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html
+
+3) 크론 자동생성
+- 주소 : http://www.cronmaker.com/;jsessionid=node08y7sv32qjg4pfz1qkl8tjkhn729548.node0?0
+
+---------------------------------------------------------------------------------------------------------
+
+2. 5장 수업
+- 목표 : mvc 패턴 + sql(mybatis) + test
+
+
+
+
+
+2. bybatis-config.xml의 변수들 ${}
+1) db.properties 텍스트 파일 생성
+
+2) 해당 속성들의 값을 작성 후 같은 폴더 위치 내에 위치시키기
+
+
+
+
+& 학습목록
+1. mybatis를 사용해 sql문을 동시에 처리할수 있다(dao)
+2. mybatis를 통해 자바식 카멜 케이스를 sql식 스네이크 케이스로 자동 처리해준다 
+3. 상황에 맞는 response 만들기
+
+& MyBatis : sqlsession을 사용하는것을 말한다
+sqlsession : JDBC의 connection, preparedstatement, resultset을 동시에 처리하는 클래스
+
+
+& sqlsession 호출방법
+
+* 형태
+SqlSession ss;
+ss.selectList();
+ss.selectOne();
+ss.insert();
+ss.update();
+ss.delete();
+=> jbcd에서 sql을 작성해야하는것을 메서드를 이용
+
+
+& 세팅
+주소 : https://blog.mybatis.org/p/products.html
+선택 : mybatis-3.5.11.jar 만 필요
+
+* 모든 jsp의 jar 파일은 web-inf의 lib 폴더 안에 저장한다
+
+2. bybatis-config.xml의 변수들 ${}
+1) db.properties 텍스트 파일 생성
+
+2) 해당 속성들의 값을 작성 후 같은 폴더 위치 내에 위치시키기
+
+3) <properties resource="">
+
+---------------------------------------------------------------------------
+
+
+1. mybatis.config 세팅
+1) mybatis.config 폴더 + mybatis-config.xml 파일 생성
+2) mybatis 웹 페이지의 mybatis xml 코드를 파일에 복붙 
+3) xml 파일의 property 태그의 변수처리된 값을 가져오기 위해 별도의 db.preperties.txt 파일을 생성, 속성의 값을 입력(같은 폴더 내에 위치해야한다)
+4) <mapper resource="">로 xml 파일에서 txt 파일의 경로를 잡는다(연결)
+
+
+2. mybatis.mapper 세팅
+1) mybatis.mapper 폴더 + board.xml 파일 생
+2) mybatis 웹 페이지의 매핑된 sql 구분 살펴보기의 코드를 board.xml 파일에 복붙
+3) mybatis
+
+
+
+
+

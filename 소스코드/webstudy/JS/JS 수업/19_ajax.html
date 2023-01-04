@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>AJAX</title>
+</head>
+<body>
+    <script>
+        /* 
+            [AJAX]
+            - asynchronous javascript and xml
+            - 정의 : 자바스크립트와 xml간 비동기 통신
+            - 통신방식
+                -------------------------------------------------
+                1) 비동기통신(디폴트)&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+                    - 순서를 지키지 않는 통신
+                    - 응답이 오지 않아도 요청을 계속할 수 있음
+                    - 응답이 오면 해당 응답만 처리
+                &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+                -------------------------------------------------
+                2) 동기통신(쓸일없음)xxxxxxxxxxxxxxxxxxxxxxxxx
+                    - 순서대로 통신
+                    - 요청하고, 응답올 때까지 기다림
+                    - 느림
+            & 페이지 전체를 로드하지않고, 페이지 일부만 요청해서 처리하는 기능
+            - 자바스크립트의 XMLHttpRequest 객체가 AJAX 처리를 담당 
+        
+        */
+    </script>
+
+    <!-- 실습 : data.txt 파일이 서버가 보낸 데이터
+    => 서버에서 보낸 데이터파일을 클릭시 box1 텍스트에서 내용 확인
+    -->
+    <div><button id="btn1">클릭</button></div>
+    <div id="box1"></div>
+    <script>
+        document.getElementById('btn1').onclick = function(event) {
+
+            // 1) xmlhttprequest 객체 생성
+            var xhr = new XMLHttpRequest();
+
+            // 2) open() : 요청정보 생성
+            // - 형태 : open(http메서드, 요청서버경로, 통신방식)
+            // (1) http 메서드
+            //      - GET 
+            //      - POST
+            // (2) 요청서버경로
+                    // 컨텍스트패스/URLMapping
+            // (3)
+            //      (1) 비동기통신 : false  &&&&&&&&&&&&&&&&&&&&&&&&&&&&
+            //      (2) 동기통신 : true xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xhr.open('GET', 'data.txt', false);
+
+            // 3) send() : 요청하기
+            xhr.send();
+
+            // 4) 응답처리
+            // 응답이 오는지 정검하기위한 readystatechange 이벤트 사용
+            // => 응답이 성립되면 xhr객체의 텍스트를 box1 태그의 텍스트로 표시
+            xhr.onreadystatechange = function(event) {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+                // & 응답에 관련된 속성
+                // => readyState는 4, status는 200만 기억(통신성공조건)
+                //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+                // 1. readyState (통신 확인)
+                //    1) 0(OPENDED)
+                //    2) 1(UNSEND)
+                //    3) 2(HEADERS_RECEIVE)
+                //    4) 3(LOADING)
+                //    5) 4(DONE)                & 이것만 기억
+                // 2. status (응답 코드)
+                //    1) 200 : 응답 성공        & 이것만 기억
+                //    2) 40X : 요청 실패
+                //    3) 50X : 서버 오류
+                    document.getElementById('box1').textContent = xhr.responseText;
+
+                }
+            }
+        }
+    </script>
+
+    <!-- 실습 : xml읽기
+    (1) 태그의 텍스트에서 값을 얻을 경우 : 태그의 textcontent를 사용해야한다
+    (2) 태그의 속성값에서 값을 얻을 경우 : 속성 getAttribute('')를 사용하면된다
+
+    & xml 문서 접근시 유의사항
+    (1) 태그 자체가 배열이니 배열식으로 접근하겠다  => 감싸고있는태그Name[0]
+    (2) 반복되는 태그 이름을 이용하여 접근하겠다    => [i] 인덱스사용  
+
+
+
+    => 서버로부터 xml데이터를 받아서 테이블 테그에 데이터 전송
+    -->
+    <div><button id="btn2">클릭</button></div>
+    <div id="box2">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('btn2').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'books1.xml', false);
+            xhr.send();
+            document.onreadystatechange = function(event) {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    var data = xhr.responseXML;
+
+                    // 1) <books> 태그 가져오기 : 배열로 가져옴
+                    var books = data.getElementsByTagName('books')[0];
+                    // => 자식태그를 가져와야하기때문에, 배열요소 접근을 위한 인덱스[0] 사용
+                    // 2) books의 자식인 <book> 태그 가져오기 : 배열로 가져옴
+                    // => books는 여러개 존재하기 떄문에 배열요소 획득은 반복문으로 인덱스를 사용할 것
+                    var book = books.getElementsByTagName('book');
+                    var bookList = '';
+                    for(let i = 0; i < book.length; i++) {
+                        bookList += '<tr>';
+                        bookList += '<td>' + book[i].getElementsByTagName('title')[0].textContent + '</td>';
+                        bookList += '<td>' + book[i].getElementsByTagName('author')[0].textContent + '</td>';
+                        bookList += '<td>' + book[i].getElementsByTagName('price')[0].textContent + '</td>';
+                        bookList += '</tr>';
+                    }
+                    // & 전부 배열값을 반환하기 때문에 이중 반복문은 사용할 수 없을듯
+                    document.querySelector('#box2 .book_list').innerHTML = bookList;
+
+                }
+            }
+        }
+    </script>
+
+    <!-- 2. 실습 : xml읽기
+    => 1번과 달리 속성에 있는 데이터 추출
+    -->
+    <div><button id="btn3">클릭</button></div>
+    <div id="box3">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        // ajax 통신
+        document.getElementById('btn3').onclick = function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'books2.xml', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    // XML 응답은 responseXML
+                    var data = xhr.responseXML;
+                    // <books> 태그 (1개)
+                    var books = data.getElementsByTagName('books')[0];
+                    // <book> 태그 (3개)
+                    var book = books.getElementsByTagName('book');
+                    // <book> 태그 3개 순회하면서 bookList 만들기
+                    var bookList = '';
+                    for(let i = 0; i < book.length; i++){
+                        // 속성 가져오기
+                        // book[i].getAttribute('title')
+                        console.log(book[i]);
+                        bookList += '<tr>';
+                        bookList += '<td>' + book[i].getAttribute('title') + '</td>';
+                        bookList += '<td>' + book[i].getAttribute('author') + '</td>';
+                        bookList += '<td>' + book[i].getAttribute('price') + '</td>';
+                        bookList += '</tr>';
+                    }
+                    // <tbody class="book_list"></tbody> 에 표시
+                    document.querySelector('#box3 .book_list').innerHTML = bookList;
+                }
+            }
+        }
+    </script>
+
+    <!-- 3. xml 읽기연습
+    // => 가져온 태그의 링크과 이미지경로를 a,img태그의 경로로 설정하기
+    -->
+    <div><button id="btn4">클릭</button></div>
+    <div id="box4">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목(title)</td>
+                    <td>썸네일(image+link)</td>
+                    <td>저자(author)</td>
+                    <td>정상가(price)</td>
+                    <td>할인가(discount)</td>
+                    <td>출판사(publisher)</td>
+                    <td>출판일(pubdate)</td>
+                    <td>ISBN(isbn)</td>
+                    <td>개요(description)</td>
+                </tr>
+            </thead>
+            <tbody id="search_list"></tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('btn4').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'naver_search.xml', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var data = xhr.responseXML;
+                    var item = data.getElementsByTagName('item');
+                    var itemList = '';
+                    for(let i = 0; i < item.length; i++){
+                        itemList += '<tr>';
+                        itemList += '<td>' + item[i].getElementsByTagName('title')[0].textContent + '</td>';
+                        itemList += '<td><a href="' + item[i].getElementsByTagName('link')[0].textContent + '"><img src="' + item[i].getElementsByTagName('image')[0].textContent + '" width="80px" height="120px"></a></td>';
+                        // => link태그의 주소텍스트를 a링크의 href 속성에, image 태그의 주소텍스트를 img 태그의 src경로로 저장
+                        itemList += '<td>' + item[i].getElementsByTagName('author')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('price')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('discount')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('publisher')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('pubdate')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('isbn')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('description')[0].textContent + '</td>';
+                        itemList += '</tr>';
+                    }
+                    document.getElementById('search_list').innerHTML = itemList;
+                }
+            }
+        }
+    </script>
+
+    <!-- 실습 : xml 연습(속성접근2)
+    => 큰 특징없음
+    -->
+
+    <div><button id="btn5">클릭</button></div>
+    <div id="box5">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>지역명</td>
+                    <td>날씨</td>
+                    <td>온도</td>
+                </tr>
+            </thead>
+            <tbody id="weather"></tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('btn5').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'sfc_web_map.xml', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var data = xhr.responseXML;
+                    var local = data.getElementsByTagName('local');
+                    var weather = '';
+                    for(let i = 0; i < local.length; i++){
+                        weather += '<tr>';
+                        weather += '<td>' + local[i].textContent + '</td>';
+                        weather += '<td>' + local[i].getAttribute('desc') + '</td>';
+                        weather += '<td>' + local[i].getAttribute('ta') + '</td>';
+                        weather += '</tr>';
+                    }
+                    document.getElementById('weather').innerHTML = weather;
+                }
+            }
+        }
+    </script>
+    
+    <!-- 실습 : json 읽기
+    (1) JS객체를 -> JSON 문자열로 변환 : JSON.Stringify()
+    (2) JSON 문자열을 -> JSON객체로  : JSON.parse()
+
+    & 서버에서 가져오는 JSON 데이터는 JSON 문자열 형태로,
+    객체에 저장하기 위해서 JSON.parse()를 이용해 JSON 객체로 변환해야한다
+    
+    -->
+    <div><button id="btn6">클릭</button></div>
+    <div id="box6">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('btn6').onclick = function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'books.json', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var data = JSON.parse(xhr.responseText);
+                    var bookList = '';
+                    for(let i = 0; i < data.length; i++){
+                        // 1. 객체 속성
+                        //    1) data[i].title
+                        //    2) data[i]['title']
+                        // 2. 객체 순회
+                        //    1) 속성의 직접 지정
+                        //       data[i].title
+                        //       data[i].author
+                        //       data[i].price
+                        //    2) for-in문을 이용한 객체 순회
+                        //       for(let prop in data[i]){
+                        //           data[i][prop]  
+                        //       }
+                        bookList += '<tr>';
+                        bookList += '<td>' + data[i].title + '</td>';
+                        bookList += '<td>' + data[i].author + '</td>';
+                        bookList += '<td>' + data[i].price + '</td>';
+                        bookList += '</tr>';
+                    }
+                    document.querySelector('#box6 .book_list').innerHTML = bookList;
+                }
+            }
+        }
+    </script>
+
+    <!-- 실습 : JSON읽기 
+    => 객체의 속성 순회 (ex {aaa, bbb, ccc}) 에는 for-in문을 사용한다
+    => for-in문은 요소가 아닌 인덱스를 반환
+    -->
+
+    <div><button id="btn7">클릭</button></div>
+    <script>
+        document.getElementById('btn7').onclick = function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'car.json', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var data = JSON.parse(xhr.responseText);
+                    console.log(data.model);
+                    console.log(data.maker);
+                    console.log(data.price);
+
+                    // 1) 배열요소 접근 : 일반 for문
+                    for(let i = 0; i < data.option.length; i++){
+                        console.log(data.option[i]);
+                    }
+                    /* 위 for문은 아래 코드를 만듬
+                    console.log(data.option[0]);
+                    console.log(data.option[1]);
+                    console.log(data.option[2]); */
+
+
+                    // 2) 객체속성 접근 : for-in문
+                    for(let prop in data.info){
+                        console.log(data.info[prop]);
+                    }
+                    /* 위 for문은 아래 코드를 만듬
+                    console.log(data.info.year);
+                    console.log(data.info.discount); */
+                }
+            }
+        }
+    </script>
+
+    <!-- 연습 : 전체 cctv는 몇 대인가? (카메라대수 속성 이용) -->
+    <div><button id="btn8">클릭</button></div>
+    <div>
+        마포구 전체 CCTV 개수 : <span id="cctv_count"></span>대
+    </div>
+    <script>
+        document.getElementById('btn8').onclick = function(event){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'cctv.json', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var data = JSON.parse(xhr.responseText);
+                    var totalCount = 0;
+                    for(let i = 0; i < data.length; i++){
+                        totalCount += Number(data[i].카메라대수);
+                    }
+                    document.getElementById('cctv_count').textContent = totalCount;
+                }
+            }
+        }
+    </script>
+
+    
+</body>
+</html>

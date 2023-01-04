@@ -1,0 +1,2 @@
+# 세션 초기화
+request.getSession().invalidate();

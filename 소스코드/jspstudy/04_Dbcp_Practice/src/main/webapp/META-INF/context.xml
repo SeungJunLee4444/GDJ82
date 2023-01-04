@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+	<!-- Oracle XE Resource -->
+	<Resource
+		auth="Container"
+		name="jdbc/oracle11g"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.OracleDriver"
+		url="jdbc:oracle:thin:@localhost:1521:xe"
+		username="SCOTT"
+		password="TIGER"
+		maxTotal="8"
+		maxIdle="8"
+		maxWait="-1" />
+    
+</Context>

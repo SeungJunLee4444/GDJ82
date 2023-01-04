@@ -1,0 +1,52 @@
+    <!-- 1. css 
+     - Cascade Style Sheet
+     - html 문서에 스타일을 적용하는 언어
+     1) 스타일 지정방법
+        (1) internal    : style 태그를 html 문서에 포함
+         - style 태그는 <head>에 넣음
+         - style 태그의 안은 css의 영역
+
+        (2) external    : *.css 문서를 html 문서에 포함
+        (3) inline      : html 태그에 style 속성을 지정
+    
+     2) css의 주석 : /* 내용 */   
+    -->
+     
+    
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            1. internal style
+             - 방법 : <head> 태그의 하위 태그로 <style> 태그를 추가하고 css를 작성한다
+             - 형태 : 선택자 {
+                              css속성 : 값;  css속성2 : 값2
+                            }
+        */
+        h1 {
+            color: blue;
+        }
+
+        p {
+            color:green;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Hello CSS</h1>
+    <p>만나서 반갑습니다</p>
+
+</body>
+</html>

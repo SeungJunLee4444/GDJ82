@@ -1,2 +1,0 @@
-# 바인딩 exception
-mapper.xml의 맵펴명과 참고할 인터페이스(repository) 맵퍼명이 동일한지 확인

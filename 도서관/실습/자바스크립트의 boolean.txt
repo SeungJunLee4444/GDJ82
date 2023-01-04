@@ -1,1 +1,0 @@
-자바스크립트에서 boolean은 true는 1, false는 0으로 변환될 수 있다

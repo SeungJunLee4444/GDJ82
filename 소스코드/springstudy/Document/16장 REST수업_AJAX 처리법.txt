@@ -1,0 +1,45 @@
+## 16장 RESTFUL
+- 용도 : 관리자 회원관리, 선택삭제 기능 참고
+
+	== 학습목록	
+	1. AJAX를 이용한 CRUD				: handle.jsp 참고
+		(1) json으로 데이터 보내기
+		(2) js객체를 json 데이터로 변경하는법		 
+		(3) 복수의 radio 속성을 선택해서 보내기		
+		(4) ajax로 보낸 json 데이터를 controller에서 받는법 : restcontroller 참고
+		(5) 예외클래스 이름을 출력해 확인하는법 		: serviceimpl 참고
+		(6) catch 예외처리를 통한 백단에서 예외방지
+		
+		(7) serviceImpl의 catch를 이용한 AJAX 예외응답하기
+		(8) 입력 초기화 기능			
+		(9) ajax로 목록 서비스
+		(10) ajax로 추가 서비스
+		(11) 제이쿼리, 기존 조회 초기화하는법
+		(12) 자바스크립트에서 조건(삼항) 연산자 사용하는법  : handle.jsp 참고
+		(13) 자바스크립트에서 radio를 처리하는법	  : handle.jsp 참고
+		: 선택자와 [][] 연속 사용하는 이유		  : handle.jsp 참고
+		(14) js에서 readonly 속성 부여하기		   handle.jsp 참고
+		(15) 상세보기후 입력란에 적용된 readonly 없애는법   : handle.jsp 참고	
+		(16) 쿼리에서 parameter타입이 list타입일때 mapper에서 처리하는법(mysql문) : mapper 참고			
+
+							: handle.jsp 참고
+		(7) 선택삭제 ** - 구현관련
+	
+
+
+
+
+
+	== 정리
+		1. @RestController : 컨트롤러의 모든 메서드에 @ResponseBody 에너테이션을 자동 추가
+				
+	
+		2. REST방식 
+			주소를 지정하는 방식 중 하나
+			
+
+		3. ResponseEntity / Map
+		- map 사용이 안전하다
+	
+
+#

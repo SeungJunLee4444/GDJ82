@@ -1,7 +1,0 @@
-responseentitiy로의 응답
-
-(1) 서비스 : try문에 성공응답, catch문에 실패응답을 작성한다
-(2) 서비스 , 컨트롤러에서 responseentity의 응답타입은 dto타입
-(3) 실패응답문은 jsp의 스크립트 영역에서 alert로 구현
-
-* 참고 : spring 5장, staffproject

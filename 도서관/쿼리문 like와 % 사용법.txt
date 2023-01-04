@@ -1,0 +1,21 @@
+_ : 글자수를 정해줌
+% : 글자수를 안정함
+
+
+--A로 시작하는 두글자 문자 찾기--
+SELECT 컬럼명 FROM 테이블 WHERE 컬럼명 LIKE 'A_'
+
+
+--'김'으로 시작하는 사원 조회
+SELECT * FROM My_Talbe WHERE Nm_Kor LIKE '김%'
+
+--김이 들어가는 시작하는 사원 조회
+SELECT * FROM My_Talbe WHERE Nm_Kor LIKE '%김%'
+
+--김으로 끝나는 사원의 사원번호 조회
+SELECT No_Emp FROM My_Talbe WHERE Nm_Kor LIKE '%김'
+
+
+예시
+ WHERE ${column} LIKE '%' || #{searchText} || '%'
+- 해석 : 전달한 칼럼이 검색어와 동일할 때, * 조건 : 검색어에서 앞뒤로 글자수 상관없이

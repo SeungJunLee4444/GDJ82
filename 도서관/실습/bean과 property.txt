@@ -1,9 +1,0 @@
-bean : bean 태그
-property : bean에 담긴 클래스의 필드의 값을 담는 태그
-
-ex)
-<bean id="publisher2" class="com.gdu.app01.java03.Publisher">
-		<property name="name" value="국제출판사"></property>
-		<property name="tel" value="02-222-2222"></property>
-	</bean>
-	

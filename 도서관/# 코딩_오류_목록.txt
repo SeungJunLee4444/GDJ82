@@ -1,0 +1,10 @@
+java.lang.IllegalArgumentException :
+- 이유 : mapper.xml에서 해당 쿼리를 찾지 못하는 현상
+- mybatis 관련 오류
+
+duplicate local variable
+- 자바, 중복변수 오류
+
+@webServlet import 오류
+- 라이브러리에 톰캣이 등록되지 않으면 발생
+

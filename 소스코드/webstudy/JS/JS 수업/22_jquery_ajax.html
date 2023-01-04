@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.6.1.min.js"></script>
+</head>
+<body>
+
+    <div id="box1">
+        <button id="btn1">클릭</button>
+    </div>
+    <script>
+        $('#btn1').on('click', function(event){
+            $.ajax({
+                'type': 'GET',              // 요청 메소드(Request Method)
+                'url': 'data.txt',          // 요청 서버 경로
+                'async': true,              // 통신 방식(true: 비동기 통신, false: 동기 통신, 생략하면 비동기 통신)
+                'dataType': 'text',         // 응답 데이터 타입(text, xml, json 등)
+                'success': function(data){  // 매개변수 data로 응답 데이터가 전달됨(responseText, responseXML 등)
+                    $('#box1').append($('<div>').text(data));
+                },
+                'error': function(jqXHR, textStatus, errorThrown){
+                    console.log('status', jqXHR.status);              // 응답코드(404)
+                    console.log('statusText', jqXHR.statusText);      // 응답코드텍스트(Not Found)
+                    console.log('responseText', jqXHR.responseText);  // 응답텍스트(서버측에서 전송한 예외메시지)
+                    console.log(textStatus);  // error      (안 중요함)
+                    console.log(errorThrown); // Not Found  (안 중요함)
+                }
+            });
+        });
+    </script>
+    
+    <!-- 1. XML 읽기 -->
+    <div><button id="btn2">클릭</button></div>
+    <div id="box2">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn2').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'books1.xml',
+                'dataType': 'xml',
+                'success': function(data){  // data <- xhr.responseXML (JS : var data = xhr.responseXML)
+                    $.each($(data).find('book'), function(i, book){  // $.each(배열, function(인덱스, 요소){})
+                        
+                        /*
+                        var tr = '<tr>';
+                        tr += '<td>' + $(book).find('title').text() + '</td>';
+                        tr += '<td>' + $(book).find('author').text() + '</td>';
+                        tr += '<td>' + $(book).find('price').text() + '</td>';
+                        tr += '</tr>';
+                        $('#box2 .book_list').append(tr);
+                        */
+                        
+                        var tr = $('<tr>');
+                        tr.append($('<td>').text($(book).find('title').text()));
+                        tr.append($('<td>').text($(book).find('author').text()));
+                        tr.append($('<td>').text($(book).find('price').text()));
+                        $('#box2 .book_list').append(tr);
+
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 2. XML 읽기 -->
+    <div><button id="btn3">클릭</button></div>
+    <div id="box3">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn3').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'books2.xml',
+                'dataType': 'xml',
+                'success': function(data){
+                    $.each($(data).find('book'), function(i, book){
+                        var tr = $('<tr>');
+                        tr.append('<td>' + $(book).attr('title') + '</td>');
+                        tr.append('<td>' + $(book).attr('author') + '</td>');
+                        tr.append('<td>' + $(book).attr('price') + '</td>');
+                        $('#box3 .book_list').append(tr);
+                        // tr.appendTo('#box3 .book_list');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 3. XML 읽기 연습 - naver_search.xml -->
+    <div><button id="btn4">클릭</button></div>
+    <div id="box4">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목(title)</td>
+                    <td>썸네일(image+link)</td>
+                    <td>저자(author)</td>
+                    <td>정상가(price)</td>
+                    <td>할인가(discount)</td>
+                    <td>출판사(publisher)</td>
+                    <td>출판일(pubdate)</td>
+                    <td>ISBN(isbn)</td>
+                    <td>개요(description)</td>
+                </tr>
+            </thead>
+            <tbody id="search_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn4').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'naver_search.xml',
+                'dataType': 'xml',
+                'success': function(data){
+                    $.each($(data).find('item'), function(i, item){
+                        var tr = $('<tr>');
+                        tr.append($('<td>').html($(item).find('title').text()));
+                        tr.append($('<td>').html($('<a>').attr('href', $(item).find('link').text()).append($('<img>').attr('src', $(item).find('image').text()).attr('width', '80px').attr('height', '120px'))));
+                        tr.append($('<td>').html($(item).find('author').text()));
+                        tr.append($('<td>').html($('<strike>').text($(item).find('price').text() + '원')));
+                        tr.append($('<td>').html($('<span>').text($(item).find('discount').text() + '원').css('color', '#ff0000')));
+                        tr.append($('<td>').html($(item).find('publisher').text()));
+                        var pubdate = $(item).find('pubdate').text();
+                        tr.append($('<td>').html(pubdate.substring(0,4) + '-' + pubdate.substring(4,6) + '-' + pubdate.substring(6)));
+                        tr.append($('<td>').html($(item).find('isbn').text()));
+                        tr.append($('<td>').html($(item).find('description').text()));
+                        tr.appendTo('#search_list');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 4. XML 읽기 연습 - sfc_web_map.xml -->
+    <div><button id="btn5">클릭</button></div>
+    <div id="box5">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>지역명</td>
+                    <td>날씨</td>
+                    <td>온도</td>
+                </tr>
+            </thead>
+            <tbody id="weather"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn5').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'sfc_web_map.xml',
+                'dataType': 'xml',
+                'success': function(data){
+                    $.each($(data).find('local'), function(i, region){
+                        var tr = '<tr>';
+                        tr += '<td>' + $(region).text();
+                        tr += '<td>' + $(region).attr('desc');
+                        tr += '<td>' + $(region).attr('ta');
+                        $('#weather').append(tr);
+                    })
+                }
+            })
+        });
+    </script>
+
+    <!-- 5. JSON 읽기 -->
+    <div><button id="btn6">클릭</button></div>
+    <div id="box6">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn6').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'books.json',
+                'dataType': 'json',
+                'success': function(data){
+                    $.each(data, function(i, book){
+                        var tr = $('<tr>');
+                        /*
+                        tr.append($('<td>').text(book.title));
+                        tr.append($('<td>').text(book.author));
+                        tr.append($('<td>').text(book.price));
+                        */
+                        for(let prop in book){
+                            tr.append($('<td>').text(book[prop]));
+                        }
+                        tr.appendTo('#box6 .book_list');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 6. JSON 읽기 -->
+    <div><button id="btn7">클릭</button></div>
+    <script>
+        $('#btn7').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'car.json',
+                'dataType': 'json',
+                'success': function(data){
+                    console.log('모델명', data.model);
+                    console.log('제조사', data.maker);
+                    console.log('가격', data.price);
+                    $.each(data.option, function(i, item){
+                        console.log('옵션' + (i + 1), item);
+                    })
+                    console.log('연식', data.info.year);
+                    console.log('할인액', data.info.discount);
+                }
+            });
+        })
+    </script>
+
+
+    <!-- 7. JSON 읽기 연습 - cctv.json -->
+    <!-- 전체 cctv는 몇 대인가? (카메라대수 속성 이용) -->
+    <div><button id="btn8">클릭</button></div>
+    <div>
+        마포구 전체 CCTV 개수 : <span id="cctv_count"></span>대
+    </div>
+    <script>
+        $('#btn8').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'cctv.json',
+                'dataType': 'json',
+                'success': function(data){
+                    var cctvCount = 0;
+                    $.each(data, function(i, location){
+                        cctvCount += Number(location.카메라대수);
+                    })
+                    $('#cctv_count').text(cctvCount);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,1 +1,0 @@
-StringBuffer = stringBuilder과 동일한 역할을 수행

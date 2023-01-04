@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 제이쿼리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+
+	/* <!-- 나중에 css파일에 추가할 내용들 --> */
+
+
+	* {
+		box-sizing: border-box;
+		
+		
+	}
+
+	html, body {
+		width : 100%;
+		height : 100%;
+		margin : 0;
+	
+	}
+
+	.wrapper {
+		text-align : center;
+		 width: 100vw;
+        height: 100vh;
+	
+	}
+	
+	.header {
+		width : 100%;
+		position: fixed;
+		height : 100px;
+		background-color: #D4D4D4;
+		top : 0; right: 0; left: 0;
+	}
+	
+	.container {
+		display : flex;
+		
+	}
+	
+	.left_container {
+		left: 0;
+		position : fixed;
+		background-color: #A8A8A8;
+		 min-height : 100%;
+		 width: 200px;
+		 
+	}
+	
+	.right_container {
+		 width : 100%;
+		 min-height : 100%;
+		 background-color: lightsalmon;
+		 margin-left : 100px;
+	}
+	
+	.content {
+	height : 300px;
+	
+	}
+	
+
+
+</style>
+</head>
+<body>
+	<!--  
+		##
+			클래스 설명
+			wrapper : 페이지 전체를 감싸는 클래스
+			header : 최상단 레이아웃 클래스
+			container : header 아래를 감싸는 클래스
+			left_container : 왼쪽 목록 레이아웃용 클래스
+			right_container : 오른쪽 내용 클래스
+			
+		# 
+	
+	 -->
+
+	<div class="wrapper">
+		<div class="header_layout">헤더</div>
+		<div class="container">
+			<div class="left_container"></div>
+			<div class="right_container">몸통
+				<div class="content"></div>
+			</div>
+		</div>
+		
+	
+	</div>
+
+	
+
+
+
+</body>
+</html>

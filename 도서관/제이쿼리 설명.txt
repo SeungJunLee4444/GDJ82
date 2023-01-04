@@ -1,0 +1,14 @@
+제이쿼리 cdn ----------------------------
+- 주소 : https://releases.jquery.com/
+- 주의 : 3.6.1버전 minified 사용
+- 코드 : 
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+제이쿼리 유저 인터페이스 stable ----------------------------------------------------
+- 주소 : https://jqueryui.com/
+- 용도 : Datepicker 위젯사용
+	- 기능 : 특정 id에 지정하면 클릭시 달력이 펼쳐짐
+	- 예시 : $('#targetDt').datepicker();
+- 사용 파일
+(1) jquery-ui.min
+(2) jquery-ui.min.js

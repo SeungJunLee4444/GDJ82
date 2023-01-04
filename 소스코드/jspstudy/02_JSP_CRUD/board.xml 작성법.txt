@@ -1,0 +1,1 @@
+- 주의 : my batis config.xml에서 선언한 mapper 태그의 경로와 파일명과 일치해야한다

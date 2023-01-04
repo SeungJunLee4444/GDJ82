@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18_popup</title>
+</head>
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box {
+            width: 640px;
+            height: 423px;
+            background-image: url(../../images/animal1.jpg);
+            background-size: 100% 100%;
+        }
+        .footer {
+            list-style-type: none;
+            width: 640px;
+            display: flex;
+        }
+        .footer > li {
+            width: 50%;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer > li:hover {
+            cursor: pointer;
+            font-weight: 900;
+            text-shadow: 1px 1px 1px gray;
+        }
+        .footer > li:first-of-type {
+            background-color: beige;
+        }
+        .footer > li:last-of-type {
+            background-color: plum;
+        }
+    </style>
+    <div class="box"></div>
+    <ul class="footer">
+        <li>오늘 그만 보기</li>
+        <li id="btn_close">닫기</li>
+        <!-- <li onclick="window.close()">닫기</li> -->
+    </ul>
+    <script>
+        document.getElementById('btn_close').onclick = function(event) {
+            window.close();
+        }
+    </script>
+
+</body>
+</html>

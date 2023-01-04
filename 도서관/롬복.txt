@@ -1,0 +1,14 @@
+# 롬복 에너테이션 종류
+@Setter : setter 메서드
+@Getter : getter 메서드
+@NoArgsConstructor : 디폴트 생성자
+@AllArgsConstructor : 매개변수 생성자
+@ToString : 문자열 변환
+@Data : getter, setter, tostring
+@Builder : 빌더타입
+
+#########################################################
+
+# 특징
+# jsp 페이지에서 lib 폴더 안에 lombok.jar을 넣으면,
+buildpath 등록 없이도 사용 가능해진다

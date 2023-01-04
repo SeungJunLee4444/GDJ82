@@ -1,0 +1,1 @@
+mapping값을 jsp로 인식한다

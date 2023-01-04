@@ -1,0 +1,9 @@
+ <if test='paraName1 != null  and(paraName1 eq "test".toString())'>
+
+ </if>
+
+해석 : 파라미터 paraName 이  null이 아닐때
+
+<if test='paraName1== "Y"'></if>
+
+해석 : paraName1이라는 파라미터의 값이 Y일때

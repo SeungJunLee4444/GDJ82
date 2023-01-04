@@ -1,0 +1,36 @@
+[MVC 6장]
+
+
+1. 세팅
+
+1) QUARTZ job scheduler
+- 주소 : http://www.quartz-scheduler.org/
+- 용도 : 주기적으로 프로그램이 알아서 작동하도록 만드는 jar 파일 보유
+- 해당 jar : 폴더 내 전부 다
+
+2) 사용방법(크론 표현식)
+- 주소 : http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html
+
+3) 크론 자동생성
+- 주소 : http://www.cronmaker.com/;jsessionid=node08y7sv32qjg4pfz1qkl8tjkhn729548.node0?0
+
+---------------------------------------------------------------------------------------------------------
+
+2. 6장 수업
+- 목표 : mvc 패턴 + sql(mybatis) + 
+
+
+
+
+
+
+
+
+
+
+3. 기타
+& 이클립스 자바 버전 바꾸기
+프로젝트 우클릭 - 프로터피 - preject facets - java 버전 변경
+
+
+

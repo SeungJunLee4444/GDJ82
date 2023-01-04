@@ -1,0 +1,14 @@
+{
+    "model": "e-class",
+    "maker": "benz",
+    "price": 8000,
+    "option": [
+        "auto hold",
+        "advanced cruise",
+        "hud"
+    ],
+    "info": {
+        "year": 2022,
+        "discount": 1000
+    }
+}

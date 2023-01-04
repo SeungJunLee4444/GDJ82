@@ -1,2 +1,0 @@
-현재 년도를 알려준다(년도만,4글자)
-console.log(date.getFullYear()); //2019

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+	<!-- Oracle XE Resource -->
+	<Resource
+		auth="Container"
+		name="jdbc/oracle11g"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.OracleDriver"
+		url="jdbc:oracle:thin:@localhost:1521:xe"
+		username="SCOTT"
+		password="TIGER"
+		maxTotal="8"
+		maxIdle="8"
+		maxWait="-1" />
+
+	<!--
+		MySQL은 관리자 계정이 root로 정해져 있음
+		root 비밀번호 1111로 설정한 상황
+		오라클과 달리 스키마를 생성한 뒤 해당 스키마에 테이블을 작성함
+		이 때 생성한 스키마 이름을 url에 추가해야 함
+		"스키마 = 사용자"라고 생각하면 됨
+	-->
+
+	<!-- MySQL 5.x Resource -->
+	<Resource
+		auth="Container"
+		name="jdbc/mysql5"
+		type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/스키마이름"
+		username="root"
+		password="1111"
+		maxTotal="8"
+		maxIdle="8"
+		maxWait="-1" />
+
+	<!-- MySQL 8.x Resource -->
+	<Resource
+		auth="Container"
+		name="jdbc/mysql8"
+		type="javax.sql.DataSource"
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/스키마이름?serverTimezone=Asia/Seoul"
+		username="root"
+		password="1111"
+		maxTotal="8"
+		maxIdle="8"
+		maxWait="-1" />
+		
+</Context>

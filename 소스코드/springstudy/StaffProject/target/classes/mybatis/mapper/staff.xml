@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--  # namespace : java 영역의 mapper 패키지 내부 mapper 인터페이스를 의미 -->
+<mapper namespace="com.gdu.staff.mapper.StaffMapper">
+
+	<!-- # 목록 조회 -->
+	<select id="selectStaffList" resultType="StaffDTO">
+		SELECT SNO, NAME, DEPT, SALARY
+		FROM STAFF
+		ORDER BY SNO DESC
+	</select>
+	
+	<!--  상세 조회 -->
+	<select id="selectStaffDetail" parameterType="int" resultType="StaffDTO">
+		SELECT SNO, NAME, DEPT, SALARY
+		FROM STAFF
+		WHERE SNO = #{no}
+	
+	</select>
+	
+	<!-- # 목록 삽입 -->
+	<insert id="insertStaff" parameterType="StaffDTO">
+		INSERT INTO STAFF
+			(SNO, NAME, DEPT, SALARY)
+		VALUES
+			(#{sno}, #{name}, #{dept}, #{salary})
+	</insert>
+
+ 
+ 
+ 		
+ 		
+ 		
+</mapper>

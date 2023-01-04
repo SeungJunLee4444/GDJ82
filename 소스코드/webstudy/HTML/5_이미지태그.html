@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- [이미지태그]                               
+         - 형태 : <img alt="오류시텍스트" src="경로"></img>
+         - 인라인레벨
+         & 사용할 이미지가 포함된 폴더를 vscode 익스플로러에 호출해야 html파일의 웹 상에서 사용가능
+
+         - 속성
+         (1) alt : 이미지 로드 실패시 호출되는 텍스트
+         (2) src : 이미지를 호출해올 경로
+            - (1) 절대경로 : 로컬c,d등 최상위폴더부터 찾아가는 경로(사용불가)
+            - (2) 상대경로 : 현재 파일의 위체에서 찾아가는경로(사용가능)
+            - (3) 웹경로   : 이미지의 주소 복사후 복붙(사용가능)
+         
+         (3) width, height : 이미지의 높이와 너비 지정
+             (하나만 조정해도 비율이 자동 조정되기 때문에,
+              둘중 하나만 조정할 것)   
+    -->
+
+    <!-- 절대 경로 -->
+    <img alt="사랑해" src="D:/GDJ54/images/like.png">
+
+    <!-- 상대 경로 -->
+    <img alt="사랑해" src="../../images/like.png">
+
+    <!-- 웹 경로 -->
+    <img alt="오징어게임" src="https://search.pstatic.net/common?type=o&size=174x242&quality=75&direct=true&src=https%3A%2F%2Fcsearch-phinf.pstatic.net%2F20211222_272%2F1640172866420MTXVN_PNG%2Fbda18900d5a1cf82b4a6167678c88958.png">
+    
+</body>
+</html>

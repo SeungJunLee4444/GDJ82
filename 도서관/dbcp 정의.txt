@@ -1,0 +1,10 @@
+& DBCP(데이터베이스 커넥션 풀)
+- 정의 : 
+(1) 여러 개의 DB Connection을 하나의 Pool에 모아놓고 관리
+(2) DB 커넥션 객체를 여러 개 생성한 뒤 Pool에 담아놓고 필요할 때 불러와서 사용
+- 이유 : JDBC처럼 필요할때마다 CONNECTION을 사용하는건 많은 비용이 드는 작업이기 때문
+- 해결 : CONNECTION을 POOL에 담아서, 필요할때마다 꺼내쓰는 개념
+
+- 경로 : \src\main\webapp\META-INF
+- 기능 :  META-INF 폴더 내에 context.xml 파일 안에 'DBCP에 대한 정보를 저장', 'CONNECTION을 저장'해둔다
+* context.xml

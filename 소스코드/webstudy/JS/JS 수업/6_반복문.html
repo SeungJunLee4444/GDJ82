@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반복문</title>
+</head>
+<body>
+    <!-- [반복문] 
+    -------------------------------------------------------
+    // & 핵심
+    반복문 while, for을 이용해, 반복적인 태그를 문서의 요소로 넣을 수 있다
+
+    1) 추가할 태그를 담을 임의의 변수 생성
+    2) 변수에 태그를 입력
+        (1) 하나뿐인 태그는 '<>'로 입력
+        (2) 복수의 반복태그는 반복문을 이용해 '<>' 입력
+    3) 문서객체를 선언하여(변수저장x).innerHTML을 이용해 문서요소로 추가
+    -------------------------------------------------------
+    -->
+
+    <!-- [실습]-->
+    <!-- 실습1 : 콘솔창에 1 2 3 4 5 띄우기 -->
+
+    <div id="box1"></div>
+    <script>
+        var n = 1;
+        while(n <= 5) {
+            document.getElementById('box1').innerHTML += n + '&nbsp';
+            n++;
+        }
+    </script>
+
+    <!--------------------------------------------------------------------------->
+
+
+    <!-- 실습2: 1, 2, 3, 4, 5 거꾸로 목록 만들기 -->
+    <div id="box2"></div>
+    <script>
+        // 예시
+         /*
+                <ul>
+                    <li>5</li>
+                    <li>4</li>
+                    <li>3</li>
+                    <li>2</li>
+                    <li>1</li>
+                </ul>
+            */
+            var a = document.getElementById('box2');
+            var list = '<ul>';
+            var n = 5;
+            while(n >= 1) {
+                list += '<li>' + n + '</li>'
+                n--;
+            }
+            list += '</ul>';
+            a.innerHTML = list;
+            // a.style['list-style'] = 'none';
+
+            // & <li> 태그의 stlye 속성을 이용한 항목지우기
+            
+            // 1) 잘못된 코드
+            // document.querySelectorAll('#box2 > ul > li').style['list-style'] = 'none';
+            // => 작동안함 : querySelector은 배열값을 반환하기 때문에, 인덱스를 사용해야한다
+            
+
+            //2 ) 올바른 코드(인덱스사용)
+            var a = document.querySelectorAll('#box2 > ul > li');
+            for(let i = 0; i <= a.length; i++) {
+                a[i].style['list-style'] = 'none';
+            }
+            // => 배열이니 인덱스값을 이용해 style 속성에 접근해야한다
+    </script>
+
+    <!--------------------------------------------------------------------------->
+
+
+    <!-- 2. for문 -->
+    <!-- 실습 : select문 구현하기 -->
+    <div id="box3"></div>
+    <script>
+        // 예시
+        /*
+            <select name="month">
+                <option value="1">1월</option>
+                ...
+                <option value="12">12월</option>
+            </select>
+        */ 
+
+        var a = document.getElementById('box3');
+        var select = '<select name="month">';
+        for(let i = 1; i <= 12; i++) {
+            select += '<option value=' + i + '>' + i + '월</option>';
+        }
+        select += '</select>';
+        a.innerHTML = select;
+    </script>
+
+    <!--------------------------------------------------------------------------->
+
+    <!-- 실습 : 이미지 나열하기(animal1~10.jpg), width=100px출력 -->
+    <div id="box4"></div>
+    <script>
+        // var img;    // undefined 발생의 이유 => 웹상에도 undefined라 표시됨
+        var img = '';  // 한번 초기화 시켜줘야한다
+        for(let i = 1; i <= 10; i++) {
+            img += '<img src="../학습용이미지/animal' + i + '.jpg" width="100px">';
+        }
+        document.querySelector('#box4').innerHTML = img;
+
+    // & dom객체로 이미지 태그를 생성할 경우 요소생성을 위해 만든 변수에 꼭 '' 초기화를
+    // 해줘야한다
+
+    </script>
+
+    <!-- 실습 : 테이블 -->
+    <script>
+        // 예시
+         /*
+            테이블 이용
+                    col=1  col=2   col=3
+            row=1   1      2       3
+            row=2   4      5       6
+            row=3   7      8       9
+            row=4   *      0       #
+            -----------------------------
+            1~9 : (row - 1) * 3 + col
+    */   
+    </script>
+     <div id="box5"></div>
+     <script>
+        var table = '<table border="1">'
+        for(let row = 1; row <= 4; row++) {
+            table += '<tr>';
+                for(let col = 1; col <=3; col++) {
+                    var data = (row -1) * 3 + col
+                    switch(data) {
+                    case 10 : table += '<td>' + '*' + '</td>'; break;
+                    case 11 : table += '<td>' + 0 + '</td>';  break;
+                    case 12 : table += '<td>' + '#' + '</td>'; break;
+                    default : table += '<td>' + data + '</td>';
+                    // & switch문
+                    // 해석 : switch(조건)조건의 변수가 case a, b 일때
+                    // & break(조건문 나오기) : 그냥 써라
+
+                    // break를 안쓰면
+                    // 10일떄 * 11 12
+                    // 11일떄 * 0 12
+                    // 12일떄 * 0 #
+                    }
+                }
+            table += '</tr>';
+        }
+        table += '</table>'
+        document.getElementById('box5').innerHTML = table;
+     </script>
+
+
+
+    
+</body>
+</html>

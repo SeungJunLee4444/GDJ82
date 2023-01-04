@@ -1,0 +1,16 @@
+(1) 기존 : 모든 쿠키를 가져와서 배열과 반복문으로 찾아야한다
+Cookie[] cookieList = request.getCookies();
+		Cookie cookie = null;
+		for(int i = 0; i < cookieList.length; i++) {
+			if(cookieList[i].getName().equals("keepLogin")) {
+			}		cookie = new Cookie("keepLogin", "");
+					cookie.setMaxAge(0); // 쿠키 유지시간이 0이면 삭제를 의미
+					cookie.setPath(request.getContextPath());
+					response.addCookie(cookie);
+					break;
+			}
+
+# 특정 쿠키의 value값
+cookie.getValue()
+		
+(2) 스프링 : WebUtils.getCookie(request, "쿠키명")

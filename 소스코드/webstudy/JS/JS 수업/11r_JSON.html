@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+</head>
+<body>
+    <script>
+        /*
+            [JSON]
+            - 자바스크립트 객체 표기법
+            - 클라이언트와 서버 간 데이터 교환 방법중 하나
+            - 교환방법
+            클라이언트(front)   -   서버(back)
+            문자열 JSON({})     -   인스턴스(객체), MAP, LIST
+            
+            // & 객체는 문자열로 속성을 반환한것과 연관? 아닌듯
+            // & 객체는 KEY, VALUE구조, MAP도 KEY, VALUE구조?        
+        */
+    </script>
+
+    <script>
+        // 1. 객체 생성
+        var person = {
+            'name' : '가나다',
+            'age' : 44
+        };
+
+        // -------------------------------------------------------
+        // (1) JS객체를 -> JSON 문자열로 변환 : JSON.Stringify()
+        // (2) JSON 문자열을 -> JSON객체로  : JSON.parse()
+        // -------------------------------------------------------
+
+        // 2. JS값, 객체 -> JSON 문자열
+        // => JSON.Stringify() : 자바스크립트나 객체를 'json 문자열'로 변환
+        var strPerson = JSON.stringify(person, typeof person);
+
+        // 3. JSON 문자열 -> JS값, 객체
+        var objPerson = JSON.parse(strPerson);
+        // & JSON.parse() : 'json 문자열'을 객체로 만듬 
+        console.log(objPerson, typeof objPerson)
+
+    </script>
+    
+</body>
+</html>

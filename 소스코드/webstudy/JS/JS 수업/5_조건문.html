@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조건문</title>
+</head>
+<body>
+    <!-- [조건문 + 창 활용] -->
+
+    <!-- 실습 : 
+    문제 : 국어, 영어, 수학점수를 차례대로 입력받아서 평균과 학점 출력
+    -->
+    <script>
+        // 1) 확인창 생성
+        if(confirm('진행할까요?')) {
+            alert('진행합니다');
+        } else {
+            alert('취소합니다');
+        };  
+    </script>
+
+    <div>
+        <div>평균 : <span id="ave"></span>점</div>
+        <div>학점 : <span id="grd"></span></div>
+    </div>
+
+    <script>
+        // 2) 과목별 입력창 생성
+        var kor = Number(prompt('국어점수를 입력하세요'));
+        var eng = Number(prompt('영어점수를 입력하세요'));
+        var mat = Number(prompt('수학점수를 입력하세요'));
+
+        // 3) 평균
+        var average = (kor + eng + mat);
+
+        // 4) 학점
+        // (1) if문 사용
+        /*
+        var grade;
+        if(average >= 90) {
+            grade = 'A';
+        } else if(average >= 80) {
+            grade = 'B';
+        } else if(average >= 70) {
+            grade = 'C';
+        } else if(average >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+        */
+
+        // (2) switch문 사용
+        // 해결 : 90, 80, 70, 60, 50 십의자리단위를 이용해 학점을 구분해야함
+        // => 십의자리단위를 구하기 위해선 10을 나눈 몫이 필요하다
+        var grade;
+        switch(parseInt(average) / 10) {
+        case 10 :
+        case 9  : grade = 'A'; break; 
+        case 8  : grade = 'B'; break;
+        case 7  : grade = 'C'; break;
+        case 6  : grade = 'D'; break;
+        default : grade = 'F';
+        }
+
+        // (3) if + switch문
+        // & 자바스크립트만의 switch문 특징
+        // (1) switch의 조건에 boolean값을 사용할 수 있다
+        // (2) case의 변수자리에 관계연산자 조건문이 들어올 수 있다
+
+        // -----------------------------------------------------------------
+        // & 한줄정리 : 자바스크립트의 switch문에는 switch조건에 boolean값, 
+        // case변수자리에 관계연산자식이 들어올 수 있다
+        // -----------------------------------------------------------------
+
+        switch(true) {
+        case average >= 90 : grade = 'A'; break;
+        case average >= 80 : grade = 'B'; break;
+        case average >= 70 : grade = 'C'; break;
+        case average >= 60 : grade = 'D'; break;
+        default: grade = 'F';
+        }
+
+    </script>
+
+
+
+    
+</body>
+</html>

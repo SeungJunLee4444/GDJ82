@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        /* 1. position이 static일때 
+            - html 기본흐름대로 배치
+            - 상대적 위치 조정(top, bottom, left, right) 불가능
+            - 디폴트값(기존에 항상 하던 작업은 전부 static)
+
+           2. position relative
+            - html 기본흐름대로 배치
+            - 상대적 위치 조정(top, bottom, left, right) 가능
+            - 옵셋 기준 : 원래 자신의 위치
+
+           3. position absolute
+            - html의 기본흐름을 깨고 배치
+            - 상대적 위치 조정(top, bottom, left, right) 가능
+            - 옵셋 기준 : 부모 요소
+            - 부모 요소가 position static이라면 absolute 적용 불가능
+            - 일반적으로 부모 요소는 position: relative 자식요소는 position absolute로 만듬
+            => 내가 원하는 요소를 자식으로 둬서 맘대로 배치
+
+           4. position fixed
+            - html 문서 특정 위치에 고정시키기(항상 보임)
+            - 상대적 위치 조정(top, bottom, left, right) 가능
+            - 옵셋 기준 : 브라우저 화면 전체(부모필요x)
+        
+        */
+
+        /* & position
+            - 특정 블록을 웹 상에 원하는 위치로 배치하는 속성
+            (1) static      : 기본(기본흐름대로 왼쪽상단기준 배치)
+            (2) relative    : html 기본 흐름대로 배치(왼쪽상단), 상대적위치조정가능, 원래 자신의 위치가 기준
+            (3) absolute    : html 문서의 기본흐름을 꺰, 기준은 부모 요소, 부모요소를 relative,  자식요소에 absolute를 만듬, 상대적 위치조정가능
+            & 부모 요소의 블록 안에서 맘대로 위치조정 가능
+            
+            (4) fixed       : html 문서의 특정 위치에 고정시킴(항상 보임), 상대적 위치조정 가능, 브라우저 화면 전체가 기준(부모필요x)
+
+            1) 상대적 위치 조정
+            - top , bottom, right, left로 위치조정 가능
+
+            & 웹 상 가운데에 위치시키기(js에서 배움) => 추후에 보강
+            (1) 웹 사이트 전체 사이즈확인
+            (2) 블록 사이즈를 뺀 
+
+            2)
+
+
+        */
+
+        .box1 {
+            position: static;
+            border: 1px solid black;
+            top: 100px; left : 100px; /* static이라 적용안됨 */
+        }
+            
+    </style>
+
+    <div class="box1">
+        static position
+    </div>
+
+
+    <style>
+        .box2 {
+            position: relative;
+            border: 1px solid gray;
+            top: 100px; left : 100px;   /* 적용됨 */
+            /* relative는 원래 자신의 위치를 기준으로 조정된다 */
+
+            /* 
+                &
+                백그라운드이미지의 위치조정 : - 를 붙여줘야함
+                포지션의 위치조정           : + 를 붙여줘야함
+                
+                & 백그라운드의 위치조정 기본단위는 -다(무조건 어느방향이든)
+
+                
+
+            */
+        }
+    </style>
+
+    <div class="box2">
+        relative position
+    </div>
+
+
+    <style>
+        .wrap {
+            margin-top: 150px;
+            width: 300px;
+            height: 300px;
+            border: 1px solid gray;
+            position: relative;
+        }
+
+        .wrap > div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+            position: absolute;
+        }
+
+        .spring {
+            top: 10px;
+            left: 10px;
+        }
+        .summer {
+            top: 10px;
+            right: 10px;
+        }
+
+        .fall {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .winter {
+            bottom: 10px;
+            left: 10px;
+        }
+
+      
+        
+    </style>
+
+    <div class="wrap">
+        <div class="spring">봄</div>
+        <div class="summer">여름</div>
+        <div class="fall">가을</div>
+        <div class="winter">겨울</div>
+    </div>
+
+
+    <style>
+        .box3 {
+            /* fixed는 웹 화면을 기준 */
+            position: fixed;
+            top: 500px; /* 위에서부터 500px 떨어진 자리*/
+            right: 50px; 
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+        }
+
+    </style>
+    <div class="box3">
+        fixed position
+    </div>
+
+
+    <hr>
+
+    <style>
+        .help {
+            color : teal;
+            cursor: help;
+            position: relative;
+        }
+        .help:hover:after {
+           content: attr(data-desc); /* content: '메롱'; */
+           width: 80px;
+           text-align: center;
+           display: inline-block;
+           border: 1px solid bisque;
+           background-color: beige;
+           color:gray;
+           border-radius: 5px;
+           position: absolute;
+
+           top: 30px;
+           left: 90px;
+        }
+    </style>
+
+    <p><span class="help" data-desc="메롱">여기</span>를 선택하시오</p>
+    
+</body>
+</html>

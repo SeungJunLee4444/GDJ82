@@ -1,3 +1,0 @@
-<a href="${contextPath}/detail.do?freeNo=${b.freeNo}">
-
-- 여기서 파라미터값(${b.freeNo})은 url에 들어갈 값이니 " 밖으로 빼선 안된다!ㄴㅁ
