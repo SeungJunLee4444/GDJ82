@@ -1,0 +1,16 @@
+[7] DQL
+
+1. DQL 
+* 데이터 질의어로, SELECT문이 해당한다
+* 조회만 하기 때문에 데이터에 변화가 없음	(COMMIT X)
+
+1) 형태
+     SELECT 칼럼                   (5)번
+      FROM 테이블                 (1)번
+     WHERE 조건식                 (2)번 
+     GROUP BY 그룹화             (3)번
+    HAVING 그룹화_조건식        (4)번
+      ORDER BY 정렬
+
+
+   

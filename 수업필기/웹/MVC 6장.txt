@@ -1,0 +1,12 @@
+[MVC 6장]
+
+1. QUARTZ job scheduler
+- 주소 : http://www.quartz-scheduler.org/
+- 용도 : 주기적으로 프로그램이 알아서 작동하도록 만드는 jar 파일 보유
+- 해당 jar : 폴더 내 전부 다
+
+2. 사용방법(크론 표현식)
+- 주소 : http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/tutorial-lesson-06.html
+
+3. 크론 자동생성
+- 주소 : http://www.cronmaker.com/;jsessionid=node08y7sv32qjg4pfz1qkl8tjkhn729548.node0?0

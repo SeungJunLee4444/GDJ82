@@ -1,0 +1,88 @@
+[7] box 
+* <div>와 달리 인라인레벨<span>은 너비, 높이 설정이 불가능하다
+
+1. box 개념
+(1) width		: 박스 가로
+(2) height	: 박스 세로
+(3) border 	: 박스의 테두리
+(4) padding	: 내부여백
+(5) margin	: 외부여백
+
+
+1) 너비높이(width, height)
+(1) 일반
+width: 200px;
+height: 200px;
+
+(2) 퍼센트
+width: 50%;
+height: 50%;
+=> 부모 사이즈의 변화에 따라 같이 변화함(반응형 페이지)			& 반응형
+
+
+2) 테두리(border) 생성
+(1) border-radius: 1px;	
+(2) border-style : solid;			: 테두리 종류(실선 :solid, 점선:dashed)
+(3) border-color: rgb(숫자,숫자,숫자) / #hax값	: 테두리 색깔
+(4) border (두께)px (종류) 색상; 		: 테두리의 단축 속성	
+
+(5) 테두리 정렬법(border-radius)
+- border-radius: 5px;			: 모든 방향 5px 테두리 정렬
+- border-radius: 10px 0;			: 왼쪽위, 오른쪽 아래를 10px로 정렬
+- border-radius: 20px 0 10px;		: 왼쪽위는 20px,, 오른쪽 아래를 10px 정렬
+- border-radius: 5px 10px 15px 20px		: 시계방향으로 테두리 정렬			 
+- border- top, bottom, left, right 		: 특정방향을 선택해서 생성
+
+
+3) 내부여백(padding)
+- 박스와 텍스트 사이의 공간
+- 4방향이 존재(top, bottom, left, right)
+(1) padding : 0;				: 모든 방향 내부여백 0
+(2) padding : 10px 20px;			: 상하 10px, 좌우 20px 여백
+(3) padding: 20px 0 20px;			: 상하 20px, 좌우 0 여백
+(4) padding 5px 10px 15px 20px;		: 시계방향으로 위, 오른쪽, 아래, 왼쪽 여백
+
+4) box-sixing
+(1) content-box
+- 생성되는 박스의 크기가 너비/높이 + 테두리 + 내부여백이 합산된 상태로 생성된다
+box-sizing: content-box;    /* 디폴트값 */
+/* 박스크기 122px = content 100px + padding 20px + border 2px  */
+
+(2) border-box
+- 생성되는 박스의 크기가 너비/높이로 고정되며, 그 안에 테두리와 내부여백이 포함된다
+ box-sizing: border-box ; /* 박스크기 = content(78px) + padding 20px + border 2px */
+
+
+5) 외부여백(margin)
+(1) margin : 10px;				: 모든방향 10px
+(2) margin : 10px 0;			: 상하 10px
+(3) margin : 10px 0 10px;			: 상하 10px
+(4) margin : 5px 10px 15px 20px;		: 시계방향으로 위, 오른쪽, 아래, 왼쪽 여백
+
+* 박스를 화면 가운데 배치하기
+margin: 0 auto;
+=> 부모 사이즈(홈페이지)의 크기에 따라 알아서 크기를 조절하며, 가운데 정렬
+
+6) 텍스트 세로 정렬법 2가지
+
+(1) padding 이용하기
+=> 상하 padding 여백을 동일하게 지정하기
+ex)
+text-align: center;
+(테이블, 텍스트 전부 가로정렬은 동일하게 사용)
+padding-top: 10px;
+padding-bottom: 10px;
+
+
+(2) line-height 사용하기
+=> 박스의 높이인 height와 텍스트의 높이인 line-height를 동일하게 지정하기
+=> 한줄 짜리 텍스트에서만 사용가능						& 정렬
+ex)
+height: 50px;
+line-height: 50px;
+
+* 주의 : 텍스트가 두줄 이상일 경우 사용불가능
+
+
+
+

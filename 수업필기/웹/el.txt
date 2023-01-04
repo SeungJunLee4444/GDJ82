@@ -1,0 +1,9 @@
+& jsp페이지에서 ${} el을 변수로 간단하게 사용할 수 있는 이유
+- 답 : 해당 페이지 또는 다른 요청페이지에서 속성에 저장된 값을
+변수로 받아올 수 있다 
+ex)
+request.setAttribute("dirname", dirname);
+request.setAttribute("filename", filename);
+
+표현언어 영역 4가지 :
+(우선순위별로) pageContext > request > session > application 

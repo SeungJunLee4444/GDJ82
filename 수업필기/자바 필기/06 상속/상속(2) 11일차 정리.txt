@@ -1,0 +1,35 @@
+& 상속(2)
+
+1. 업캐스팅(ex10, 11)
+Person p = new Student();	
+p.eat();
+=> 서브클래스를 슈퍼클래스로 캐스팅하는 것을 말한다
+=> 기본적으로 person 클래스의 멤버들만 호출이 가능해진다
+
+* 서브 클래스의 멤버를 호출하려면,
+(1) 오버라이징, (2) 다운캐스팅으로 해결할 수 있다
+
+2. 다운캐스팅
+=> 클래스를 강제적으로 낮춰, 서브클래스의 멤버들을 호출하게 만드는 것
+=> instanceof 연산자를 사용해야한다
+
+1) instanceof 연산자 용도
+(1) 클래스 참조 여부(person - student - alba)
+Person p = new Student();	
+System.out.println(p instanceof Person);	// true
+System.out.println(p instanceof Student);	// true
+System.out.println(p instanceof Alba);		// false
+=> 결과값은 참, 거짓이다
+
+(2) 서브클래스 메서드 강제 호출
+if(p instanceof Student) {
+	((Student) p).study();
+}			// 성공(p 객체는 student 클래스를 참조한다)
+=> p객체가 student를 참조한다면, Student 클래스로 다운캐스팅하고 study()메서드를 호출하라 
+* 꼭 if문을 사용해야한다
+
+if(p instanceof Alba) {
+((Alba) p).work();
+}			// 실패(alba 클래스를 참조하지않음)
+
+3. 

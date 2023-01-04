@@ -1,0 +1,41 @@
+[1] VSCODE 기초
+
+1. 폰트
+- 경로 : file - preference - setting - font 검색
+- 결과 : Consolas, 'Courier New', monospace
+=> 폰트 선택 :  왼쪽부터 우선순위로 적용, 없으면 그 다음 폰트 적용
+
+
+2. 페이지 소스보기
+경로 : html 파일 크롬에서 실행 후 우클릭 - 페이지 소스보기
+기능 : 페이지 html 코드 확인가능
+
+3. 확장 프로그램 설치
+- 경로 : 좌측 맨 아래 블록모형 
+- 종류
+1) live server
+=> vscode에서 바로 해당 html 페이지 실행
+
+2)
+
+3)
+
+4. 깃 사용
+- 경로 : 왼쪽 세번째
+1) 원격레파지토리 등록
+(1) terminal에서, git remote add origin 
+(2) git clone 시, 원격 주소도 같이 복사되있음
+
+2) 저장할 파일 + 누르기
+3) 메시지에 commit 메시지를 입력후 커밋
+4) 깃허브에 올리기
+(1) 터미널에 git push origin main 입력
+(2) 푸시 단축버튼 누르기
+
+5. vscode 단축키
+1) 주석 : ctrl + /
+2) 라인 복사 : alt + shift + 방향키
+3) 라인 삭제 : ctrl + x, shift + delete
+4) 라인 이동 : alt + 방향키
+5) 자동완성 : ctrl + space
+

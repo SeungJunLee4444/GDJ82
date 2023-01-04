@@ -1,0 +1,109 @@
+& 16일차
+
+& 할일
+&1	: collection 정리 
+&2 	: 연습문제 풀기(기타) + prac2 구현
+
+
+& 컬렉션 프레임워크(2)
+
+
+1. Map - treemap	(*개념만 이해, 전혀 안쓸거니 안외워도됨) => hashmap만 쓸거기때문
+* Treemap은 hashmap과 달리 자동으로 정렬
+* hashmap은 key와 value를 하나의 entry로 저장
+
+* 이진트리
+=> key 값을 기준으로 두개의 영역으로 나눠서 저장
+=> 오름차순을 기본으로 정렬
+ex) key 값이 5면, 3은 왼쪽에, 7은 오른쪽에
+=> 3, 5, 7로 출력
+
+* Treemap은 hashmap과 달리 자동으로 정렬
+
+1) 생성
+ex) Map<Integer, String> map = new TreeMap<Integer, String>(); 
+
+2) 추가(put)
+ex) map.put(65, "제시카");
+
+3) 순회(for)	* 추천하는 방법
+(1) 추천하는 방법
+ex) for(Map.Entry<Integer, String> entry : map.entrySet()) {
+	System.out.println(entry.getKey() + ":" + entry.getValue());
+}
+
+(2) 다른 방법
+ex) for(Integer key : map3.keySet()) {
+	System.out.println(key + ":" + map3.get(key));
+}
+
+4) 순서변경(descendingMap)
+=> 오름차순은 내림차순으로, 내림차순은 오름차순으로
+ex) NavigableMap<Integer, String> map2 = map.descendingMap();
+
+* descendingMap 메서드는 Map이 아닌 TreeMap메서드기 때문에
+(1) TreeMap로 강제 캐스팅하거나
+ex) ((TreeMap)Map).descendingMap
+
+(2) 처음부터 선언시 TreeMap를 사용해야한다
+ex) 
+TreeMap<Integer, String> map = new TreeMap<Integer, String>(); 
+
+
+2. Iterator
+=> arraylist, hashset같은 컬렉션을 순회시키는 반복자를 말한다
+
+(1) hasNext()	:	남아있는 요소가 있으면 true 반환
+(2) next()		: 	요소를 하나 반환
+
+ex)
+(1) 예시로 set 해시태그를 선언및 생성
+Set<String> set = new HashSet<String>();
+set.add("제육");
+set.add("닭갈비");
+set.add("돈까스");
+set.add("김치찌개");
+
+(2) set을 조회하기 위해 iterator에 넣기
+Iterator<String> itr = set.iterator();
+
+(3) 반복문
+while(itr.hasNext()) {
+	String element = itr.next();
+	System.out.println(element);
+}
+
+3. collections
+1) 오름차순으로 정렬
+=> Collections.sort(movies);
+2) 내림차순으로 정렬
+=> Collections.reverse(movies);
+3) 특정 요소의 인덱스 반환
+=> Collections.binarySearch(movies, "아바타");
+
+
+* 컬렉션 for문 어려운 코드
+ex) list로 배열을 만들고, 맨 마지막의 화살표 기호(->)는 출력하지말것
+public static void printMovies(List<String> list) {
+for(int i = 0, length = list.size(); i < length; i++) {
+	System.out.print(list.get(i));
+	if(i <  length - 1)			// * size - 1은 마지막 인덱스
+	System.out.print("->");	// => 마지막 요소 이전에는 화살표 출력
+}
+System.out.println();
+} 
+
+
+& 기타
+1) hashmap
+=> 해시코드를 바탕으로 map을 정렬
+
+2) 아바타,쇼팽크탈출, 명량,에일리언,여인의향기
+=> csv파일의 형태
+* 마지막에 , 빼고
+
+3) 판매개수, 잔돈
+int sellCnt = money / price;
+=> 판매개수		
+int change = custMoney % price;
+=> 잔돈

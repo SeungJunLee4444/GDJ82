@@ -1,0 +1,24 @@
+display: flex;
+
+1. 용도
+=> 수평 레이아웃을 지정
+=> 소속된 flex 속성들을 통해 items 자식 수평 레이아웃을 조정
+
+2. 개념
+1) container(부모)
+=> 부모태그로 자식 태그들을 감싸고 flex 선언으로 수평레이아웃이 이루어진다
+
+- display : flex;(수평레이아웃선언)
+- flex-direction;(row, column, 각각 reverse)
+- flex-wrap(nowrap, wrap)		
+- justify-content(space-around, between)
+
+2) items(자식)
+
+float
+1. 용도
+=>  띄어서, html의 배치와 상관없이 이미지를 배치하는 용도로 사용된다
+ex) 기사에서 글과 함께 기재되는 작은 사진들
+
+1) float : left;	왼쪽에 배치
+2) float : right;	오른쪽에 배치

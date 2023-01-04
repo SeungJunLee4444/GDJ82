@@ -1,0 +1,104 @@
+[11] display
+
+1. display : none
+- 해당 사진, 텍스트를 삭제
+* visibility : hidden과 달리 자리도 차지하지 않음
+(비슷한 유형은 hidden)
+
+
+* 용도 : 회원가입창에서 체크박스에 이미지를 씌울 때, 기존의 체크박스를 지움		& 용도
+
+2. display : inline;
+=> 블록레벨을 인라인레벨로 바꾸기
+
+* 인라인 레벨에서는 적용되지 않는 속성 3가지
+=> width, height, text-align: center;
+
+3. display : block;
+=> 인라인을 블록 레벨로 바꾸기
+ex)
+<style>
+        .box4 {display: block;}
+</style>
+<span class="box4">BOX4</span>
+
+4. display: inline-block;
+=> 블록과 인라인 요소를 둘다 사용가능하게 하기
+1) inline 요소 : 동일 블록에 함께 배치
+2) block 요소 : 너비, 높이, 가운데 정렬 지정 가능
+
+ex)
+ .box5, .box6 {			(,를 통해 복수의 태그 적용가능)		& 복수의 태그 css
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            border: 1px solid red;
+}
+
+4. display: flex;
+- 컨테이너와 아이템을 만듬
+
+1) 용도
+- 부모 태그에 선언함으로서 자식 태그에 수평 레이아웃을 지정할 수 있음
+- flex 관련 다양한 속성들로 자식들의 수평 레이아웃을 조정
+- 부모 태그에서 조정
+
+2) flex 속성
+(1) flex-direction 
+- row		: 가로정렬
+- row-reverse	: 가로정렬(역순)
+- column 	: 세로정렬
+- column-reverse 	: 세로정렬(역순)
+
+(2) flex-wrap
+- 부모 태그의 범위를 넘어서 자식태그가 나열되면,
+그 범위에서 벗어나지 않기 위해 줄바꿈된다 
+
+
+4. display: flex;
+=> 수평 레이아웃을 지정(블록 레벨들을 수평으로 정렬)
+=> flex 관련 속성을 통해 소속된 자식 수평 레이아웃을 조정할 수 있음
+
+1) 속성
+(1) flex-direction : row, row-reverse, column, column-reverse
+
+(2) flex-wrap
+- nowrap
+- wrap
+=> 나열된 요소들의 넓이가 부모의 넓이보다 크면 다음줄로 넘기는 기능이다
+=> 남는 범위는 뒤에 잔류
+
+(3) justify-content : splace-around	:  공백을 주변에 쌈
+     justify-content : splace-between 	: 공백을 값 사이에 적용
+
+
+(4) float
+- html의 기본배치에서 벗어난다
+- 신문의 좌우에 정렬된 작은 사진처럼 정렬
+- 좌우로 배치 가능 ex) float: left, right
+
+(5) overflow
+- 영역 안에 들어오지 못한 것들을 오버플로우라고 한다
+- 해결법 : 스크롤바를 생성하여 해결할 수 있다
+
+1. 스크롤바
+1) 스크롤바 생성
+=> overflow : scroll;
+
+2) 가로 방향 생성(가로, 세로 둘다 생성)
+=> overflow-x : scroll;
+
+3) 세로 방향 생성(세로만 생성)
+=> overflow-y : scroll;
+
+4) 영역을 벗어나면 숨김
+=> overflow : hidden
+
+
+
+* html의 기본배치
+- 왼쪽에서 오른쪽으로
+- 위에서 아래로 배치
+
+

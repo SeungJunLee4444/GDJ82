@@ -1,0 +1,111 @@
+[JSP]
+1. 개념
+- 정의 : HTML을 기반으로 JAVA를 추가하는 방식
+- 기능 : 화면은 JSP로, 비즈니스 로직은 servlet으로 분리됨
+- 원리 : jsp파일은 서블릿으로 변환되어 class파일로 컴파일된후 웹 브라우저에서 실행된다
+
+
+& servlet와의 차이점-------------------------------------
+- servlet은 자바를 기반으로 html을 추가하는 방식이다
+
+
+=============================================================
+
+2. 구성요소
+1) 디렉티브 태그
+- 정의 : 페이지 최상단의 페이지 설명, 출력방식, 인코딩 등을 표현하는 태그
+- 종류
+(1) include directive 
+- 정의 : 공통으로 사용되는 jsp 페이지를, 다른 페이지에서 일부분으로 호출하고싶을때 사용된다
+- 형태 : <%@ include file="jsp파일"%>
+- 특징 : <%@ include %> 지시어 사용
+- 한계 : 대체로 정적인 페이지(변경되는 부분이 없는) 경우에 사용된다
+
+&(2) <jsp:include page> 액션태그
+- 정의 : 공통으로 사용할 jsp페이지가 변화가 있는, 동적인 페이지를 사용하는 경우에 이용된다
+- 특징 : <jsp:param> 액션태그를 이용해 파라미터를 전달
+
+
+2) 스크립트 요소
+(1) 주석문
+(2) 표현식
+- 형태: <%= %>
+- 용도 : 값(변수,메서드)를 나타낼때 사용된다
+
+& 표현식을 이용해서 자바변수를 자바스크립트의 변수로 사용할 수 있다
+ex) 
+<%String name = "가나다";%>
+<script>var name = '<%=name%>'</script>
+* 반대(자바스크립트변수를 자바변수로)는 불가능하다
+
+(3) 선언식
+- 형태 : <%! %>
+- 용도 : 전역변수 선언, 메서드 정의
+* ! 사용하지않으면 오류뜬다
+
+(4) 스크립트릿 
+- 형태 : <% %> 
+- 용도 : 일반 자바코드
+
+3) 내장객체
+
+4) 액션태그
+(1) 포워드 액션태그(리다이렉트는x)
+<jsp:forward page="경로(절대)"></jsp:forward>
+
+
+5) 커스텀태그
+
+=============================================================
+
+
+3. jsp 내장객체
+1) binding 영역
+- 종류
+(1) application 영역 : servletContext 영역, 컨텍스트패스를 의미
+- 유지영역 : 애플리케이션 종료 전까지
+(2) session 영역      : httpsession과 같은 영역, 로그인, 장바구니 등에 사용
+- 유지영역 : 브라우저 닫기 전까지
+(3) request 영역      : httpserveltrequest와 같은 영역, 요청영역
+- 유지영역 : 하나의 요청&응답 사이클 내에서 유지
+(4) pageContext      : 하나의 jsp 페이지에 접근 가능한 영역
+- 유지영역 :  jsp 페이지에서만 유지
+* pageContext는 하나의 jsp페이지당 하나의 객체가 제공된다
+
+- 속성메서드로 접근
+<%application.setAttribute("a", 1);%>
+<div>a : <%=application.getAttribute("a")%></div>
+
+
+- 표현언어 el을 통한 속성접근도 가능
+<div>a : ${a}</div>
+<div>application's movie : ${applicationScope.movie}</div>
+<div>session's movie : ${sessionScope.movie}</div>
+<div>request's movie : ${requestScope.movie}</div>
+<div>pageContext's movie : ${movie}</div>
+
+
+
+- 우선순위(같은 이름의 속성이 다른 영역에 저장되었을경우)
+- 결과 : pageContext > request > session > application 순으로 우선 순위가 높음
+
+ex) 
+<%
+application.setAttribute("movie", "기생충");  // 우선 순위 낮음
+session.setAttribute("movie", "터미네이터");
+request.setAttribute("movie", "아바타");
+pageContext.setAttribute("movie", "미나리");  // 우선 순위 높음
+%>
+
+<div>${movie}</div> 
+- 결과 : 미나리
+
+- jsp 페이지 이동
+* 포워드, 리다이렉트는 요청사항에만 영향을 끼치기 떄문에,
+영향을 받는것은 request 뿐이다
+
+=> 페이지 이동할 경우
+(1) application   : 무조건 전달
+(2) session        : 무조건 전달
+(3) request        : 요청방법에 따라 전달될수도 아닐수도있다
+(4) pageContext : 하나의 jsp페이지만 해당하기 떄문에, 이동시 어떤식으로든 전달되지않는다

@@ -1,0 +1,50 @@
+
+1일차: 자바, 이클립스 설치와 환경세팅
+
+[1] 자바, 이클립스 설치
+=> 1.13 버전 설치
+
+[2] 자바 환경변수 설정
+
+1. 시스템 변수에서 JAVA_HOME으로 새로운 변수 만들기
+=> JDK폴더(C:\Program Files\Java\jdk-버전) = JAVA_HOME 임을 컴퓨터에 인식시키기
+
+
+2. PATH에 %JAVA_HOME%\bin 만들기
+=> 시스템 어디에서든 JAVA_HOME의 위치를 호출하기 위해 입력
+
+
+3. 명령프롬프트로 확인
+1) java(.exe) -version
+2) javac -version
+위 두가지를 입력하여 버전이 출력되면, 컴퓨터가 제대로 인식하는 것
+
+
+[3] 이클립스 설치와 환경세팅
+1. 워크스페이스
+=> 자바 프로젝트의 저장위치
+
+
+2. 환경세팅
+1) 화면을 자바용으로 변경
+=> windows-perspective-openperspective-java
+
+2) 화면 검정, 글꼴변경
+=> windows-preference-general-appearance
+=> + text pont
+
+3) 한글출력 인식
+=> windows-preference-general-workspace-text file excoding
+에서 utf-8 선택
+ 
+4) 코딩용 폰트
+=> D2Coding, NanumGothicCoding체 중 하나
+=> windows-preference-java에서 method, class, interface 각자 색상변경 후 bold 설정
+
+* 이런 설정은 .edf파일로 저장하여 다른컴퓨터에서도 그대로 사용할 수 있다
+=> export-general-preference => (다른컴퓨터) import ~
+
+
+
+
+

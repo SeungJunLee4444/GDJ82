@@ -1,0 +1,230 @@
+[24] 프로시저
+* 여러개의 쿼리문을 한번에 실행										& 프로시저 용도
+* 입출력 파라미터를 보유
+* IS로 변수선언, 매개변수를 받아 입력, EXECUTE로 실행, PLSQL문에서 호출						& 프로시저, 사용자함수의 특징
+
+1) 형식
+
+(1) 프로시저 정의
+CREATE [OR REPLACE] PROCEDURE  프로시저이름(매개변수)	
+
+(2) 프로시저 구조
+IS
+	=> 정의		: 변수선언
+	=> IS 내용은 생략도 가능		
+BEGIN
+	=> 프로시저 본문	 
+[EXCEPTION
+	예외처리]
+END 프로시저 이름		
+
+(3) 실행
+
+2) 실습
+(1) 기본형
+예시 1. 사원번호가 100인 사원의 FIRST_NAME 서버메시지 출력
+CREATE OR REPLACE PROCEDURE PROC2(프로시저 정의)
+IS
+	FNAME EMPLOYEES.FIRST_NAME%TYPE;(참조타입 선언)
+BEGIN
+	SELECT FIRST_NAME
+	   INTO FNAME
+	   FROM EMPLOYEES
+	 WHERE	EMPLOYEE_ID = 100;(사원번호가 100인 직원의 FIRSTNAME을 FNAME에 저장)
+	DBMS_OUTPUT.PUT_LINE(FNAME)(FNAME을 출력, * EXECUTE를 쓰지않으면 출력X)
+END;
+EXECUTE PROC2(); (EXECUTE로 프로시저 실행)
+
+
+(2) 입력 파라미터 사용
+예시 2. 사원번호를 전달하면 해당 사원의 FIRST_NAME을 서버메시지로 전달하기
+CREATE OF REPLACE PROCEDURE PROC3(EMP_ID IN EMPLOYEES.EMPLOYEE_ID%TYPE)  (EMPLOYEE_ID의 타입을 EMP_ID에 입력받는다해서 IN))
+IS
+	FNAME EMPLOYEES.FIRST_NAME%TYPE;(FNAME의 참조타입 선언)
+BEGIN
+	SELECT FIRST_NAME
+	  INTO FNAME
+	  FROM EMPLOYEES
+	 WHERE EMPLOYEE_ID = EMP_ID;(입력받은 사원번호가 직원의 번호와 같을 때, 직원의 FIRST_NAME을 FNAME에 저장)
+	DBMS_OUTPUT.PUT_LINE(FNAME); (저장된 FNAME을 반환)
+
+EXECUTE(100);(사원번호 전달	/ 최종적으로 해당 FNAME값 반환)
+
+
+(3) 출력 파라미터 사용
+예시 3. 사원번호가 100인 사원의 FIRST_NAME을 출력파라미터 FNAME에 저장
+
+CREATE OR REPLACE PROCEDURE(FNAME OUT EMPLOYEES.FIRST_NAME%TYPE) (출력할 FNAME은 EMPLOYEES.FIRST_NAME이다)
+IS
+BEGIN
+	SELECT FIRST_NAME
+	  INTO FNAME
+	  FROM EMPLOYEES
+ 	 WHERE EMP_ID = 100;	(사원번호가 100인 FNAME을 출력)
+END PROC4;
+
+=> 호출
+DECLARE
+	FNAME EMPLOYEES.FIRST_NAME%TYPE;
+BEGIN
+	PROC4(FNAME);   (PLSQL 내부에서 호출시 EXECUTE 사용할 필요없음)
+	DBMS_OUTPUT.PUT_LINE(FNAME);
+END;
+
+(4) EXCEPTION
+예시 4 . 사원번호가 있으면 FIRST_NAME을 출력 파라미터로 전달, 없으면 'NONAME'을 출력
+
+CREATE OR REPLACE PROSEDURE(FNAME OUT EMPLOYEES.FIRST_NAME%TYPE) (저장된 FNAME을 출력)
+IS
+BEGIN
+	SELECT FIRST_NAME
+	   INTO FNAME
+	   FROM EMPLOYEES
+	  WHERE EMPLOYEE_ID = 500; (직원 아이디가 500이면 해당 FIRST_NAME을 FNAME에 저장)
+	 DBMS_OUTPUT.PUT_LINE(FNAME);
+EXCEPTION 
+	WHEN OTHERS THEN 
+		FNAME := 'NONAME'; (모든 예외사항 발생시 NANAME 출력)	* NO_DATA_FOUND(데이터없음)	& 예외사항
+END PROC5;								* OTHERS(모든 예외사항)		& 예외사항
+
+(5) 입력 + 출력 + 예외
+예시 5. 입력 파라미터에 사원번호를 전달, 출력 파라미터에 FIRST_NAME 반환받기
+	존재하지 않는 사원번호는 출력 파라미터에 'NONAME' 반환	
+
+CREATE OR REPLACE PROSEDURE(EMP_ID IN EMPLOYEES.EMPLOYEE_ID%TYPE, FNAME OUT EMPLOYEES.FIRST_NAME%TYPE)
+IS
+	* IS는 BEGIN에서 사용할 변수를 정의하는 곳								& 변수선언
+	(EMP_ID와 FNAME은 위에 선언되있으니 필요없음)
+BEGIN
+	SELECT FIRST_NAME
+	  INTO FNAME
+	  FROM EMPLOYEES
+	WHERE EMPLOYEE_ID = EMP_ID;
+EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+	FNAME := 'NONAME';
+END PROC6;
+
+DECLARE
+	FNAME EMPLOYEES.FIRST_NAME%TYPE;	* FNAME 사용을 위한 변수선언
+BEGIN
+	PROC6(100, FNAME); 
+
+(6) 실전연습	***********************************************************************************************************
+예시 6. 
+1) 구매내역 프로시저 만들기	: BUY_PROC(고객번호, 제품코드, 구매수량)
+2) 번호로 부여할 시퀸스 만들기
+3) 구매 테이블에 구매내역을 INSERT
+4) 고객 테이블에 고객 포인트를 UPDATE(총 구매액의 10%)
+5) 제품 테이블의 재고를 UPDATE
+
+-----------------------------------------------------
+1) 구매 프로시저 생성
+CREATE OR REPLACE PROCEDURE BUY_PROC(
+	C_NO IN CUSTOMER.CUST_NO%TYPE;
+	P_CODE IN PRODUCT.PROD_CODE%TYPE;
+	BUY_AMT IN BUY.BUY_AMOUNT%TYPE;
+)
+-----------------------------------------------------
+
+2) 시퀸스 생성 
+DROP SEQUENCE BUY_SEQ;
+CREATE SEQUENCE BUY_SEQ NOCACHE;									& 시퀸스
+
+-----------------------------------------------------
+
+3) 구매테이블에 입력된(매개변수) 값, 구매내역을 구매테이블에 저장
+IS 
+BEGIN
+INSERT INTO BUY(BUY_NO, CUST_NO, PROD_CODE, BUY_AMOUT)	=> 구매 테이블 BUY의 칼럼들
+VALUES(BUY_SEQ.NEXTVAL, C_NO, P_CODE, BUY_AMT);		=> BUY테이블에 입력할 구매내역 프로시저의 값
+
+-----------------------------------------------------
+4) 
+UPDATE CUSTOMER 
+     SET CUST_POINT = CUST_POINT + CEIL((SELECT PROD_PRICE 
+				    FROM PRODUCT
+				   WHERE PROD_CODE = P_CODE) * BUY_AMT * 0.1)				& PK : PROD_CODE
+				* 구매가격의 10퍼센트의 고객포인트를 제공
+		=> 기존의 포인트 + 올림(입력된 코드와 테이블 코드가 같을 때의 상품가격 * 구매한 상품의 양 * 0.1)	& 포인트
+ WHERE CUST_NO = C_NO; ( 고객번호와 입력한 고객의 번호가 같을때만)
+
+-----------------------------------------------------
+5) UPDATE PRODUCT
+         SET PROD_STOCK = PROD_STOCK - BUY-AMT	(해당 코드의 상품의 양에서 입력된 구매한 상품의 양을 마이너스)
+     WHERE PROD_CODE = P_CODE; (PRODUCT 테이블의 상품코드와 입력된 상품코드가 같을때 실행)	
+
+COMMIT; (DML문은 COMMIT) 사용해야함									& DML
+
+-----------------------------------------------------
+
+6) 
+EXCEPTION
+	WHEN OTHERS THEN
+	DBMS_OUTPUT.PUT_LINE('예외코드' || SQLCODE);
+	DBMS_OUTPUT.PUT_LINE('예외메시지' || SQLERRM); 
+	* 예외처리 : SQLCODE는 예외코드에 맞는 숫자를 리턴, SQLERRM은 예외사항에 맞는 메시지를 리턴한다		& 예외
+		(해당 내용은 자바의 예외경고와 같이 프로그램의 경고숫자, 문자로 사용자가 의도를 파악해야함)		& 
+	
+-----------------------------------------------------
+
+7) 
+EXECUTE BUY_PROC(1, 1000, 10);	(구매프로시저에 매개변수값 입력)
+
+
+-------------------------------------------------------------------
+
+* 참고할 테이블
+DROP TABLE BUY;
+DROP TABLE CUSTOMER;
+DROP TABLE PRODUCT;
+
+-- 제품 테이블
+CREATE TABLE PRODUCT(
+    PROD_CODE  NUMBER             NOT NULL,  -- 제품코드
+    PROD_NAME  VARCHAR2(10 BYTE),            -- 제품명
+    PROD_PRICE NUMBER,                       -- 제품가격
+    PROD_STOCK NUMBER                        -- 재고
+);
+-- 제품 기본키
+ALTER TABLE PRODUCT
+    ADD CONSTRAINT PK_PRODUCT PRIMARY KEY(PROD_CODE);
+-- 제품 입력
+INSERT INTO PRODUCT VALUES(1000, '진라면', 500, 100);
+INSERT INTO PRODUCT VALUES(1001, '신라면', 600, 100);
+COMMIT;
+
+
+-- 고객 테이블
+CREATE TABLE CUSTOMER(
+    CUST_NO    NUMBER             NOT NULL,   -- 고객번호
+    CUST_NAME  VARCHAR2(10 BYTE),             -- 고객명
+    CUST_POINT NUMBER                         -- 고객포인트
+);
+-- 고객 기본키
+ALTER TABLE CUSTOMER
+    ADD CONSTRAINT PK_CUSTOMER PRIMARY KEY(CUST_NO);
+-- 고객 입력
+INSERT INTO CUSTOMER VALUES(1, '철수', 0);
+INSERT INTO CUSTOMER VALUES(2, '영희', 0);
+COMMIT;
+
+-- 구매 테이블
+CREATE TABLE BUY(
+    BUY_NO     NUMBER NOT NULL,  -- 구매번호
+    CUST_NO    NUMBER NOT NULL,  -- 고객번호(FK)
+    PROD_CODE  NUMBER NOT NULL,  -- 제품코드(FK)
+    BUY_AMOUNT NUMBER            -- 구매수량
+);
+ALTER TABLE BUY
+    ADD CONSTRAINT PK_BUY PRIMARY KEY(BUY_NO);
+ALTER TABLE BUY
+    ADD CONSTRAINT FK_BUY_CUSTOMER FOREIGN KEY(CUST_NO)
+        REFERENCES CUSTOMER(CUST_NO);
+ALTER TABLE BUY
+    ADD CONSTRAINT FK_BUY_PRODUCT FOREIGN KEY(PROD_CODE)
+        REFERENCES PRODUCT(PROD_CODE);
+
+-------------------------------------------------------------------
+
+

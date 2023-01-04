@@ -1,0 +1,3 @@
+ORACLEEXE - JAVA처럼 로컬 C에
+
+SQL - Installer 안에(임의의 백업폴더)

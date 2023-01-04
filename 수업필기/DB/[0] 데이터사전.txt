@@ -1,0 +1,22 @@
+[0] 데이터 사전 
+1. 데이터사전 사용법
+1) DESC	(테이블 구조 확인, 테이블 내 칼럼 확인)
+2) SELECT(찾아낸 칼럼을 통해 값을 조회)
+
+
+2. 사용자 목록 확인
+1) DBA_USERS	: DB 전체 사용자 정보
+2) USER_USERS	: 자신이 생성한 사용자 정보
+3) ALL_USERS 	: 자신 + 다른 사용자가 생성한 사용자 정보
+
+ex) DESC * FROM DBA_USERS;
+
+
+3. 제약조건을 가진 데이터사전
+1) DBA_CONSTRAINTS	: 
+2) USER_CONSTRAINTS	: 현재 접속한 사용자가 만든 제약조건
+3) ALL_CONSTRAINTS	: 
+
+ex) 
+DESC * FROM USER_CONSTRAINTS;
+SELECT OWNER FROM USER_CONSTRAINTS;

@@ -1,0 +1,73 @@
+[5] 웹 아이콘
+
+1. 웹 아이콘 얻는 법 
+1) CDN
+- 웹 상에서 콘텐츠를 제공받는 것을 말한다
+- cdn주소 제공 사이트 : cdnjs
+
+2) fontawesome
+- 무료로 아이콘을 제공하는 사이트
+- 개인 이메일을 제공해야 cdn 주소를 받을 수 있으나,
+cdnjs를 통해 cdn주소를 얻을 수 있다
+- pro는 유료
+
+* 무료 아이콘을 얻기 위해서는 fontawesome의 cdn주소를 cdnjs를 통해 얻어야한다	& 아이콘 얻는 법
+
+3) fontawesome의 cdn 주소
+- cdnjs에서 fontawesome 검색
+- url 주소를 얻는 방법과, link 태그를 얻는 방법 두가지가 있음
+
+link 태그 : <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+2. 실습
+1) link 태그 사용하기
+1) 아이콘 넣기
+ex)
+<p>트위터<i class="fa-brands fa-twitter"></i></p>
+<p>애플<i class="fa-brands fa-apple"></i></p>
+* <i>는 아이콘 태그
+
+2) 검색버튼 + 아이콘
+ex)
+<button><i class="fa-solid fa-magnifying-glass"></i></button>
+
+
+3) 링크 + 아이콘
+ex)
+<p>페이스북
+<a href="https://ko-kr.facebook.com/"><i class="fa-brands fa-facebook"></i></a>
+</p>
+=> 해설 : 경로와 아이콘을 <p>태그로 감싸서 사용
+=> <p>태그 없이도 작동함
+
+4) 아이콘의 크기 조정(fa-?x)
+ex)
+<i class="fa-solid fa-house"></i>
+<i class="fa-solid fa-house fa-2x"></i>
+<i class="fa-solid fa-house fa-3x"></i>
+<i class="fa-solid fa-house fa-4x"></i>
+<i class="fa-solid fa-house fa-5x"></i>
+...
+<i class="fa-solid fa-house fa-10x"></i>
+=> 숫자가 커질수록 아이콘의 크기도 커지며, 최대 10배까지 가능
+
+2) css @import 사용하는법
+=> cdn의 url주소를 @import하는법
+
+(1-1) css 파일 생성
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css)
+
+(1-2) html 내부에서 생성할 때 
+<style>
+	@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css)
+</style>
+
+(2) css 파일 연결
+ <link rel="stylesheet" href="06.css">
+
+(3) 사용
+ <p>트위터<i class="fa-brands fa-twitter"></i></p>
+
+
+
+

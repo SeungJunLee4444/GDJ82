@@ -1,0 +1,59 @@
+& 18일차
+
+& IO(2)
+* JSON, XML은 쉽게 접할 수 있는 데이터의 종류들
+* CSV는 빅데이터, 다량의 데이터를 다룰 때 사용(,로만 데이터를 구분하는 형태)
+
+& 할일
+CSV, XML, JSON 각 데이터 타입 직접 만들어보기
+ 
+
+1. json
+=> 자바스크립트 객체 표기법
+=> map처럼 key와 value로 데이터가 분리됨
+(map와 거의 동일)
+=> 데이터의 한 종류(확장자도 JSON)
+
+
+1) 표기상태
+// => 객체는 {}, 배열은 [], 숫자와 텍스트는 자바와 동일
+
+2) JSON-JAVA 라이브러리
+=> JSONObject: 객체(Map기반)
+=> JSONArray	: 배열(List기반,arrayList와 사용이 거의 같음)
+
+3) 데이터를 나눠 출력하기
+=> 타입별로 자바 변수에 저장
+ex) 
+String str = "{\"name\":\"가나다\",\"man\":\"true\",\"age\":\"15\",\"height\":\"180.5\"}";
+JSONObject obj = new JSONObject(str);
+=> 배열 데이터와 JSON객체 생성
+
+String name = obj.getString("name");
+boolean man = obj.getBoolean("man");
+int age = obj.getInt("age");
+double height = obj.getDouble("height");
+=> 객체로 타입에 맞게 메서드를 호출하고 저장
+
+------------------------------------------------------------------------------------------------
+
+2. filereader 클래스
+=> 기본적으로는 filewriter과 동일 
+
+1) 파일생성 시 filenotfound 오류
+=> writer과 달리 파일을 읽는 입장이기 때문에, 읽을 파일이 없으면 오류가 발생
+(출력은 자동으로 파일을 만들어준다-filewriter의 파일생성법2)
+
+2) 받을 수 있는 입력데이터
+
+
+& 기타
+1. append() 메서드
+=> string 문자열 확장 메서드
+
+2. 입출력 메서드의 ioexception
+=> filewriter, filereader 등의 입출력 메서드는 반드시 ioexception 오류가 발생한다
+
+3. stringbuilder과 append()메서드
+=> string + 연산은 효율이 나쁘기 때문에, stringbuilder을 사용하게 된다
+

@@ -1,0 +1,218 @@
+& 학습목록
+[1] 배열
+1. 배열(array)
+1) 특징
+=> 여러개의 변수를 하나의 이름으로 관리하는 자료구조 
+=> 배열은 참조타입이다
+=> 배열은 타입 + []까지 하나의 타입으로 인식하는 것이 좋다
+
+2) 배열형성
+=> 배열타입 [] 배열명 = new 배열타입 [변수의 개수]
+(1) 배열선언 및 생성
+int [] arr = new int[3]; => 자바            => * 주로 사용
+int arr []; => c언어 연계
+
+(2) 배열요소 호출
+arr[0]; ,  arr[1]; , arr[2];
+=> 각 인덱스 값을 참조하여 값을 반환 *
+=> 배열의 변수들 초기값은 0이다 *
+
+* 각 타입별 초기값
+string => null
+boolean => false(0)
+int, double => 출력안됨
+
+(3) 출력
+for(int i = 0; i <arr.length; i++) { 
+	System.out.println(arr[i];
+}
+=> 인덱스범위는 배열명.length 암기 * 
+
+3) 배열의 초기화
+(1) 대괄호안 인덱스값을 지우고 {} 추가
+int[]arr = new int[] {10, 20, 30, 40, 50}; 
+(2) 대괄호 자체를 지우고 {} 추가
+int[]arr = {10, 20, 30, 40, 50};
+
+4) 배열 기본 알고리즘
+(1) 평균구하기
+int total = 0;
+for(int i = 0; i < arr.length; i++) {
+total += arr[i];
+}
+double average = (double)total / arr.length *
+=> 배열의 길이(배열명.length) 사용에 유의 *
+
+(2) 최대값, 최소값 구하기
+int[]arr = {10, 20, 30, 40, 50};
+int max = 0;
+int min = 0;
+
+for(int i = 0; i < arr.length; i++) {
+	if(max < arr[i]) {
+	max = arr[i] 		
+	} 
+	if(min > arr[i]) {
+	min = arr[i] 		
+	} 	
+}
+=> 최대값은 50, 최소값은 0이 나와버림(최소값 조건은 처음부터 이행되지않음)
+
+=> 해결책
+=> 시작값을 배열의 시작값으로 설정하기
+=> 조건이 처음부터 실행되지 않는걸 막기 위해 i의 초기값도 1부터 시작
+
+int max = arr[0];
+int min = arr[0];
+
+for(int i = 1; i < arr.length; i++) {
+	if(max < arr[i]) {
+	max = arr[i] 		
+	} 
+	if(min > arr[i]) {
+	min = arr[i] 		
+	} 	
+}
+=> 최대 50, 최소 10으로 정답
+
+5) 배열의 길이 늘리기
+=> 원칙적으로 배열은 고유한 주소값을 가진 참조값으로, 
+     배열의 길이는 변경할 수 없다
+
+* 해결법
+(1) 원하는 길이의 새로운 배열 생성 
+기존 : int[] arr = {1, 2, 3, 4, 5};
+새것 : int[] temp = new int[1000];
+
+(2) 기존 배열의 변수값을 새로운 배열로 옮김
+System.arraycopy(arr, 0, temp, 0, arr.length);
+=> arraycopy 메소드를 활용 
+=> arr[0]에 있는 값을 temp[0]부터 옮기는게 시작이며, arr 길이만큼 옮겨라
+
+(3) 기존 배열의 참조값을 새로운 배열의 참조값으로 수정
+arr = temp;
+=> temp의 참조값을 arr에 저장
+=> 이제 arr은 temp의 참조값을 이용해 배열을 불러온다
+
+(4) 배열값 확인하기
+System.out.println(Arrays.toString(arr));
+System.out.println(Arrays.toString(temp));
+=> Arrays.toString 메소드
+=> arr은 temp의 주소값을 이용해 참조는 하며 사라지지는 않는다
+=> 메모리는 차지하는데, 따로 쓸수는 없는 상태가 되는데 이를 '메모리누수'라함
+
+6) 향상된 for문
+(1) 기존
+String[] friends = {"라이언", "프로도", "어파치"};
+	
+for(int i = 0; i < friends.length; i++) {
+	System.out.println(friends[i]);
+	System.out.println((i+1) + "번째 친구" + friends[i]);
+}
+(2) 향상된 for문
+for(String friend : friends) {
+	System.out.println(friend + "\t"]);
+
+}
+
+=> 각 요소값을 반환할 변수명을 정해서 호출한다
+
+
+
+[2] 2차원 배열
+1. 2차원 배열
+1) 특징
+=> 1차원 배열을 여러개 관리하는 자료구조
+=> 소속된 1차원 배열들간에 길이가 다를 수 있음
+
+2) 배열 선언
+=> int[][] arr;
+
+3) 배열생성
+{1} arr = new int [3][2]
+=> 3행 2열의 배열을 형성(3개의 배열을 만들고, 그 3개의 변수를 참고하는 두개의 배열을 만든다)
+
+{2} arr = new int [3][n]
+=> 2차원 배열 3행은 만들었지만, 1차원은 미정
+
+4) 배열요소
+=> 2차원 배열의 
+arr[0] 
+arr[1]
+arr[2]
+
+int[][] arr = new int[3][2];
+		arr[0] = 0;
+		arr[1] = 1;
+		arr[2] = 2;
+		System.out.println(arr[0]);
+
+=> 2차원 배열은 1차원 배열을 참조하기 때문에, 
+혼자서 반환은 불가능하다 *
+
+
+5) 각각의 1차원 배열이 관리하는 배열요소
+arr[0][0], arr[0][1]
+arr[1][0], arr[1][1]
+arr[2][0], arr[2][1]
+
+
+* 1차원배열과 2차원 배열의 차이
+배열1   --- 인트주소값 --- 변수값
+=> 1차원 배열은 주소값, 인트값 이용해 저장된 변수값을 반환
+
+배열2   ---안트주소값 배열 1을 참조  -> ---  배열1의 인트주소값 ----저장된변수값을 반환
+
+2. 예시
+ex) 3행 2열 2차원 배열
+int [][] arr1 = new int[3][2];
+	for(int i = 0; i < arr1.length; i++)  {
+	for(int j = 0; j < arr1[i].length; j++ ) {
+	System.out.print(arr1[i][j] + "\t");
+	} System.out.println();
+	
+
+
+ex) 3행 n열 2차원 배열
+int [][] arr2 = new int[3][];
+arr2[0] = new int[5]; // 1번째 1차원배열의 길이는 5
+arr2[1] = new int[4]; // 2번째 1차원배열의 길이는 4
+arr2[2] = new int[8]; // 3번째 1차원배열의 길이는 8
+		
+	for(int i = 0; i < arr1.length; i++)  {
+	for(int j = 0; j < arr1[i].length; j++ ) {
+	System.out.print(arr1[i][j] + "  ");
+	} System.out.println();
+	} 
+
+=> 둘다 모든 값은 0으로 반환 *
+		
+
+3. 2차원 배열의 초기화
+String[][] timeTable = {
+	{"국어", "윤리", "수학", "영어"},
+	{"수학", "미술", "과학"},
+	{"사회", "체육", "수학", "영어"},
+	{"수학", "국어", "한자", "문학", "영어"},
+	{"영어", "음악", "국어", "수학"}
+};
+=> []를 지우고 {} 안에 {}입력 *
+=> 각 줄마다 2차원 1행~5행
+=> 없는 값을 반환할 수는 없다 ex) [1][3]
+
+4. 2차원 배열의 향상된 for문
+for(String[] weekName : timeTable) { 
+	for(String course : weekName ) {
+		System.out.print(course + "  ");
+	} 
+	System.out.println();
+}
+=> 1차원 배열의 참조명인 weekName, 변수값인 course
+=> 
+
+
+
+
+
+
+

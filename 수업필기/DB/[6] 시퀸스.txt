@@ -1,0 +1,29 @@
+[6] 시퀸스
+* 자동으로 증가하는 번호표를 생성해주는 db객체
+* 주로 pk, 인공키에 사용
+
+1. 형식
+CREATE SEQUENCE 시퀸스명
+	START WIRH 	시작값	(생략하면 1, 생성 후 유일하게 수정X => 시퀸스 테이블 리셋)	
+	INCREMENT BY	증가값	(생략하면 1)
+	MINVALUE	최소값	(기본적으로 시작값과 동일)
+	MAXVALUE	최대값								? 시퀸스 역순가능?
+	CACHE		사용유무	(NO CACHE 권장)
+	CYCLE		사용유무	(PK에서 사용한다면 NO CYCLE(중복불가) 사용)
+
+2. 사용
+ex)
+INSERT INTO SAMPLE(NO1, NO2) VALUES(SAMPLE_SEQ.NEXTVAL, SAMPLE_SEQ.CURRVAL);
+
+(1) 새로운 값 생성	: 시퀸스테이블명.NEXTVAL 
+(2) 현재값 보여주기	: 시퀸스테이블명.CURRVAL
+
+3. 주의사항										& 시퀸스 번호 먹히는 오류
+* 디폴트 : EMPLOYEE 테이블의 부서번호 칼럼은 4까지만 이음
+INSERT INTO 
+    EMPLOYEE
+VALUES 
+    (EMPLOYEE_SEQ.NEXTVAL , '신현준', 5, '대리사원', 'M', '98-12-01', 3500000);
+=> 부서번호는 4까지만 있기 때문에 행이 추가되지않지만 시퀸스는 카운트 되기 때문에,
+=> 그 다음에 제대로된 행을 입력하더라도 6부터 입력된다
+=> 해결법 : SEQUENCE 테이블 삭제 후 재생성	

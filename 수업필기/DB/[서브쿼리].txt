@@ -1,0 +1,196 @@
+[서브쿼리]
+
+1. 종류
+1) SELECT절	: 스칼라 서브쿼리(단일), (스칼라 서브쿼리는 SELECT절에서 사용되는 외부조인 같은 개념)
+2) FROM절	: 인라인뷰(결과, 다중)
+=> 인라인뷰를 하나의 테이블 취급하며 별명을 주고 사용함
+=> 인라인뷰에서 조회된 칼럼만 메인쿼리에서 조회할 수 있음
+=> SELECT문의 실행순서를 바꿀 때 사용(인라인뷰를 쓰는 이유)						?
+(서브쿼리 안에서 ORDER BY를 쓰면 메인 쿼리의 SELECT보다 먼저 쓸 수 있다)
+
+* 가상칼럼
+ROWID		: 행의 아이디
+ROWNUM 	: 행의 비밀번호
+=> ROWNUM은 1을 포함하는 범위만 조건으로 사용가능하다
+ex)
+WHERE ROWNUM BETWEEN 1 AND 2; => o
+WHERE ROWNUM = 2;		=> x
+=> 1이외의 범위를 조건으로 사용하는 법은 ROWNUM에 별명을 지정하고 해당 별명을 사용하면된다
+ex)
+SELECT R.ROWNUM, R.EMP_NO, R.NAME
+  FROM (SELECT ROWNUM, EMP_NO, NAME
+          FROM EMPLOYEE
+         WHERE ROWNUM BETWEEN 2 AND 3) R;
+=> ROWNUM에 별명이 없으므로 오답
+
+SELECT ROW_NUM, A.EMP_NO, A.NAME
+  FROM (SELECT ROWNUM AS ROW_NUM, EMP_NO, NAME
+          FROM EMPLOYEE) A
+ WHERE A.ROW_NUM = 2; 
+=> ROWNUM에 별명이 있으므로 성공이다
+=> 인라인뷰를 통해 기존의 SELECT문의 순서를 바꿀 수 있다
+
+
+3) WHERE절	: 서브쿼리(결과값이 단일, 다중)
+
+
+2. 단일행 결과, 다중행 결과
+1) 단일행
+=> 서브쿼리 결과가 하나
+=> PK, UK 칼럼의 동등비교의 결과, 또는 집계함수로 인해 발생			& 단일행 발생 이유
+=> = 연산자 사용, 다중행의 IN을 사용해도된다					& IN
+
+2) 다중행
+=> 조건으로 사용할 칼럼이 PK,UK가 아닐때 (1대다조건 등)
+=> 서브쿼리의 결과가 두 개 이상
+=> FROM, WHERE절에서 사용
+=> IN, ANY, ALL 연산자 사용
+(IN은 여러가지중 하나라도 일치하면 참, 
+ANY는 서브쿼리의 검색결과와 하나라도 일치하면 참, 
+ALL은 서브쿼리의 검색결과 모두와 일치해야 참 
+EXIST 메인쿼리의 비교조건이 서브쿼리의 결과 중 만족하는 값이 하나라도 존재하면 참
+
+3) 다중 칼럼 서브쿼리
+
+
+
+3. 실습
+
+1) 사원번호가 1001인 사원과 같은 직급(POSITION)을 가진 사원 조회하기
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE POSITION = (SELECT POSITION                     (하위쿼리는 메인쿼리와 동등비교를 위해 같은 칼럼을 반환)	& 서브쿼리 특징 
+                     FROM EMPLOYEE                     
+                    WHERE EMP_NO = 1001);
+
+2) 평균 근속기간 이상을 근무한 사원 조회								
+ex)
+---------------------------------------------------------------------------------------------------------------------
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE 
+ WHERE MONTHS_BETWEEN(SYSDATE, HIRE_DATE) >= (SELECT AVG(MONTHS_BETWEEN(SYSDATE, HIRE_DATE))
+                   FROM EMPLOYEE
+); 
+---------------------------------------------------------------------------------------------------------------------
+=> MONTHS_BETWEEN(A, B) 	 : A와 B 사이의 개월 계산
+=> SYSDATE - HIRE_DATE(DATE타입) 	 : 일수 개산 
+
+
+3) 부서번호가 1인 부서에 근무하는 사원들의 급여보다 더 많은 급여를 받는 사원 조회하기,
+2000000, 5000000 둘중 하나의 급여보다 많이 받으면 조회하기
+----------------------------------------------------------------------------------
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY 
+  FROM EMPLOYEE
+ WHERE SALARY > (SELECT MIN(SALARY)
+                    FROM EMPLOYEE
+                   WHERE DEPART = 1);
+-----------------------------------------------------------------------------------
+=> 부서번호가 1인 사원은 두명으로 한명은 200만, 한명은 500만의 봉급을 받는다
+=> 해답(1) : MIN 사용(해당 값중 하나보다 크면 되기 때문에, 최소값인 MIN보다 크면된다
+=> 해당(2) : 정석적인 방법으로 ANY 사용(2000000,5000000)
+                   WHERE SALARY > ANY(2000000. 5000000)
+                   -- SALARY가 200만보다 크거나 500만보다 크면됨(OR개념)
+
+
+4) 스칼라 서브쿼리 예시
+---------------------------------------------------
+SELECT
+         (SELECT COUNT(*) FROM EMPLOYEE)
+       , (SELECT SUM(SALARY) FROM EMPLOYEE)
+       , (SELECT AVG(SALARY) FROM EMPLOYEE) 
+       , (SELECT MAX(SALARY) FROM EMPLOYEE)
+       , (SELECT MIN(SALARY) FROM EMPLOYEE)
+   FROM DUAL;  
+---------------------------------------------------
+=> 스칼라서브쿼리는 단일
+
+5) 내부조인 + 서브쿼리
+예시. 부서번호가 1인 부서와 같은 지역에서 근무하는 사원 조회하기
+---------------------------------------------------
+SELECT E.EMP_NO, E.NAME, E.DEPART, D.DEPT_NAME
+  FROM DEPARTMENT D INNER JOIN EMPLOYEE E
+    ON D.DEPT_NO = E.DEPART
+ WHERE D.LOCATION = (SELECT LOCATION
+                        FROM DEPARTMENT
+                       WHERE DEPT_NO = 1);
+---------------------------------------------------
+
+6) (인라인뷰, ROWNUM)
+예시. 연봉 기준으로 가장 높은 연봉을 받는 사원 조회하기 
+
+SELECT ROWNUM, A.EMP_NO, A.NAME, A.SALARY
+  FROM (SELECT EMP_NO, NAME, SALARY     --3
+          FROM EMPLOYEE                 --1
+         ORDER BY SALARY DESC) A        --2   
+ WHERE ROWNUM = 1;
+=> 인라인뷰로 사원 폴더에서 봉급이 높은 순으로 내림차순 하였으며, 
+ROWNUM을 통해 가장 연봉이 높은 사원을 조회한다
+
+7) 2번째로 연봉이 높은 사원 조회하기							& 2번째로 높은
+
+SELECT B.EMP_NO, B.NAME, B.SALARY
+  FROM (SELECT ROWNUM AS ROW_NUM, A.EMP_NO, A.NAME, A.SALARY                    
+          FROM (SELECT EMP_NO, NAME, SALARY
+                  FROM EMPLOYEE
+                 ORDER BY SALARY DESC) A ) B
+ WHERE B.ROW_NUM BETWEEN 2 AND 2; 
+=> 1차 : 봉급별 내림차순으로 사원정보를 조회, 별명은 A
+=> 2차 : 로우넘에 별명을 붙이고, A테이블이 된 1차 인라인뷰를 조회, 별명을 B로 붙임
+=> 3차 : B 테이블을 ROW_NUM이 2인 사원을 조회한다
+
+
+* ROW_NUMBER함수로 간편하게 해결할수도 있다 
+SELECT A.EMP_NO, A.NAME, A.SALARY
+  FROM (SELECT ROW_NUMBER() OVER(ORDER BY SALARY DESC) AS ROW_NUM, EMP_NO, NAME, SALARY  -- 정렬과 행번호 붙이기를 동시에
+          FROM EMPLOYEE) A
+ WHERE A.ROW_NUM BETWEEN 2 AND 2; 
+
+=> ROWNUM과 달리 NUMER함수는 ORDER정렬도 함께 하기 때문에 쿼리문이 2개로 줄어든다
+
+-------------기타----------------------
+
+1) CREATE에 응용
+
+8) 테이블 복사하기(값포함)
+DROP TABLE EMPLOYEE2;
+CREATE TABLE EMPLOYEE2 
+    AS (SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+          FROM EMPLOYEE);
+=> 칼럼은 복사되나, NOT NULL을 제외한 모든 제약조건이 전부 삭제(PK도 마찬가지)
+
+=> 삭제된 제약조건은 데이터사전을 이용해 복구할 수 있다
+DESC USER_CONSTRAINTS;
+SELECT CONSTRAINT_NAME FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'EMPLOYEE2';
+
+9) 테이블 구조만 복사하기(칼럼만)
+CREATE TABLE DEPARTMENT2
+    AS (SELECT DEPT_NO, DEPT_NAME, LOCATION
+          FROM DEPARTMENT
+--         WHERE DEPT_NO = 1); -- (1: 부서번호 1번만 복사, 0: 안들어감) 
+           WHERE 1 = 2);
+=> WHERE 1=2 조건으로 값이 출력되지 못하게 만듬
+
+
+1) UPDATE에 서브쿼리 응용
+UPDATE EMPLOYEE2
+    SET(NAME, GENDER) = (SELECT NAME, GENDER
+                          FROM EMPLOYEE
+                         WHERE EMP_NO = 1003)
+   WHERE EMP_NO = 1001;     
+
+
+3) INSERT에 서브쿼리 응용
+INSERT INTO DEPARTMENT2(DEPT_NO, DEPT_NAME, LOCATION) 
+    (SELECT DEPT_NO, DEPT_NAME, LOCATION
+       FROM DEPARTMENT);
+       
+
+4) DELETE와 서브쿼리(WHERE절)
+
+DELETE 
+  FROM EMPLOYEE2
+ WHERE DEPART IN (SELECT DEPT_NO
+                     FROM DEPARTMENT2
+                    WHERE DEPT_NAME = '영업부');
+
+

@@ -1,0 +1,4 @@
+COUNT(*) 	: NULL을 포함한 테이블 내 모든 ROW의 수를 센다
+COUNT(칼럼)	: 해당 칼럼이 NOT NULL인 행의 개수
+	
+COUNT(DISTINCT 칼럼) : COLUMN의 중복을 제거하고 NOT NULL인 ROW의 개수를 센다
